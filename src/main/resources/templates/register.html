@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <div th:replace="fragments :: header-css"/>
+</head>
+<body>
+
+<div class="container">
+
+    <div th:replace="fragments :: header-top"/>
+
+    <div class="row" style="text-align: left">
+
+        <div th:replace="fragments :: left-menu"/>
+
+        <div class="col-sm-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>Register now</h2>
+                </div>
+                <div class="panel-body">
+                    <form action="#" th:action="@{/adduser}" method="POST" name="model">
+                        <div class="form-group row">
+                            <label for="username"
+                                   class="col-sm-offset-1 col-sm-10 col-form-label lefted">Email</label>
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <input type="email" th:object="${username}" class="form-control"
+                                       id="username"
+                                       name="username" placeholder="Email"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password"
+                                   class="col-sm-offset-1 col-sm-10 col-form-label lefted">Password</label>
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <input type="password" th:object="${password}" class="form-control"
+                                       id="password"
+                                       name="password"
+                                       placeholder="Password"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-offset-1 col-sm-6">
+                                <input type="submit" class="btn btn-primary" value="Register"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: footer"/>
+
+</div>
+
+</body>
+</html>

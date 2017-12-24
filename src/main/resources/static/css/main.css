@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Raleway');
+@import "../fonts/fontawesome-webfont.ttf";
+
+body {
+    background-color: #101010;
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 16px;
+    color: #ffac00;
+
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+
+    margin-top: 70px;
+}
+
+h1, h2 {
+    font-family: "Raleway", serif;
+    font-weight: 300;
+    color: #333;
+    text-align: left;
+    padding-left: 30px;
+}
+
+h3, h4, h5, h6 {
+    font-family: "Raleway", serif;
+    font-weight: 300;
+    color: #c55d15;
+    text-align: center;
+}
+
+p {
+    line-height: 28px;
+    margin-bottom: 25px;
+}
+
+.centered {
+    text-align: center;
+}
+
+.lefted {
+    text-align: left;
+}
+
+a {
+    color: #A0C7F0;
+}
+
+a:hover, a:focus {
+    background-color: #A0C7F0;
+    text-decoration: none;
+    outline: 0;
+}
+
+a.page {
+    color : #c55d15;
+    background-color: #333333;
+    text-decoration: none;
+    margin: 5px;
+    padding: 5px;
+}
+
+a.pageactive {
+    background-color: #d98800;
+    color : #333333;
+    text-decoration: none;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.navbar {
+    font-weight: 800;
+    font-size: 14px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #333;
+}
+
+.navbar-inverse .navbar-nav > .active > a {
+    color: #333;
+    background-color: #A0C7F0;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #A0C7F0;
+    background-color: #333;
+    border-radius: 3px;
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+    background-color: #A0C7F0;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    color: #f0ad4e;
+}
+
+.navbar-inverse .navbar-nav > .active > a:hover {
+    color: #f0ad4e;
+    background-color: #333;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #A0C7F0;
+    font-weight: bolder;
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
+.navbar-inverse a.navbar-brand:hover {
+    color: #f0ad4e;
+}
+
+#headerwrap {
+    background: url("../images/desert.jpg") no-repeat center top;
+    margin-top: -10px;
+    padding-top: 20px;
+    text-align: center;
+    background-attachment: inherit;
+    background-position: center center;
+    min-height: 500px;
+    width: 100%;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#headerwrap h1 {
+    margin-top: 5px;
+    font-size: 70px;
+    font-weight: 300;
+    letter-spacing: 3px;
+}
+
+#headerwrap h2 {
+    margin-top: 0;
+    font-size: 20px;
+    letter-spacing: 4px;
+}
+
+.bo {
+    color: #c55d15;
+}
+
+.container .fo {
+    background-color: #333;
+    border: 1px;
+    border-radius: 7px;
+    border-style: solid;
+    width: 70%;
+}
+
+.container .index {
+    background-color: #333;
+    border: 1px;
+    border-radius: 7px;
+    border-style: solid;
+    width: 90%;
+}
+
+@media (min-width: 1600px) {
+    .container {
+        width: 1570px;
+    }
+}
+

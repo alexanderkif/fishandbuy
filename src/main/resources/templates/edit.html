@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <div th:replace="fragments :: header-css"/>
+</head>
+<body>
+
+<div class="container">
+
+    <div th:replace="fragments :: header-top"/>
+
+    <div class="row" style="text-align: left">
+
+        <div th:replace="fragments :: left-menu"/>
+
+        <div th:if="${titl}=='Edit'">
+
+            <div class="col-sm-9">
+                <div th:if="${titl}=='Edit'" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="col-sm-offset-1">Add or change document</h3>
+                    </div>
+                    <form action="#" th:action="@{/adddoc}" method="POST" name="model">
+                        <br/>
+                        <div class="form-group row">
+                            <label class="col-sm-offset-1 col-sm-7">Title</label>
+                            <div class="col-sm-offset-1 col-sm-7">
+                                <input type="text" th:object="${titleDoc}" class="form-control" id="titleDoc"
+                                       name="titleDoc" placeholder="Title (max 150 simbols)"
+                                       th:maxlength="150"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-offset-1 col-sm-7">Text</label>
+                            <div class="col-sm-offset-1 col-sm-7">
+                                <textarea type="text" th:rows="5" th:object="${textDoc}" class="form-control"
+                                          id="textDoc" name="textDoc"
+                                          placeholder="Enter new title and new text to add.&#13;&#10;Enter old title and new text to edit.&#13;&#10;Enter old title and 'delete' as text to delete.&#13;&#10;(max 700 simbols)"
+                                          th:maxlength="700"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-offset-1 col-sm-7">
+                                <input type="submit" class="btn btn-primary" value="Submit"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <div th:if="${titl}!='Edit'">
+            <div class="col-sm-9">
+                <div class="panel panel-default">
+                    <br/>
+                    <div class="form-group row">
+                        <h1 class="col-sm-offset-1 col-sm-7" th:text="${titl}">Status</h1>
+                    </div>
+                    <form action="#" th:action="@{/}" method="POST" name="model">
+                        <div class="form-group row">
+                            <div class="col-sm-offset-1 col-sm-7">
+                                <input type="submit" class="btn btn-primary" value="OK"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: footer"/>
+
+</div>
+
+</body>
+</html>

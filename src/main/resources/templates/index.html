@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <div th:replace="fragments :: header-css"/>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div th:replace="fragments :: header-top"/>
+
+    <div class="row" style="text-align: left">
+
+        <div th:replace="fragments :: left-menu" />
+
+        <div class="col-sm-9">
+            <div class="panel panel-default" th:each="doc:${docs}">
+                <div class="panel-heading">
+                    <h2 th:text="${doc.title}">Heading</h2>
+                </div>
+                <div class="panel-body" th:text="${doc.text}">
+                </div>
+                <div class="panel-footer">
+                    <small th:text="'Created at '+${#strings.substring(doc.date,0,16)}">31.10.2017 14.20</small>
+                    <br/>
+                    <!--<small th:text="'Expiration date '+${#strings.substring(doc.expirationdate,0,10)}">31.10.2017 14.20</small>-->
+                    <!--<td th:text="${formatter.print(employee.dateOfBirth)}">1971-01-01</td>-->
+                </div>
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-sm" th:each="p : ${#numbers.sequence( 1, pages)}">
+                    <li th:class="${p}==${page}?'active':'page'">
+                        <a th:text="${p}" th:href="@{'index?page='+${p}}"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: footer" />
+
+</div>
+
+
+<script type="text/javascript" src="../static/js/require.min.js" data-main="../scripts/startup"></script>
+</body>
+
+</html>
