@@ -11,16 +11,16 @@
 
     <div th:replace="fragments :: header-top"/>
 
-    <div class="row" style="text-align: left">
+    <div class="row mt-3">
 
         <div th:replace="fragments :: left-menu"/>
 
         <div class="col-sm-9">
-            <div class="panel panel-default">
-                <div class="panel-heading">
+            <div class="alert alert-warning mb-2 border border-secondary">
+                <div class="badge badge-warning pl-5 pr-5 border border-secondary">
                     <h2>Register now</h2>
                 </div>
-                <div class="panel-body">
+                <div class="alert alert-light p-3 rounded mt-3 border border-secondary">
                     <form action="#" th:action="@{/adduser}" method="POST" name="model">
                         <div class="form-group row">
                             <label for="username"
@@ -42,8 +42,20 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <input type="place" th:object="${place}" class="form-control"
+                                       id="place" name="place" placeholder="place/town"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <input type="phone" th:object="${phone}" class="form-control"
+                                       id="phone" name="phone" placeholder="PhoneNumber"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <div class="col-sm-offset-1 col-sm-6">
-                                <input type="submit" class="btn btn-primary" value="Register"/>
+                                <input type="submit" class="btn btn-warning" value="Register"/>
                             </div>
                         </div>
                     </form>

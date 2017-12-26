@@ -37,11 +37,6 @@ public class IndexController {
     public IndexController() {
     }
 
-    @RequestMapping("/403")
-    public String accessDenied() {
-        return "error/403";
-    }
-
     @RequestMapping(value = "/")
     public String home(Model model) {
         return "redirect:/index?page=1";
@@ -145,12 +140,14 @@ public class IndexController {
     }
 
     @RequestMapping("/adduser")
-    public String adduser(Model model,
-                          @ModelAttribute("username") String email, @ModelAttribute("password") String password) {
+    public String adduser(Model model, @ModelAttribute("username") String email, @ModelAttribute("place") String place,
+                          @ModelAttribute("password") String password, @ModelAttribute("phone") String phone) {
         if (accountRepository.findByEmail(email) == null
                 && !Objects.equals(email, "") && !Objects.equals(password, "")) {
             accountRepository.save(Account.builder()
                     .email(email)
+                    .place(place)
+                    .phone(phone)
                     .password(encoder.encode(password))
                     .enabled(true)
                     .build()

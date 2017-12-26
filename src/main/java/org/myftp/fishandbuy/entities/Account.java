@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="Accounts")
+@Document(collection = "Accounts")
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,6 +18,8 @@ public class Account {
     private String id;
     private String email;
     private String password;
+    private String place;
+    private String phone;
     private boolean enabled;
 
 }

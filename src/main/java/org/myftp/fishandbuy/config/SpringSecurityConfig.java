@@ -9,16 +9,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MyUserDetailsService myUserDetailsService;
-
-    @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
 
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
@@ -36,7 +32,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/register", "/adduser", "/index", "/css/*", "/fonts/*", "/images/*", "/js/*")
+                .antMatchers("/", "/register", "/adduser", "/index", "/css/*", "/fonts/*", "/images/*", "/js/*"
+                        , "/error/403", "/403", "/error/404", "/404")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -49,6 +46,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .permitAll()
                 .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+                .exceptionHandling().accessDeniedPage("/error/403.html");
     }
 }
