@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
     <title th:text="'Find natural - '+${titl}">Title</title>
-    <!--<link rel="icon" type="image/png" th:href="@{/css/favicon.ico}"/>-->
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -21,7 +20,7 @@
 <div th:fragment="header-top" class="row align-items-center alert badge-warning m-0 mt-3 border border-dark">
 
     <div class="col-sm-3 text-sm-right text-center">
-        <img th:src="@{/css/fn.png}" width="100" height="80"/>
+        <a href="/"><img th:src="@{/css/fn.png}" width="100" height="80"/></a>
     </div>
     <div class="col-sm text-center">
         <h1>Find natural</h1>
@@ -45,7 +44,7 @@
         <a class="list-group-item list-group-item-warning" th:text="'Sign out ('+${#httpServletRequest.remoteUser}+')'" href="/logout">
         </a>
     </div>
-    <div class="container mt-4 border border-secondary rounded p-3" th:if="${#httpServletRequest.remoteUser}==null">
+    <div class="container mt-3 mb-3 border border-secondary rounded p-3" th:if="${#httpServletRequest.remoteUser}==null">
         <div class="col-form-label">
             Quick login
         </div>

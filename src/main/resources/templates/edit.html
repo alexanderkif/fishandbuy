@@ -20,23 +20,45 @@
                 <div class="badge badge-warning pl-5 pr-5 border border-secondary">
                     <h3 class="">Add or change document</h3>
                 </div>
-                <form action="#" th:action="@{/adddoc}" method="POST" name="model">
+                <form action="#" th:action="@{/adddoc}" method="POST" name="model" enctype="multipart/form-data">
                     <br/>
                     <div class="form-group row">
                         <div class="col-sm-12">Title</div>
                         <div class="col-sm-12">
-                            <input type="text" th:object="${titleDoc}" class="form-control" id="titleDoc"
-                                   name="titleDoc" placeholder="Title (max 150 simbols)"
+                            <input type="text" th:object="${title}" class="form-control" id="title"
+                                   name="title" placeholder="Title (max 150 simbols)"
                                    th:maxlength="150"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">Text</div>
                         <div class="col-sm-12">
-                                <textarea type="text" th:rows="5" th:object="${textDoc}" class="form-control"
-                                          id="textDoc" name="textDoc"
+                                <textarea type="text" th:rows="5" th:object="${text}" class="form-control"
+                                          id="text" name="text"
                                           placeholder="Enter new title and new text to add.&#13;&#10;Enter old title and new text to edit.&#13;&#10;Enter old title and 'delete' as text to delete.&#13;&#10;(max 700 simbols)"
                                           th:maxlength="700"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div th:if="${message}">
+                            <h2 th:text="${message}"/>
+                        </div>
+
+                        <!--<div>-->
+                            <!--<form method="POST" enctype="multipart/form-data" action="/">-->
+                                <!--<table>-->
+                                    <!--<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>-->
+                                    <!--&lt;!&ndash;<tr><td></td><td><input type="submit" value="Upload" /></td></tr>&ndash;&gt;-->
+                                <!--</table>-->
+                            <!--</form>-->
+                        <!--</div>-->
+
+                        <!--<a href="/gellallfiles">Get List Files</a>-->
+                        <div class="col-sm-12 mb-3">
+                            <input type="file" name="file" id="file"/>
+                        </div>
+                        <div class="col-sm-12 mb-3">
+                            <img src="" id="prev"/>
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -69,5 +91,15 @@
 
 </div>
 
+<script>
+    var reader = new FileReader();
+    reader.onload = function(r_event) {
+        document.getElementById('prev').setAttribute('src', r_event.target.result);
+    }
+
+    document.getElementsByName('file')[0].addEventListener('change', function(event) {
+        reader.readAsDataURL(this.files[0]);
+    });
+</script>
 </body>
 </html>

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.File;
 import java.util.Date;
 
 @Document(collection="Docs")
@@ -22,5 +23,6 @@ public class Docs {
     private String title;
     private String text;
     private Account owner;
+    private File file;
 
 }

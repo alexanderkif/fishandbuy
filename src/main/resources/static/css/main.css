@@ -25,3 +25,5 @@ a:hover, a:focus {
 .pagination li.active {
     background-color: #fff3cd;
 }
+
+.alert-warning-orange{color:#856404;background-color:#ffc107;border-color:#ffeeba}

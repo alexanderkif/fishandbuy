@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.security.Principal;
 import java.util.Comparator;
 import java.util.Date;
@@ -26,6 +28,9 @@ public class IndexController {
     private AccountRepository accountRepository;
     @Autowired
     private DocsRepository docsRepository;
+
+//    @Autowired
+//    private StorageService storageService;
 
     @Autowired
     PasswordEncoder encoder;
@@ -86,25 +91,29 @@ public class IndexController {
     }
 
     @RequestMapping("/adddoc")
-    public String adddoc(Model model, @ModelAttribute("titleDoc") String titleDoc,
-                         @ModelAttribute("textDoc") String textDoc, Principal principal) {
+    public String adddoc(Model model, @ModelAttribute("title") String title,
+                         @ModelAttribute("file") MultipartFile file,
+                         @ModelAttribute("text") String text, Principal principal) {
         try {
             Account account = accountRepository.findByEmail(principal.getName());
             List<Docs> docs = docsRepository.findByOwner(account);
             Docs doc = docs.stream()
-                    .filter(d -> d.getTitle().equals(titleDoc))
+                    .filter(d -> d.getTitle().equals(title))
                     .findFirst()
                     .orElse(new Docs());
-            if (Objects.equals(textDoc, "delete")){
+            if (Objects.equals(text, "delete")){
                 docsRepository.delete(doc);
                 li = "edit";
                 titl = "Deleted";
             }
             else {
-                doc.setTitle(titleDoc);
-                doc.setText(textDoc);
+                doc.setTitle(title);
+                doc.setText(text);
                 doc.setDate(new Date());
                 doc.setOwner(account);
+                File tmpFile = new File(file.getOriginalFilename());
+                file.transferTo(tmpFile);
+                doc.setFile(tmpFile);
                 docsRepository.save(doc);
                 li = "edit";
                 titl = "Saved";
