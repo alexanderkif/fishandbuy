@@ -8,7 +8,7 @@
 
 <body>
 
-<div class="container">
+<div class="container-fluid">
 
     <div th:replace="fragments :: header-top"/>
 
@@ -18,7 +18,7 @@
 
         <div class="col-sm-9" th:if="(${titl}!='Added')and(${titl}!='Not added')">
             <div class="alert alert-warning mb-2 border border-secondary">
-                <div class="badge badge-warning pl-5 pr-5 border border-secondary">
+                <div class="alert alert-warning-orange pl-5 pr-5 border border-secondary">
                     <h2>Enter your email and password</h2>
                 </div>
                 <div class="alert alert-light p-3 rounded mt-3 border border-secondary">
@@ -61,7 +61,7 @@
             <div class="alert alert-warning mb-2 border border-secondary">
                 <div class="container fo">
                     <br/>
-                    <div class="badge badge-warning pl-5 pr-5 border border-secondary mb-3">
+                    <div class="alert alert-warning-orange pl-5 pr-5 border border-secondary mb-3">
                         <h1 class="col-sm-7 col-form-label lefted">User added</h1>
                     </div>
                     <form action="#" th:action="@{/}" method="POST" name="model">
@@ -79,7 +79,7 @@
             <div class="alert alert-warning mb-2 border border-secondary">
                 <div class="container fo">
                     <br/>
-                    <div class="badge badge-warning pl-5 pr-5 border border-secondary mb-3">
+                    <div class="alert alert-warning-orange pl-5 pr-5 border border-secondary mb-3">
                         <h1 class="col-sm-7 col-form-label lefted">User not added</h1>
                     </div>
                     <form action="#" th:action="@{/}" method="POST" name="model">

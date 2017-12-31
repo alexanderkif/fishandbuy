@@ -40,7 +40,7 @@
            th:if="${#httpServletRequest.remoteUser}==null">Registration</a>
         <a href="/edit" class="list-group-item list-group-item-warning" th:if="${#httpServletRequest.remoteUser}!=null">Add or edit</a>
     </div>
-    <div class="list-group border border-secondary rounded mt-2" th:if="${#httpServletRequest.remoteUser}!=null">
+    <div class="list-group border border-secondary rounded mt-2 mb-3" th:if="${#httpServletRequest.remoteUser}!=null">
         <a class="list-group-item list-group-item-warning" th:text="'Sign out ('+${#httpServletRequest.remoteUser}+')'" href="/logout">
         </a>
     </div>

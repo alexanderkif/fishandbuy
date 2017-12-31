@@ -1,36 +1,46 @@
 package org.myftp.fishandbuy.controllers;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.mongodb.gridfs.GridFSDBFile;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.myftp.fishandbuy.entities.Account;
 import org.myftp.fishandbuy.entities.Docs;
 import org.myftp.fishandbuy.services.AccountRepository;
 import org.myftp.fishandbuy.services.DocsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.security.Principal;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
 public class IndexController {
 
     @Autowired
+    GridFsOperations gridOperations;
+    // this variable is used to store ImageId for other actions like: findOne or delete
+    private String imageFileId = "";
+
+    @Autowired
     private AccountRepository accountRepository;
+
     @Autowired
     private DocsRepository docsRepository;
-
-//    @Autowired
-//    private StorageService storageService;
 
     @Autowired
     PasswordEncoder encoder;
@@ -111,9 +121,23 @@ public class IndexController {
                 doc.setText(text);
                 doc.setDate(new Date());
                 doc.setOwner(account);
-                File tmpFile = new File(file.getOriginalFilename());
-                file.transferTo(tmpFile);
-                doc.setFile(tmpFile);
+
+                // Define metaData
+                DBObject metaData = new BasicDBObject();
+                metaData.put("account", account.getEmail());
+
+                // Get input file
+//                File tmpFile = null;
+//                file.transferTo(tmpFile);
+//                InputStream imageStream = new FileInputStream(tmpFile);
+
+                metaData.put("type", "image");
+
+                // Store file to MongoDB
+                imageFileId = gridOperations.store(file.getInputStream(), file.getOriginalFilename(), "image/png", metaData).getId().toString();
+                //System.out.println("ImageFileId = " + imageFileId);
+
+                doc.setImageFileId(imageFileId);
                 docsRepository.save(doc);
                 li = "edit";
                 titl = "Saved";
@@ -125,6 +149,25 @@ public class IndexController {
         model.addAttribute("links", li);
         model.addAttribute("titl", titl);
         return "edit";
+    }
+
+    @RequestMapping("/img/{imageId}")
+    public void gridfs_img(@PathVariable String imageId, HttpServletResponse response){
+        // read file from MongoDB
+        GridFSDBFile imageFile = gridOperations.findOne(new Query(Criteria.where("_id").is(imageId)));
+        if(imageFile!=null) {
+            try {
+//                // get your file as InputStream
+//                InputStream is = imageFile.getInputStream();
+//                // copy it to response's OutputStream
+//                IOUtils.copy(is, response.getOutputStream());
+                imageFile.writeTo(response.getOutputStream());
+                response.setContentType("image/gif");
+                response.flushBuffer();
+            } catch (IOException ex) {
+                throw new RuntimeException("IOError writing file to output stream");
+            }
+        }
     }
 
     @RequestMapping("/list")
