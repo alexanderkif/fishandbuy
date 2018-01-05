@@ -3,13 +3,11 @@ package org.myftp.fishandbuy.controllers;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.gridfs.GridFSDBFile;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.myftp.fishandbuy.entities.Account;
-import org.myftp.fishandbuy.entities.Docs;
+import org.myftp.fishandbuy.entities.Doc;
 import org.myftp.fishandbuy.services.AccountRepository;
-import org.myftp.fishandbuy.services.DocsRepository;
+import org.myftp.fishandbuy.services.DocRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsOperations;
@@ -40,7 +38,7 @@ public class IndexController {
     private AccountRepository accountRepository;
 
     @Autowired
-    private DocsRepository docsRepository;
+    private DocRepository docRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -65,10 +63,10 @@ public class IndexController {
             page=1;
         } else{
             page = Integer.valueOf(p); }
-        List<Docs> docs2 = docsRepository.findAll();
-        Long pages = Math.round(Math.ceil(1.0 * docs2.size() / docsOnPage));
-        List docs = docs2.stream()
-                .sorted(Comparator.comparing(Docs::getDate).reversed())
+        List<Doc> all = docRepository.findAll();
+        Long pages = Math.round(Math.ceil(1.0 * all.size() / docsOnPage));
+        List docs = all.stream()
+                .sorted(Comparator.comparing(Doc::getDate).reversed())
                 .skip((page-1)*docsOnPage)
                 .limit(docsOnPage)
                 .collect(Collectors.toList());
@@ -92,9 +90,21 @@ public class IndexController {
     }
 
     @RequestMapping("/edit")
-    public String edit(Model model) {
+    public String edit(Model model, @ModelAttribute("title") String title, Principal principal) {
+        Doc doc = Doc.builder()
+                .title("Title (max 150 simbols)")
+                .text("Enter new title and new text to add.\nEnter old title and new text to edit.\n" +
+                        "Enter old title and 'delete' as text to delete.\n(max 700 simbols)")
+                .build();
+        if (title!=null){
+            Doc tmp = docRepository.findByTitle(title);
+            if (tmp!=null && tmp.getOwner().getEmail().equals(principal.getName())){
+                doc = tmp;
+            }
+        }
         li = "edit";
         titl = "Edit";
+        model.addAttribute("doc", doc);
         model.addAttribute("links", li);
         model.addAttribute("titl", titl);
         return "edit";
@@ -102,43 +112,42 @@ public class IndexController {
 
     @RequestMapping("/adddoc")
     public String adddoc(Model model, @ModelAttribute("title") String title,
+                         @ModelAttribute("newTitle") String newTitle,
                          @ModelAttribute("file") MultipartFile file,
+                         @ModelAttribute("deleteImage") String deleteImage,
                          @ModelAttribute("text") String text, Principal principal) {
         try {
             Account account = accountRepository.findByEmail(principal.getName());
-            List<Docs> docs = docsRepository.findByOwner(account);
-            Docs doc = docs.stream()
+            List<Doc> docs = docRepository.findByOwner(account);
+            Doc doc = docs.stream()
                     .filter(d -> d.getTitle().equals(title))
                     .findFirst()
-                    .orElse(new Docs());
-            if (Objects.equals(text, "delete")){
-                docsRepository.delete(doc);
+                    .orElse(new Doc());
+            if (Objects.equals(text.toLowerCase(), "delete")){
+                docRepository.delete(doc);
                 li = "edit";
                 titl = "Deleted";
             }
             else {
-                doc.setTitle(title);
+                doc.setTitle(newTitle);
                 doc.setText(text);
                 doc.setDate(new Date());
                 doc.setOwner(account);
-
-                // Define metaData
-                DBObject metaData = new BasicDBObject();
-                metaData.put("account", account.getEmail());
-
-                // Get input file
-//                File tmpFile = null;
-//                file.transferTo(tmpFile);
-//                InputStream imageStream = new FileInputStream(tmpFile);
-
-                metaData.put("type", "image");
-
-                // Store file to MongoDB
-                imageFileId = gridOperations.store(file.getInputStream(), file.getOriginalFilename(), "image/png", metaData).getId().toString();
-                //System.out.println("ImageFileId = " + imageFileId);
-
-                doc.setImageFileId(imageFileId);
-                docsRepository.save(doc);
+                if (!Objects.equals(file.getOriginalFilename(), "")) {
+                    // Define metaData
+                    DBObject metaData = new BasicDBObject();
+                    metaData.put("account", account.getEmail());
+                    metaData.put("type", "image");
+                    // Store file to MongoDB
+                    imageFileId = gridOperations.store(file.getInputStream(), file.getOriginalFilename(), "image/png", metaData).getId().toString();
+                    doc.setImageFileId(imageFileId);
+                }
+                if (deleteImage.equals("on")){
+                    // Delete image file
+                    gridOperations.delete(new Query(Criteria.where("_id").is(doc.getImageFileId())));
+                    doc.setImageFileId(null);
+                }
+                docRepository.save(doc);
                 li = "edit";
                 titl = "Saved";
             }
@@ -173,7 +182,7 @@ public class IndexController {
     @RequestMapping("/list")
     public String list(Model model, Principal principal) {
         Account account = accountRepository.findByEmail(principal.getName());
-        List<Docs> docs = docsRepository.findByOwner(account);
+        List<Doc> docs = docRepository.findByOwner(account);
         li = "list";
         titl = "List";
         model.addAttribute("links", li);
