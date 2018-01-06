@@ -23,7 +23,7 @@
                 <div class="alert alert-light p-3 rounded mt-3 border border-secondary" th:text="${doc.text}">
                 </div>
                 <div class="text-center" th:if="null!=${doc.imageFileId}">
-                    <img id="prev" th:src="@{'/img/'+${doc.imageFileId}}" width="200" height="160"/>
+                    <img id="prev" th:src="@{'/img/'+${doc.imageFileId}}" height="160"/>
                 </div>
                 <div>
                     <form action="#" th:action="@{/edit}" method="POST" name="model" enctype="multipart/form-data">

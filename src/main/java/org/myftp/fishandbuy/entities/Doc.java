@@ -23,7 +23,7 @@ public class Doc {
     private Date date;
     private String title;
     private String text;
-    private Account owner;
+    private String owner;
     private String imageFileId;
 
 }

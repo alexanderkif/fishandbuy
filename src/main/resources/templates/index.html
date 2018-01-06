@@ -17,20 +17,20 @@
         <div th:replace="fragments :: left-menu"/>
 
         <div class="col-sm-9">
-            <div class="alert alert-warning mb-2 border border-secondary" th:each="doc:${docs}">
+            <div class="alert alert-warning mb-2 border border-secondary" th:each="map:${docs}">
                 <div class="alert alert-warning-orange pl-5 pr-5 border border-secondary">
-                    <h2 th:text="${doc.title}">Heading</h2>
+                    <h2 th:text="${map.key.title}">Heading</h2>
                 </div>
-                <div class="alert alert-light p-3 rounded mt-3 border border-secondary" th:text="${doc.text}"></div>
-                <div class="text-center" th:if="null!=${doc.imageFileId}">
-                    <img th:src="@{'/img/'+${doc.imageFileId}}" width="200" height="160"/>
+                <div class="alert alert-light p-3 rounded mt-3 border border-secondary" th:text="${map.key.text}"></div>
+                <div class="text-center" th:if="null!=${map.key.imageFileId}">
+                    <img th:src="@{'/img/'+${map.key.imageFileId}}" height="160"/>
                 </div>
                 <div class="text-left">
-                    <h5 class="m-1 p-1" th:text="''+${doc.owner.place}"></h5>
-                    <h6 class="m-1 p-1" th:text="''+${doc.owner.phone}"></h6>
+                    <h5 class="m-1 p-1" th:text="''+${map.value.place}"></h5>
+                    <h6 class="m-1 p-1" th:text="''+${map.value.phone}"></h6>
                 </div>
                 <div class="badge badge-warning">
-                    <small th:text="'Created at '+${doc.date}"></small>
+                    <small th:text="'Created at '+${map.key.date}"></small>
                 </div>
             </div>
             <nav aria-label="Page navigation">

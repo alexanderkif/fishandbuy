@@ -65,16 +65,19 @@ public class IndexController {
             page = Integer.valueOf(p); }
         List<Doc> all = docRepository.findAll();
         Long pages = Math.round(Math.ceil(1.0 * all.size() / docsOnPage));
-        List docs = all.stream()
+        Map maps = new HashMap();
+//        List docs =
+        all.stream()
                 .sorted(Comparator.comparing(Doc::getDate).reversed())
                 .skip((page-1)*docsOnPage)
                 .limit(docsOnPage)
-                .collect(Collectors.toList());
+//                .collect(Collectors.toList());
+                .forEach((d)->maps.put(d, accountRepository.findByEmail(d.getOwner())));
         li = "index";
         titl = "Index";
         model.addAttribute("links", li);
         model.addAttribute("titl", titl);
-        model.addAttribute("docs", docs);
+        model.addAttribute("docs", maps);
         model.addAttribute("pages", pages);
         model.addAttribute("page", page);
         return "index";
@@ -98,7 +101,7 @@ public class IndexController {
                 .build();
         if (title!=null){
             Doc tmp = docRepository.findByTitle(title);
-            if (tmp!=null && tmp.getOwner().getEmail().equals(principal.getName())){
+            if (tmp!=null && tmp.getOwner().equals(principal.getName())){ //accountRepository.findByEmail(tmp.getOwner()).getEmail().equals(principal.getName())
                 doc = tmp;
             }
         }
@@ -118,7 +121,7 @@ public class IndexController {
                          @ModelAttribute("text") String text, Principal principal) {
         try {
             Account account = accountRepository.findByEmail(principal.getName());
-            List<Doc> docs = docRepository.findByOwner(account);
+            List<Doc> docs = docRepository.findByOwner(account.getEmail());
             Doc doc = docs.stream()
                     .filter(d -> d.getTitle().equals(title))
                     .findFirst()
@@ -132,7 +135,7 @@ public class IndexController {
                 doc.setTitle(newTitle);
                 doc.setText(text);
                 doc.setDate(new Date());
-                doc.setOwner(account);
+                doc.setOwner(account.getEmail());
                 if (!Objects.equals(file.getOriginalFilename(), "")) {
                     // Define metaData
                     DBObject metaData = new BasicDBObject();
@@ -166,10 +169,6 @@ public class IndexController {
         GridFSDBFile imageFile = gridOperations.findOne(new Query(Criteria.where("_id").is(imageId)));
         if(imageFile!=null) {
             try {
-//                // get your file as InputStream
-//                InputStream is = imageFile.getInputStream();
-//                // copy it to response's OutputStream
-//                IOUtils.copy(is, response.getOutputStream());
                 imageFile.writeTo(response.getOutputStream());
                 response.setContentType("image/gif");
                 response.flushBuffer();
@@ -182,7 +181,7 @@ public class IndexController {
     @RequestMapping("/list")
     public String list(Model model, Principal principal) {
         Account account = accountRepository.findByEmail(principal.getName());
-        List<Doc> docs = docRepository.findByOwner(account);
+        List<Doc> docs = docRepository.findByOwner(account.getEmail());
         li = "list";
         titl = "List";
         model.addAttribute("links", li);

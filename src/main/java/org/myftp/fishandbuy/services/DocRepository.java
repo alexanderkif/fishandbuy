@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface DocRepository extends MongoRepository<Doc, String> {
 
-    List<Doc> findByOwner(Account docowner);
+    List<Doc> findByOwner(String docowner);
     List<Doc> findAll();
     Doc findByTitle(String title);
 
