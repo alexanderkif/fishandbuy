@@ -65,13 +65,11 @@ public class IndexController {
             page = Integer.valueOf(p); }
         List<Doc> all = docRepository.findAll();
         Long pages = Math.round(Math.ceil(1.0 * all.size() / docsOnPage));
-        Map maps = new HashMap();
-//        List docs =
+        Map maps = new LinkedHashMap();
         all.stream()
                 .sorted(Comparator.comparing(Doc::getDate).reversed())
                 .skip((page-1)*docsOnPage)
                 .limit(docsOnPage)
-//                .collect(Collectors.toList());
                 .forEach((d)->maps.put(d, accountRepository.findByEmail(d.getOwner())));
         li = "index";
         titl = "Index";
