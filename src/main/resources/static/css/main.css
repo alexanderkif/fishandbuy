@@ -27,3 +27,7 @@ a:hover, a:focus {
 }
 
 .alert-warning-orange{color:#856404;background-color:#ffc107;border-color:#ffeeba}
+
+img {
+    max-width: 100%;
+}
