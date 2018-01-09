@@ -24,7 +24,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
-//@SessionAttributes(value = "find")
 public class IndexController {
 
     @Autowired
@@ -44,42 +43,49 @@ public class IndexController {
     private String titl;
     private String li;
     private String find = "";
+    private String place = "";
     final Integer docsOnPage = 3;
 
     public IndexController() {
     }
 
-//    @ModelAttribute("find")
-//    public String addFind(@ModelAttribute("find") String find) {
-//        return "";
-//    }
-
     @RequestMapping(value = "/")
-    public String home(Model model, @ModelAttribute("find") String find) {
-        this.find = find;
-//        if(!Objects.equals(find, ""))this.find = find;
-//        model.addAttribute("find",find);
+    public String home() {
+        this.place = "";
+        this.find = "";
         return "redirect:/index?page=1";
     }
 
     @RequestMapping(value = "/index")
     public String index(Model model, @RequestParam("page") String p,
-                        @ModelAttribute("find") String find) {
+                        @ModelAttribute("find") String find,
+                        @ModelAttribute("place") String place) {
         Integer page;
         if (Objects.equals(p, "")){
             page=1;
         } else{
             page = Integer.valueOf(p); }
         List<Doc> all = docRepository.findAll();
-//        String fa = find;
-//        String f = model.asMap().get("find").toString();
         if(!Objects.equals(find, ""))this.find = find;
+//        if(Objects.equals(find, ""))this.find = "";
         if (!Objects.equals(this.find, "")){
             all = all.stream()
                     .filter(a->(a.getTitle().toLowerCase().contains(this.find.toLowerCase())
                             ||a.getText().toLowerCase().contains(this.find.toLowerCase())))
                     .collect(Collectors.toList());
         }
+        if (!Objects.equals(place, ""))this.place = place;
+        if (Objects.equals(place, "everywhere"))this.place = "";
+        if (!Objects.equals(this.place, "")){
+            all = all.stream()
+                    .filter(a->(accountRepository.findByEmail(a.getOwner())
+                            .getPlace().toLowerCase().contains(this.place.toLowerCase())))
+                    .collect(Collectors.toList());
+        }
+        List places = accountRepository.findAll().stream()
+                .map(Account::getPlace)
+                .distinct()
+                .collect(Collectors.toList());
         Long pages = Math.round(Math.ceil(1.0 * all.size() / docsOnPage));
         Map maps = new LinkedHashMap();
         all.stream()
@@ -94,7 +100,9 @@ public class IndexController {
         model.addAttribute("docs", maps);
         model.addAttribute("pages", pages);
         model.addAttribute("page", page);
-//        model.addAttribute("find",find);
+        model.addAttribute("places", places);
+        model.addAttribute("place", this.place);
+        model.addAttribute("find", this.find);
         return "index";
     }
 
@@ -110,13 +118,12 @@ public class IndexController {
     @RequestMapping("/edit")
     public String edit(Model model, @ModelAttribute("title") String title, Principal principal) {
         Doc doc = Doc.builder()
-                .title("Title (max 150 simbols)")
-                .text("Enter new title and new text to add.\nEnter old title and new text to edit.\n" +
-                        "Enter old title and 'delete' as text to delete.\n(max 700 simbols)")
+                .title("")
+                .text("")
                 .build();
         if (title!=null){
             Doc tmp = docRepository.findByTitle(title);
-            if (tmp!=null && tmp.getOwner().equals(principal.getName())){ //accountRepository.findByEmail(tmp.getOwner()).getEmail().equals(principal.getName())
+            if (tmp!=null && tmp.getOwner().equals(principal.getName())){
                 doc = tmp;
             }
         }
@@ -206,18 +213,30 @@ public class IndexController {
     }
 
     @RequestMapping("/register")
-    public String register(Model model) {
+    public String register(Model model, Principal principal) {
+        String place = "";
+        String phone = "";
+        try{
+            Account account = accountRepository.findByEmail(principal.getName());
+            place = account.getPlace();
+            phone = account.getPhone();
+        }catch(Exception e){
+            System.out.println("No user in repository "+e);
+        }
         li = "register";
         titl = "Register";
         model.addAttribute("links", li);
         model.addAttribute("titl", titl);
+        model.addAttribute("place", place);
+        model.addAttribute("phone", phone);
         return "register";
     }
 
     @RequestMapping("/adduser")
     public String adduser(Model model, @ModelAttribute("username") String email, @ModelAttribute("place") String place,
-                          @ModelAttribute("password") String password, @ModelAttribute("phone") String phone) {
-        if (accountRepository.findByEmail(email) == null
+                          @ModelAttribute("password") String password, @ModelAttribute("phone") String phone,
+                          @ModelAttribute("existing") String existing) {
+        if ((accountRepository.findByEmail(email) == null || existing.equals("true"))
                 && !Objects.equals(email, "") && !Objects.equals(password, "")) {
             accountRepository.save(Account.builder()
                     .email(email)

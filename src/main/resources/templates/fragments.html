@@ -38,10 +38,11 @@
             lots</a>
         <a href="/register" class="list-group-item list-group-item-warning"
            th:if="${#httpServletRequest.remoteUser}==null">Registration</a>
-        <a href="/edit" class="list-group-item list-group-item-warning" th:if="${#httpServletRequest.remoteUser}!=null">Add or edit</a>
+        <a href="/edit" class="list-group-item list-group-item-warning" th:if="${#httpServletRequest.remoteUser}!=null">Add lot</a>
+        <a href="/register" class="list-group-item list-group-item-warning" th:if="${#httpServletRequest.remoteUser}!=null">Edit account</a>
     </div>
-    <div class="list-group border border-secondary rounded mt-2 mb-3" th:if="${#httpServletRequest.remoteUser}!=null">
-        <a class="list-group-item list-group-item-warning" th:text="'Sign out ('+${#httpServletRequest.remoteUser}+')'" href="/logout">
+    <div class="list-group rounded mt-2 mb-3" th:if="${#httpServletRequest.remoteUser}!=null">
+        <a class="list-group-item list-group-item-warning border border-secondary" th:text="'Sign out ('+${#httpServletRequest.remoteUser}+')'" href="/logout">
         </a>
     </div>
     <div class="container mt-3 mb-3 border border-secondary rounded p-3" th:if="${#httpServletRequest.remoteUser}==null">

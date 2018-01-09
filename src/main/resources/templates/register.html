@@ -28,7 +28,9 @@
                             <div class="col-sm-offset-1 col-sm-10">
                                 <input type="email" th:object="${username}" class="form-control"
                                        id="username"
-                                       name="username" placeholder="Email"/>
+                                       name="username" placeholder="Email" th:value="${#httpServletRequest.remoteUser}"/>
+                                <input type="hidden" value="true" name="existing" id="existing"
+                                       th:if="${#httpServletRequest.remoteUser}!=null"/>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -44,13 +46,15 @@
                         <div class="form-group row">
                             <div class="col-sm-offset-1 col-sm-10">
                                 <input type="text" th:object="${place}" class="form-control"
-                                       id="place" name="place" placeholder="place/town"/>
+                                       id="place" name="place" placeholder="place/town"
+                                       th:value="${place}"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-offset-1 col-sm-10">
                                 <input type="text" th:object="${phone}" class="form-control"
-                                       id="phone" name="phone" placeholder="PhoneNumber"/>
+                                       id="phone" name="phone" placeholder="PhoneNumber"
+                                       th:value="${phone}"/>
                             </div>
                         </div>
                         <div class="form-group row">

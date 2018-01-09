@@ -28,11 +28,18 @@
                 <div>
                     <form action="#" th:action="@{/edit}" method="POST" name="model" enctype="multipart/form-data">
                         <input type="hidden" name="title" id="title" th:value="${doc.title}"/>
-                        <input type="submit" class="btn btn-secondary pt-0 pb-0 pr-1 pl-1" value="Edit"/>
+                        <input type="submit" class="btn btn-secondary pt-0 pb-0 pr-1 pl-1" value="Edit lot"/>
                     </form>
                 </div>
                 <div class="badge badge-warning">
                     <small th:text="${doc.date}"></small>
+                </div>
+                <div>
+                    <form action="#" th:action="@{/adddoc}" method="POST" name="model" enctype="multipart/form-data">
+                        <input type="hidden" name="title" id="title" th:value="${doc.title}"/>
+                        <input type="hidden" name="text" id="text" value="delete"/>
+                        <input type="submit" class="btn btn-danger pt-0 pb-0 pr-1 pl-1 mt-1" value="Delete lot"/>
+                    </form>
                 </div>
             </div>
         </div>

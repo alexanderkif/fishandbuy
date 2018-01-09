@@ -21,8 +21,13 @@
                 <form action="#" th:action="@{/index}" method="GET" th:name="${model}">
                     <div class="container-fluid">
                         <div class="row">
-                            <input type="text" class="form-control col-10" placeholder="Text to find" name="find"
-                                   id="find"/>
+                            <select class="form-control col-2" name="place" id="place">
+                                <option th:text="${place}"></option>
+                                <option>everywhere</option>
+                                <option th:each="place:${places}" th:text="${place}"></option>
+                            </select>
+                            <input type="text" class="form-control col-8" placeholder="Text to find" name="find"
+                                   id="find" th:value="${find}"/>
                             <input type="hidden" name="page" id="page" value="1"/>
                             <button class="btn btn-warning col-2" type="submit">Find</button>
                         </div>
