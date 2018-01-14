@@ -26,10 +26,11 @@
                                 <option>everywhere</option>
                                 <option th:each="place:${places}" th:text="${place}"></option>
                             </select>
-                            <input type="text" class="form-control col-8" placeholder="Text to find" name="find"
+                            <input type="text" class="form-control col-6" placeholder="Text to find" name="find"
                                    id="find" th:value="${find}"/>
                             <input type="hidden" name="page" id="page" value="1"/>
                             <button class="btn btn-warning col-2" type="submit">Find</button>
+                            <a href="/" class="btn btn-light col-2 ">Clear</a>
                         </div>
                     </div>
                 </form>

@@ -8,6 +8,9 @@ import org.myftp.fishandbuy.entities.Doc;
 import org.myftp.fishandbuy.services.AccountRepository;
 import org.myftp.fishandbuy.services.DocRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsOperations;
@@ -44,7 +47,7 @@ public class IndexController {
     private String li;
     private String find = "";
     private String place = "";
-    final Integer docsOnPage = 3;
+    private final int docsOnPage = 3;
 
     public IndexController() {
     }
@@ -57,39 +60,34 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/index")
-    public String index(Model model, @RequestParam("page") String p,
+    public String index(Model model, @ModelAttribute("page") String p,
                         @ModelAttribute("find") String find,
                         @ModelAttribute("place") String place) {
         Integer page;
-        if (Objects.equals(p, "")){
-            page=1;
-        } else{
-            page = Integer.valueOf(p); }
-        List<Doc> all = docRepository.findAll();
+        if (Objects.equals(p, "")) page=1;
+        else page = Integer.valueOf(p);
+
         if(!Objects.equals(find, ""))this.find = find;
-//        if(Objects.equals(find, ""))this.find = "";
-        if (!Objects.equals(this.find, "")){
-            all = all.stream()
-                    .filter(a->(a.getTitle().toLowerCase().contains(this.find.toLowerCase())
-                            ||a.getText().toLowerCase().contains(this.find.toLowerCase())))
-                    .collect(Collectors.toList());
-        }
         if (!Objects.equals(place, ""))this.place = place;
         if (Objects.equals(place, "everywhere"))this.place = "";
-        if (!Objects.equals(this.place, "")){
-            all = all.stream()
-                    .filter(a->(accountRepository.findByEmail(a.getOwner())
-                            .getPlace().toLowerCase().contains(this.place.toLowerCase())))
-                    .collect(Collectors.toList());
-        }
-        List places = accountRepository.findAll().stream()
-                .map(Account::getPlace)
-                .distinct()
-                .collect(Collectors.toList());
-        Long pages = Math.round(Math.ceil(1.0 * all.size() / docsOnPage));
+
         Map maps = new LinkedHashMap();
+
+        PageRequest pageRequest = new PageRequest(page-1, docsOnPage, Sort.Direction.DESC, "date");
+        List<Doc> all = docRepository.findByTitleContainsOrTextContains(this.find, this.find, pageRequest)
+                .filter(a->(accountRepository.findByEmail(a.getOwner()).getPlace().toLowerCase()
+                        .contains(this.place.toLowerCase())))
+                .collect(Collectors.toList());
+
+        Set places = accountRepository.findAllByPlaceContaining("")
+                .map(Account::getPlace)
+                .collect(Collectors.toSet());
+
+        Long pages = Math.round(Math.ceil(1.0 * all.size() / docsOnPage));
+        if (pages==0) pages=1L;
+
         all.stream()
-                .sorted(Comparator.comparing(Doc::getDate).reversed())
+//                .sorted(Comparator.comparing(Doc::getDate).reversed())
                 .skip((page-1)*docsOnPage)
                 .limit(docsOnPage)
                 .forEach((d)->maps.put(d, accountRepository.findByEmail(d.getOwner())));
@@ -142,8 +140,9 @@ public class IndexController {
                          @ModelAttribute("deleteImage") String deleteImage,
                          @ModelAttribute("text") String text, Principal principal) {
         try {
-            Account account = accountRepository.findByEmail(principal.getName());
-            List<Doc> docs = docRepository.findByOwner(account.getEmail());
+//            Account account = accountRepository.findByEmail(principal.getName());
+//            List<Doc> docs = docRepository.findByOwner(account.getEmail());
+            List<Doc> docs = docRepository.findByOwner(principal.getName());
             Doc doc = docs.stream()
                     .filter(d -> d.getTitle().equals(title))
                     .findFirst()
@@ -157,11 +156,12 @@ public class IndexController {
                 doc.setTitle(newTitle);
                 doc.setText(text);
                 doc.setDate(new Date());
-                doc.setOwner(account.getEmail());
+//                doc.setOwner(account.getEmail());
+                doc.setOwner(principal.getName());
                 if (!Objects.equals(file.getOriginalFilename(), "")) {
                     // Define metaData
                     DBObject metaData = new BasicDBObject();
-                    metaData.put("account", account.getEmail());
+                    metaData.put("account", principal.getName());
                     metaData.put("type", "image");
                     // Store file to MongoDB
                     imageFileId = gridOperations.store(file.getInputStream(), file.getOriginalFilename(), "image/png", metaData).getId().toString();
@@ -202,8 +202,9 @@ public class IndexController {
 
     @RequestMapping("/list")
     public String list(Model model, Principal principal) {
-        Account account = accountRepository.findByEmail(principal.getName());
-        List<Doc> docs = docRepository.findByOwner(account.getEmail());
+//        Account account = accountRepository.findByEmail(principal.getName());
+//        List<Doc> docs = docRepository.findByOwner(account.getEmail());
+        List<Doc> docs = docRepository.findByOwner(principal.getName());
         li = "list";
         titl = "List";
         model.addAttribute("links", li);
