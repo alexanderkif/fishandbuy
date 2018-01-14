@@ -74,7 +74,7 @@ public class IndexController {
         Map maps = new LinkedHashMap();
 
         PageRequest pageRequest = new PageRequest(page-1, docsOnPage, Sort.Direction.DESC, "date");
-        List<Doc> all = docRepository.findByTitleContainsOrTextContains(this.find, this.find, pageRequest)
+        List<Doc> all = docRepository.findByTitleContainsIgnoreCaseOrTextContainsIgnoreCase(this.find, this.find, pageRequest)
                 .filter(a->(accountRepository.findByEmail(a.getOwner()).getPlace().toLowerCase()
                         .contains(this.place.toLowerCase())))
                 .collect(Collectors.toList());

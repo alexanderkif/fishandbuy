@@ -13,7 +13,7 @@ public interface DocRepository extends MongoRepository<Doc, String> {
     List<Doc> findByOwner(String docowner);
     List<Doc> findAll();
     Page<Doc> findAll(Pageable pageable);
-    Stream<Doc> findByTitleContainsOrTextContains(String title, String text, Pageable pageable);
+    Stream<Doc> findByTitleContainsIgnoreCaseOrTextContainsIgnoreCase(String title, String text, Pageable pageable);
 //    List<Doc> findByTitleContainsOrTextContains(String title, String text, Pageable pageable);
     Doc findByTitle(String title);
 
