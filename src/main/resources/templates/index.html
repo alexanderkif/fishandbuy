@@ -21,10 +21,10 @@
                 <form action="#" th:action="@{/index}" method="GET" th:name="${model}">
                     <div class="container-fluid">
                         <div class="row">
-                            <select class="form-control col-2" name="place" id="place">
+                            <select style="background-color: #fff3cd;" class="form-control col-2" name="place" id="place">
                                 <option th:text="${place}"></option>
-                                <option>everywhere</option>
-                                <option th:each="place:${places}" th:text="${place}"></option>
+                                <option style="background-color: #ffc107;">everywhere</option>
+                                <option style="background-color: #fff;" th:each="place:${places}" th:text="${place}"></option>
                             </select>
                             <input type="text" class="form-control col-6" placeholder="Text to find" name="find"
                                    id="find" th:value="${find}"/>
@@ -44,7 +44,7 @@
                     <img th:src="@{'/img/'+${map.key.imageFileId}}" height="160"/>
                 </div>
                 <div class="text-left">
-                    <h5 class="m-1 p-1" th:text="''+${map.value.place}"></h5>
+                    <h5 class="m-1 p-1" th:text="''+${map.key.place}"></h5>
                     <h6 class="m-1 p-1" th:text="''+${map.value.phone}"></h6>
                 </div>
                 <div class="badge badge-warning">
