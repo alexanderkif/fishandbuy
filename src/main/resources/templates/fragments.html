@@ -30,16 +30,16 @@
 </div>
 
 <div th:fragment="left-menu" class="col-sm-3">
-    <div class="list-group border border-secondary rounded">
-        <a href="/" class="list-group-item list-group-item-warning">Home</a>
-        <a href="/login" class="list-group-item list-group-item-warning"
+    <div class="list-group rounded">
+        <a href="/" class="list-group-item list-group-item-warning border border-secondary">Home</a>
+        <a href="/login" class="list-group-item list-group-item-warning border border-secondary"
            th:if="${#httpServletRequest.remoteUser}==null">Sign in</a>
-        <a href="/list" class="list-group-item list-group-item-warning" th:if="${#httpServletRequest.remoteUser}!=null">My
+        <a href="/list" class="list-group-item list-group-item-warning border border-secondary" th:if="${#httpServletRequest.remoteUser}!=null">My
             lots</a>
-        <a href="/register" class="list-group-item list-group-item-warning"
+        <a href="/register" class="list-group-item list-group-item-warning border border-secondary"
            th:if="${#httpServletRequest.remoteUser}==null">Registration</a>
-        <a href="/edit" class="list-group-item list-group-item-warning" th:if="${#httpServletRequest.remoteUser}!=null">Add lot</a>
-        <a href="/register" class="list-group-item list-group-item-warning" th:if="${#httpServletRequest.remoteUser}!=null">Edit account</a>
+        <a href="/edit" class="list-group-item list-group-item-warning border border-secondary" th:if="${#httpServletRequest.remoteUser}!=null">Add lot</a>
+        <a href="/register" class="list-group-item list-group-item-warning border border-secondary" th:if="${#httpServletRequest.remoteUser}!=null">Edit account</a>
     </div>
     <div class="list-group rounded mt-2 mb-3" th:if="${#httpServletRequest.remoteUser}!=null">
         <a class="list-group-item list-group-item-warning border border-secondary" th:text="'Sign out ('+${#httpServletRequest.remoteUser}+')'" href="/logout">

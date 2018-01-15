@@ -8,7 +8,6 @@ import org.myftp.fishandbuy.entities.Doc;
 import org.myftp.fishandbuy.services.AccountRepository;
 import org.myftp.fishandbuy.services.DocRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -17,11 +16,13 @@ import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
 public class IndexController {
 
     @Autowired
-    GridFsOperations gridOperations;
+    private GridFsOperations gridOperations;
     // this variable is used to store ImageId for other actions like: findOne or delete
     private String imageFileId = "";
 
@@ -41,20 +42,20 @@ public class IndexController {
     private DocRepository docRepository;
 
     @Autowired
-    PasswordEncoder encoder;
+    private PasswordEncoder encoder;
 
     private String titl;
     private String li;
     private String find = "";
     private String place = "";
-    private final int docsOnPage = 3;
+    final int docsOnPage = 3;
 
     public IndexController() {
     }
 
     @RequestMapping(value = "/")
     public String home() {
-        this.place = "";
+//        this.place = "";
         this.find = "";
         return "redirect:/index?page=1";
     }
@@ -67,30 +68,33 @@ public class IndexController {
         if (Objects.equals(p, "")) page=1;
         else page = Integer.valueOf(p);
 
-        if(!Objects.equals(find, ""))this.find = find;
+        if (!Objects.equals(find, ""))this.find = find;
         if (!Objects.equals(place, ""))this.place = place;
         if (Objects.equals(place, "everywhere"))this.place = "";
 
-        Map maps = new LinkedHashMap();
-
         PageRequest pageRequest = new PageRequest(page-1, docsOnPage, Sort.Direction.DESC, "date");
-        List<Doc> all = docRepository.findByTitleContainsOrTextContains(this.find, this.find, pageRequest)
-                .filter(a->(accountRepository.findByEmail(a.getOwner()).getPlace().toLowerCase()
-                        .contains(this.place.toLowerCase())))
-                .collect(Collectors.toList());
+        List<Doc> all = docRepository
+                .findByPlaceContainsAndTitleContainsIgnoreCaseOrPlaceContainsAndTextContainsIgnoreCase(this.place,
+                        this.find, this.place, this.find, pageRequest);
 
-        Set places = accountRepository.findAllByPlaceContaining("")
-                .map(Account::getPlace)
+        Set places = docRepository.findByPlaceContaining("")
+                .map(Doc::getPlace)
                 .collect(Collectors.toSet());
 
-        Long pages = Math.round(Math.ceil(1.0 * all.size() / docsOnPage));
+        Long pages = Math.round(Math.ceil(1.0 * docRepository
+                .findByPlaceContainsAndTitleContainsIgnoreCaseOrPlaceContainsAndTextContainsIgnoreCase(this.place,
+                this.find, this.place, this.find).size() / docsOnPage));
+//        Long pages = Math.round(Math.ceil(1.0 * all.size() / docsOnPage));
         if (pages==0) pages=1L;
 
-        all.stream()
+        Map<Doc, Account> maps = new LinkedHashMap<>();
+
+//        all.stream()
 //                .sorted(Comparator.comparing(Doc::getDate).reversed())
-                .skip((page-1)*docsOnPage)
-                .limit(docsOnPage)
-                .forEach((d)->maps.put(d, accountRepository.findByEmail(d.getOwner())));
+//                .skip((page-1)*docsOnPage)
+//                .limit(docsOnPage)
+        all.forEach((d)->maps.put(d, accountRepository.findByEmail(d.getEmail())));
+
         li = "index";
         titl = "Index";
         model.addAttribute("links", li);
@@ -118,10 +122,11 @@ public class IndexController {
         Doc doc = Doc.builder()
                 .title("")
                 .text("")
+                .place("")
                 .build();
         if (title!=null){
             Doc tmp = docRepository.findByTitle(title);
-            if (tmp!=null && tmp.getOwner().equals(principal.getName())){
+            if (tmp!=null && tmp.getEmail().equals(principal.getName())){
                 doc = tmp;
             }
         }
@@ -135,14 +140,13 @@ public class IndexController {
 
     @RequestMapping("/adddoc")
     public String adddoc(Model model, @ModelAttribute("title") String title,
+                         @ModelAttribute("place") String place,
                          @ModelAttribute("newTitle") String newTitle,
                          @ModelAttribute("file") MultipartFile file,
                          @ModelAttribute("deleteImage") String deleteImage,
                          @ModelAttribute("text") String text, Principal principal) {
         try {
-//            Account account = accountRepository.findByEmail(principal.getName());
-//            List<Doc> docs = docRepository.findByOwner(account.getEmail());
-            List<Doc> docs = docRepository.findByOwner(principal.getName());
+            List<Doc> docs = docRepository.findByEmail(principal.getName());
             Doc doc = docs.stream()
                     .filter(d -> d.getTitle().equals(title))
                     .findFirst()
@@ -156,8 +160,8 @@ public class IndexController {
                 doc.setTitle(newTitle);
                 doc.setText(text);
                 doc.setDate(new Date());
-//                doc.setOwner(account.getEmail());
-                doc.setOwner(principal.getName());
+                doc.setPlace(place);
+                doc.setEmail(principal.getName());
                 if (!Objects.equals(file.getOriginalFilename(), "")) {
                     // Define metaData
                     DBObject metaData = new BasicDBObject();
@@ -202,9 +206,7 @@ public class IndexController {
 
     @RequestMapping("/list")
     public String list(Model model, Principal principal) {
-//        Account account = accountRepository.findByEmail(principal.getName());
-//        List<Doc> docs = docRepository.findByOwner(account.getEmail());
-        List<Doc> docs = docRepository.findByOwner(principal.getName());
+        List<Doc> docs = docRepository.findByEmail(principal.getName());
         li = "list";
         titl = "List";
         model.addAttribute("links", li);
@@ -215,11 +217,9 @@ public class IndexController {
 
     @RequestMapping("/register")
     public String register(Model model, Principal principal) {
-        String place = "";
         String phone = "";
         try{
             Account account = accountRepository.findByEmail(principal.getName());
-            place = account.getPlace();
             phone = account.getPhone();
         }catch(Exception e){
             System.out.println("No user in repository "+e);
@@ -228,20 +228,19 @@ public class IndexController {
         titl = "Register";
         model.addAttribute("links", li);
         model.addAttribute("titl", titl);
-        model.addAttribute("place", place);
         model.addAttribute("phone", phone);
         return "register";
     }
 
     @RequestMapping("/adduser")
-    public String adduser(Model model, @ModelAttribute("username") String email, @ModelAttribute("place") String place,
-                          @ModelAttribute("password") String password, @ModelAttribute("phone") String phone,
+    public String adduser(Model model, @ModelAttribute("username") String email,
+                          @ModelAttribute("password") String password,
+                          @ModelAttribute("phone") String phone,
                           @ModelAttribute("existing") String existing) {
         if ((accountRepository.findByEmail(email) == null || existing.equals("true"))
                 && !Objects.equals(email, "") && !Objects.equals(password, "")) {
             accountRepository.save(Account.builder()
                     .email(email)
-                    .place(place)
                     .phone(phone)
                     .password(encoder.encode(password))
                     .enabled(true)

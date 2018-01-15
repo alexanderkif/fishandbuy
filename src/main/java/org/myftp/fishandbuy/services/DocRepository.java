@@ -10,11 +10,12 @@ import java.util.stream.Stream;
 
 public interface DocRepository extends MongoRepository<Doc, String> {
 
-    List<Doc> findByOwner(String docowner);
+    List<Doc> findByEmail(String email);
     List<Doc> findAll();
     Page<Doc> findAll(Pageable pageable);
-    Stream<Doc> findByTitleContainsOrTextContains(String title, String text, Pageable pageable);
-//    List<Doc> findByTitleContainsOrTextContains(String title, String text, Pageable pageable);
+    List<Doc> findByPlaceContainsAndTitleContainsIgnoreCaseOrPlaceContainsAndTextContainsIgnoreCase(String place1, String title, String place2, String text, Pageable pageable);
+    List<Doc> findByPlaceContainsAndTitleContainsIgnoreCaseOrPlaceContainsAndTextContainsIgnoreCase(String place1, String title, String place2, String text);
     Doc findByTitle(String title);
 
+    Stream<Doc> findByPlaceContaining(String place);
 }

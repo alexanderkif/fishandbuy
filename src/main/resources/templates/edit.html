@@ -40,6 +40,14 @@
                                           th:maxlength="700"></textarea>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">Place/Town</div>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control"
+                                   id="place" name="place"
+                                   th:value="${doc.place}"/>
+                        </div>
+                    </div>
                     <div class="text-center" th:if="null!=${doc.imageFileId}">
                         <img th:src="@{'/img/'+${doc.imageFileId}}" height="160"  id="prev"/>
                     </div>

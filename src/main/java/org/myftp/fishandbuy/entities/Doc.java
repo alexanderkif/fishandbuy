@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.File;
 import java.util.Date;
 
 @Document(collection="Docs")
@@ -23,7 +21,8 @@ public class Doc {
     private Date date;
     private String title;
     private String text;
-    private String owner;
+    private String place;
+    private String email;
     private String imageFileId;
 
 }

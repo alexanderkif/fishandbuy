@@ -18,7 +18,6 @@ public class Account {
     @Id
     private String email;
     private String password;
-    private String place;
     private String phone;
     private boolean enabled;
 
