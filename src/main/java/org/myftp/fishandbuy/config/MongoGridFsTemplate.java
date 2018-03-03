@@ -1,5 +1,6 @@
 package org.myftp.fishandbuy.config;
 
+import com.mongodb.MongoClientURI;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,8 @@ import com.mongodb.MongoClient;
 
 @Configuration
 public class MongoGridFsTemplate  extends AbstractMongoConfiguration{
+
+
 
     @Value("${jsa.mongo.address}")
     private String mongoAddress;
@@ -30,6 +33,6 @@ public class MongoGridFsTemplate  extends AbstractMongoConfiguration{
 
     @Override
     public Mongo mongo() throws Exception {
-        return new MongoClient(mongoAddress);
+        return new MongoClient(new MongoClientURI(mongoAddress));
     }
 }
