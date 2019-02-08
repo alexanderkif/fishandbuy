@@ -13,6 +13,7 @@ public interface DocRepository extends MongoRepository<Doc, String> {
     List<Doc> findByEmail(String email);
     List<Doc> findAll();
     Page<Doc> findAll(Pageable pageable);
+    Doc findById(String id);
     List<Doc> findByPlaceContainsAndTitleContainsIgnoreCaseOrPlaceContainsAndTextContainsIgnoreCase(String place1, String title, String place2, String text, Pageable pageable);
     List<Doc> findByPlaceContainsAndTitleContainsIgnoreCaseOrPlaceContainsAndTextContainsIgnoreCase(String place1, String title, String place2, String text);
     Doc findByTitle(String title);
