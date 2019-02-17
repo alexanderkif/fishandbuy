@@ -1,12 +1,124 @@
-.sss1 {
-  width: 100px;
-  height: 100px;
-  background-color: #fffd7a; }
+.content__item {
+  padding-bottom: 2em; }
 
-.sss2 {
-  width: 100px;
-  height: 100px;
-  background-color: #00ff80; }
+.content__page {
+  display: inline-block;
+  width: auto;
+  height: 20px;
+  padding: 5px 10px;
+  margin: 0px 5px;
+  background-color: rgba(0, 200, 0, 0.1);
+  transition: all .2s ease-in-out;
+  border-radius: 3px; }
+  .content__page:hover {
+    transform: scale(1.1);
+    background-color: rgba(0, 100, 0, 0.5);
+    color: white;
+    cursor: pointer; }
+  .content__page_current {
+    background-color: rgba(200, 200, 0, 0.1);
+    border: 2px solid rgba(0, 100, 0, 0.5); }
+    .content__page_current:hover {
+      transform: none;
+      background-color: rgba(200, 200, 0, 0.1);
+      color: rgba(0, 0, 0, 0.8);
+      cursor: default; }
+
+.message {
+  display: grid;
+  margin: 0 auto;
+  width: 100%;
+  border-radius: 5px;
+  background-color: rgba(200, 200, 0, 0.1);
+  transition: all .2s ease-in-out;
+  box-shadow: 0 14px 28px rgba(50, 50, 0, 0.25), 0 10px 10px rgba(50, 50, 0, 0.22);
+  grid-column-gap: 2%;
+  grid-row-gap: 1em;
+  grid-template-areas: "i T T T" "i t t t" "i d p e";
+  grid-template-columns: 200px 100px auto auto;
+  grid-template-rows: auto 1fr 25px; }
+  @media screen and (max-width: 600px) {
+    .message {
+      grid-template-areas: ". i ." "T T T" "t t t" "d p e";
+      grid-template-columns: auto auto auto;
+      grid-template-rows: auto auto 1fr 25px; } }
+  .message:hover {
+    transform: scale(1.02); }
+  .message__image {
+    grid-area: i;
+    max-height: 200px;
+    max-width: 200px;
+    margin: auto auto;
+    border-radius: inherit; }
+  .message__title {
+    grid-area: T;
+    padding: 10px;
+    padding-left: 20px;
+    background-color: rgba(0, 200, 0, 0.1);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+    font-size: 24px;
+    font-weight: bold;
+    border-top-right-radius: inherit; }
+  .message__text {
+    grid-area: t;
+    padding: 10px;
+    padding-left: 20px; }
+  .message__date {
+    grid-area: d;
+    background-color: rgba(0, 100, 0, 0.5);
+    color: white;
+    font-size: 10px;
+    padding: 3px 5px;
+    margin: auto auto;
+    border-radius: inherit; }
+  .message__place {
+    grid-area: p;
+    margin: auto 0; }
+  .message__email {
+    grid-area: e;
+    margin: auto auto;
+    border-radius: inherit; }
+
+html, body {
+  height: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  font-family: arial,sans-serif;
+  color: rgba(0, 0, 0, 0.8); }
+
+.main {
+  min-height: 100%;
+  display: grid;
+  grid-gap: 2em;
+  grid-template-areas: "h h" "m c" "f f";
+  grid-template-columns: 200px auto;
+  grid-template-rows: 150px 1fr 100px; }
+  @media screen and (max-width: 900px) {
+    .main {
+      grid-template-areas: "h" "m" "c" "f";
+      grid-template-columns: auto;
+      grid-template-rows: 150px 30px 1fr 100px; } }
+  .main__header {
+    grid-area: h;
+    padding: 20px;
+    background-color: rgba(200, 200, 0, 0.1);
+    box-shadow: 0 14px 28px rgba(50, 50, 0, 0.25), 0 10px 10px rgba(50, 50, 0, 0.22);
+    border-radius: 5px; }
+  .main__menu {
+    grid-area: m;
+    padding: 20px;
+    background-color: rgba(0, 200, 0, 0.1);
+    box-shadow: 0 14px 28px rgba(0, 50, 0, 0.25), 0 10px 10px rgba(0, 50, 0, 0.22);
+    border-radius: 5px; }
+  .main__content {
+    grid-area: c;
+    border-radius: 5px; }
+  .main__footer {
+    grid-area: f;
+    padding: 20px;
+    background-color: rgba(0, 200, 0, 0.1);
+    box-shadow: 0 14px 28px rgba(0, 50, 0, 0.25), 0 10px 10px rgba(0, 50, 0, 0.22);
+    border-radius: 5px; }
 
 
 /*# sourceMappingURL=main.css.map*/

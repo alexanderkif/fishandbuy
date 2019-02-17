@@ -1,4 +1,4 @@
-//- include ./sliders/sliders
+include ./content/content
 
 //- - var dataJson = require('./data.json');
 - var page= 'Index'
@@ -13,7 +13,14 @@ html
         link(href="main.css" rel="stylesheet")
         
     body
-        .sss1
-        .sss2
+        //- .sss1
+        //- .sss2
+        .main
+            .main__header 
+                .text header
+            .main__menu menu
+            .main__content
+                +content()
+            .main__footer footer
 
     script(src="main.js")

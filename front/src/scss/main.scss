@@ -1,12 +1,68 @@
+$color-active: rgba(0,200,0,0.1);
+$color-active-shadow1: rgba(0,50,0,0.25);
+$color-active-shadow2: rgba(0,50,0,0.22);
+$color-active-bright: rgba(0,100,0,0.5);
+$color-active2: rgba(200,200,0,0.1);
+$color-active2-shadow1: rgba(50,50,0,0.25);
+$color-active2-shadow2: rgba(50,50,0,0.22);
 
-.sss1 {
-    width: 100px;
-    height: 100px;
-    background-color: rgb(255, 253, 122);
+@import "../content/content.scss";
+@import "../message/message.scss";
+
+html, body {
+    height: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    font-family: arial,sans-serif;
+    color: rgba(0, 0, 0, 0.8);
 }
 
-.sss2 {
-    width: 100px;
-    height: 100px;
-    background-color: rgb(0, 255, 128);
+.main {
+    min-height: 100%;
+    display: grid;
+    grid-gap: 2em;
+    grid-template-areas:"h h"
+                        "m c"
+                        "f f";
+    grid-template-columns: 200px auto;
+    grid-template-rows: 150px 1fr 100px;
+
+    @media screen and (max-width: 900px) {
+        grid-template-areas:"h"
+                            "m"
+                            "c"
+                            "f";
+        grid-template-columns: auto;
+        grid-template-rows: 150px 30px 1fr 100px;
+    }
+    
+    &__header {
+        grid-area: h;
+        padding: 20px;
+        background-color: $color-active2;
+        box-shadow: 0 14px 28px $color-active2-shadow1, 0 10px 10px $color-active2-shadow2; 
+        border-radius: 5px;
+    }
+    
+    &__menu {
+        grid-area: m;
+        padding: 20px;
+        background-color: $color-active;
+        box-shadow: 0 14px 28px $color-active-shadow1, 0 10px 10px $color-active-shadow2; 
+        border-radius: 5px;
+    }
+    
+    &__content {
+        grid-area: c;
+        // background-color: paleturquoise;
+        border-radius: 5px;
+    }
+    
+    &__footer {
+        grid-area: f;
+        padding: 20px;
+        background-color: $color-active;
+        box-shadow: 0 14px 28px $color-active-shadow1, 0 10px 10px $color-active-shadow2;  
+        border-radius: 5px;
+    }
 }

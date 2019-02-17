@@ -52,7 +52,7 @@ public class DocsController {
     }
 
     @GetMapping
-    public List<Doc> list(@ModelAttribute("page") String p,
+    public List list(@ModelAttribute("page") String p,
                         @ModelAttribute("find") String find,
                         @ModelAttribute("place") String place) {
         Integer page;
@@ -96,7 +96,11 @@ public class DocsController {
 //        model.addAttribute("places", places);
 //        model.addAttribute("place", this.place);
 //        model.addAttribute("find", this.find);
-        return all;
+        List list = new ArrayList();
+        list.add(all);
+        list.add(places);
+        list.add(pages);
+        return list;
     }
 
     @GetMapping("{id}")
