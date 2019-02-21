@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack:///./src/scss/main.scss"],"names":[],"mappings":"AAAA;AACA;AACA;AACA,4BAA4B;;AAE5B;AACA;AACA;AACA,4BAA4B","file":"main.css","sourcesContent":[".sss1 {\n  width: 100px;\n  height: 100px;\n  background-color: #fffd7a; }\n\n.sss2 {\n  width: 100px;\n  height: 100px;\n  background-color: #00ff80; }\n"],"sourceRoot":""}

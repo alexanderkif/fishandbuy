@@ -7,20 +7,20 @@
   height: 20px;
   padding: 5px 10px;
   margin: 0px 5px;
-  background-color: rgba(0, 200, 0, 0.1);
+  background-color: #e6fae6;
   transition: all .2s ease-in-out;
   border-radius: 3px; }
   .content__page:hover {
     transform: scale(1.1);
-    background-color: rgba(0, 100, 0, 0.5);
+    background-color: #b4d7b4;
     color: white;
     cursor: pointer; }
   .content__page_current {
-    background-color: rgba(200, 200, 0, 0.1);
-    border: 2px solid rgba(0, 100, 0, 0.5); }
+    background-color: #fafae6;
+    border: 2px solid #b4d7b4; }
     .content__page_current:hover {
       transform: none;
-      background-color: rgba(200, 200, 0, 0.1);
+      background-color: #fafae6;
       color: rgba(0, 0, 0, 0.8);
       cursor: default; }
 
@@ -29,7 +29,7 @@
   margin: 0 auto;
   width: 100%;
   border-radius: 5px;
-  background-color: rgba(200, 200, 0, 0.1);
+  background-color: #fafae6;
   transition: all .2s ease-in-out;
   box-shadow: 0 14px 28px rgba(50, 50, 0, 0.25), 0 10px 10px rgba(50, 50, 0, 0.22);
   grid-column-gap: 2%;
@@ -54,7 +54,7 @@
     grid-area: T;
     padding: 10px;
     padding-left: 20px;
-    background-color: rgba(0, 200, 0, 0.1);
+    background-color: #e6fae6;
     border-bottom: 2px solid rgba(0, 0, 0, 0.5);
     font-size: 24px;
     font-weight: bold;
@@ -65,7 +65,7 @@
     padding-left: 20px; }
   .message__date {
     grid-area: d;
-    background-color: rgba(0, 100, 0, 0.5);
+    background-color: #b4d7b4;
     color: white;
     font-size: 10px;
     padding: 3px 5px;
@@ -101,13 +101,13 @@ html, body {
   .main__header {
     grid-area: h;
     padding: 20px;
-    background-color: rgba(200, 200, 0, 0.1);
+    background-color: #fafae6;
     box-shadow: 0 14px 28px rgba(50, 50, 0, 0.25), 0 10px 10px rgba(50, 50, 0, 0.22);
     border-radius: 5px; }
   .main__menu {
     grid-area: m;
     padding: 20px;
-    background-color: rgba(0, 200, 0, 0.1);
+    background-color: #e6fae6;
     box-shadow: 0 14px 28px rgba(0, 50, 0, 0.25), 0 10px 10px rgba(0, 50, 0, 0.22);
     border-radius: 5px; }
   .main__content {
@@ -116,7 +116,7 @@ html, body {
   .main__footer {
     grid-area: f;
     padding: 20px;
-    background-color: rgba(0, 200, 0, 0.1);
+    background-color: #e6fae6;
     box-shadow: 0 14px 28px rgba(0, 50, 0, 0.25), 0 10px 10px rgba(0, 50, 0, 0.22);
     border-radius: 5px; }
 
