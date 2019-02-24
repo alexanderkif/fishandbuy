@@ -1,3 +1,4 @@
+
 $color-active: rgb(230, 250, 230);
 $color-active-shadow1: rgba(0,50,0,0.25);
 $color-active-shadow2: rgba(0,50,0,0.22);
@@ -8,6 +9,7 @@ $color-active2-shadow2: rgba(50,50,0,0.22);
 
 @import "../content/content.scss";
 @import "../message/message.scss";
+@import "../login/login.scss";
 
 html, body {
     height: 100%;
@@ -21,6 +23,9 @@ html, body {
     min-height: 95vh;
     padding-top: 2vh;
     padding-bottom: 3vh;
+    min-width: 96vh;
+    padding-left: 2vh;
+    padding-right: 2vh;
     display: grid;
     grid-gap: 2em;
     grid-template-areas:"h h"
@@ -35,7 +40,7 @@ html, body {
                             "c"
                             "f";
         grid-template-columns: auto;
-        grid-template-rows: 150px 30px 1fr 100px;
+        grid-template-rows: 150px auto 1fr 100px;
     }
     
     &__header {
@@ -52,6 +57,11 @@ html, body {
         background-color: $color-active;
         box-shadow: 0 14px 28px $color-active-shadow1, 0 10px 10px $color-active-shadow2; 
         border-radius: 5px;
+        
+        @media screen and (max-width: 900px) {
+            padding: 0;
+            height: fit-content;
+        }
     }
     
     &__content {

@@ -1,4 +1,5 @@
 include ./content/content
+include ./login/login
 
 //- - var dataJson = require('./data.json');
 - var page= 'Index'
@@ -19,7 +20,8 @@ html
         .main
             .main__header 
                 .text header
-            .main__menu menu
+            .main__menu
+                +login()
             .main__content
                 +content()
             .main__footer footer

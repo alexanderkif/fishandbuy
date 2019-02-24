@@ -79,6 +79,36 @@
     margin: auto auto;
     border-radius: inherit; }
 
+.login {
+  border: solid 1px lightgray;
+  background-color: inherit;
+  border-radius: 5px;
+  padding: 10px; }
+  .login__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 5px; }
+    @media screen and (max-width: 900px) {
+      .login__grid {
+        grid-template-columns: 3fr 2fr 1fr;
+        grid-template-rows: 1fr; } }
+  .login__email {
+    width: 100%;
+    border: solid 1px lightgray;
+    border-radius: 5px;
+    padding-left: 5px; }
+  .login__password {
+    width: 100%;
+    border: solid 1px lightgray;
+    border-radius: 5px;
+    padding-left: 5px; }
+  .login__button {
+    width: 100%;
+    border: solid 1px lightgray;
+    border-radius: 5px;
+    padding-left: 5px; }
+
 html, body {
   height: 100%;
   max-width: 1024px;
@@ -90,6 +120,9 @@ html, body {
   min-height: 95vh;
   padding-top: 2vh;
   padding-bottom: 3vh;
+  min-width: 96vh;
+  padding-left: 2vh;
+  padding-right: 2vh;
   display: grid;
   grid-gap: 2em;
   grid-template-areas: "h h" "m c" "f f";
@@ -99,7 +132,7 @@ html, body {
     .main {
       grid-template-areas: "h" "m" "c" "f";
       grid-template-columns: auto;
-      grid-template-rows: 150px 30px 1fr 100px; } }
+      grid-template-rows: 150px auto 1fr 100px; } }
   .main__header {
     grid-area: h;
     padding: 20px;
@@ -112,6 +145,10 @@ html, body {
     background-color: #e6fae6;
     box-shadow: 0 14px 28px rgba(0, 50, 0, 0.25), 0 10px 10px rgba(0, 50, 0, 0.22);
     border-radius: 5px; }
+    @media screen and (max-width: 900px) {
+      .main__menu {
+        padding: 0;
+        height: fit-content; } }
   .main__content {
     grid-area: c;
     border-radius: 5px; }
