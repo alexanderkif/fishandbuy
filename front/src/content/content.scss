@@ -1,0 +1,36 @@
+.content {
+
+    &__item {
+        padding-bottom: 2em;
+    }
+
+    &__page {
+        display: inline-block;
+        width: auto;
+        height: 20px;
+        padding: 5px 10px;
+        margin: 0px 5px;
+        background-color: $color-active;
+        transition: all .2s ease-in-out;
+        border-radius: 3px;
+
+        &:hover {
+            transform: scale(1.1);  
+            background-color: $color-active-bright;
+            color: white;
+            cursor: pointer;
+        }
+
+        &_current {
+            background-color: $color-active2;
+            border: 2px solid $color-active-bright;
+
+            &:hover {
+                transform: none;
+                background-color: $color-active2;
+                color: rgba(0, 0, 0, 0.8);
+                cursor: default;
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+
+.login {
+    border: solid 1px lightgray;
+    background-color: inherit;
+    border-radius: 5px;
+    padding: 10px;
+
+    &__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-gap: 5px;
+
+        @media screen and (max-width: 900px) {
+            grid-template-columns: 3fr 2fr 1fr;
+            grid-template-rows: 1fr;
+        }
+    }
+
+    &__email {
+        width: 100%;
+        border: solid 1px lightgray;
+        border-radius: 5px;
+        padding-left: 5px;
+    }
+
+    &__password {
+        width: 100%;
+        border: solid 1px lightgray;
+        border-radius: 5px;
+        padding-left: 5px;
+    }
+
+    &__button {
+        width: 100%;
+        // justify-self: end;
+        border: solid 1px lightgray;
+        border-radius: 5px;
+        padding-left: 5px;
+    }
+}
