@@ -107,6 +107,7 @@ public class DocsController {
     public Doc getDoc(@PathVariable String id) {
         return docRepository.findById(id);
     }
+
 //    @RequestMapping("/login")
 //    public String login(Model model) {
 //        li = "login";

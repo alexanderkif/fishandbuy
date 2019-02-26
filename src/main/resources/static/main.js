@@ -9968,7 +9968,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scss_main_scss__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _content_content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./content/content */ "./src/content/content.js");
 /* harmony import */ var _content_Content__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./content/Content */ "./src/content/Content.js");
+/* harmony import */ var _login_login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./login/login */ "./src/login/login.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -9983,6 +9985,88 @@ var CV = function CV() {
 };
 
 var cv = new CV();
+
+/***/ }),
+
+/***/ "./src/login/login.js":
+/*!****************************!*\
+  !*** ./src/login/login.js ***!
+  \****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! decko */ "./node_modules/decko/dist/decko.js");
+/* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(decko__WEBPACK_IMPORTED_MODULE_0__);
+var _class;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object['ke' + 'ys'](descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object['define' + 'Property'](target, property, desc); desc = null; } return desc; }
+
+
+var Login = (_class =
+/*#__PURE__*/
+function () {
+  function Login(element) {
+    _classCallCheck(this, Login);
+
+    this.email = element.querySelector('.login__email');
+    this.pass = element.querySelector('.login__password');
+    this.button = element.querySelector('.login__button');
+    this.email.addEventListener('keyup', this.checkEmail);
+    this.pass.addEventListener('keyup', this.checkPassword);
+    this.button.addEventListener('click', this.clickButton);
+  }
+
+  _createClass(Login, [{
+    key: "clickButton",
+    value: function clickButton() {}
+  }, {
+    key: "checkEmail",
+    value: function checkEmail() {
+      var regExpToCheck = new RegExp("^(([^<>()[\\]\\\\.,;:\\s@\\']+(\\.[^<>()[\\]\\\\.,;:\\s@\\']+)*)|(\\'.+\\'))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$");
+      this.checkRegExp(this.email, regExpToCheck);
+    }
+  }, {
+    key: "checkPassword",
+    value: function checkPassword() {
+      var regExpToCheck = new RegExp("^([a-zA-Z_-]){3,10}$");
+      this.checkRegExp(this.pass, regExpToCheck);
+    }
+  }, {
+    key: "checkRegExp",
+    value: function checkRegExp(element, regExpToCheck) {
+      if (regExpToCheck.test(element.value)) {
+        element.classList.remove("error");
+        element.check = true;
+      } else {
+        element.classList.add("error");
+        element.check = false;
+      }
+
+      this.checkButton();
+    }
+  }, {
+    key: "checkButton",
+    value: function checkButton() {
+      if (this.email.check && this.pass.check) {
+        this.button.disabled = false;
+      } else {
+        this.button.disabled = true;
+      }
+    }
+  }]);
+
+  return Login;
+}(), (_applyDecoratedDescriptor(_class.prototype, "clickButton", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickButton"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkButton", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkButton"), _class.prototype)), _class);
+var loginElement = document.querySelector('.login');
+if (loginElement) new Login(loginElement);
 
 /***/ }),
 

@@ -1,7 +1,8 @@
 
 mixin login()
     .login
-        .login__grid
-            input(placeholder='e-mail' type="text").login__email
-            input(placeholder='password' type="password").login__password
-            input(type="button" value="Send" disabled=true).login__button
+        form(action="doc/adduser" method="POST")
+            .login__grid
+                input(placeholder='e-mail' type="text" name="username").login__email
+                input(placeholder='password' type="password" name="password").login__password
+                input(type="submit" value="Submit" disabled).login__button

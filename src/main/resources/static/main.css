@@ -93,21 +93,22 @@
       .login__grid {
         grid-template-columns: 3fr 2fr 1fr;
         grid-template-rows: 1fr; } }
-  .login__email {
+  .login__email, .login__password {
     width: 100%;
     border: solid 1px lightgray;
-    border-radius: 5px;
+    border-radius: 2px;
     padding-left: 5px; }
-  .login__password {
-    width: 100%;
-    border: solid 1px lightgray;
-    border-radius: 5px;
-    padding-left: 5px; }
+    .login__email.error, .login__password.error {
+      outline-color: lightpink; }
   .login__button {
     width: 100%;
     border: solid 1px lightgray;
-    border-radius: 5px;
-    padding-left: 5px; }
+    border-radius: 2px;
+    padding-left: 5px;
+    cursor: pointer; }
+    .login__button:disabled {
+      color: #fafae6;
+      cursor: default; }
 
 html, body {
   height: 100%;
