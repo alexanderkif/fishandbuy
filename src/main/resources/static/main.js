@@ -10001,6 +10001,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(decko__WEBPACK_IMPORTED_MODULE_0__);
 var _class;
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -10016,17 +10020,213 @@ function () {
   function Login(element) {
     _classCallCheck(this, Login);
 
-    this.email = element.querySelector('.login__email');
-    this.pass = element.querySelector('.login__password');
-    this.button = element.querySelector('.login__button');
-    this.email.addEventListener('keyup', this.checkEmail);
-    this.pass.addEventListener('keyup', this.checkPassword);
-    this.button.addEventListener('click', this.clickButton);
+    this.main = document.querySelector('.main');
+    this.btn = element.querySelector('.login__btn');
+    this.btn.addEventListener('click', this.openModal);
   }
 
   _createClass(Login, [{
-    key: "clickButton",
-    value: function clickButton() {}
+    key: "openModal",
+    value: function openModal() {
+      this.shadow = document.createElement("div");
+      this.shadow.classList.add('login__shadow');
+      this.shadow.addEventListener('click', this.closeModal);
+      this.main.appendChild(this.shadow);
+      this.createGrid();
+    }
+  }, {
+    key: "closeModal",
+    value: function closeModal() {
+      this.main.removeChild(this.shadow);
+    }
+  }, {
+    key: "createGrid",
+    value: function createGrid() {
+      this.grid = document.createElement("div");
+      this.grid.classList.add('login__grid');
+      this.shadow.appendChild(this.grid);
+      this.grid.addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+      this.createTabLogin();
+      this.createTabRegister();
+      this.createEmail();
+      this.createPassword();
+      this.createBtnSubmit();
+    }
+  }, {
+    key: "createBtnSubmit",
+    value: function createBtnSubmit() {
+      this.btnSbmt = document.createElement("input");
+      this.btnSbmt.classList.add('login__submit');
+      this.btnSbmt.type = 'submit';
+      this.btnSbmt.value = 'Submit';
+      this.btnSbmt.disabled = true;
+      this.grid.appendChild(this.btnSbmt);
+      this.btnSbmt.addEventListener('click', this.clickBtnSbmt);
+    }
+  }, {
+    key: "createTabRegister",
+    value: function createTabRegister() {
+      this.btnReg = document.createElement("input");
+      this.btnReg.classList.add('login__btn-reg');
+      this.btnReg.type = 'submit';
+      this.btnReg.value = 'Register';
+      this.btnReg.disabled = false;
+      this.grid.appendChild(this.btnReg);
+      this.btnReg.addEventListener('click', this.clickBtnReg);
+    }
+  }, {
+    key: "createTabLogin",
+    value: function createTabLogin() {
+      this.btnLog = document.createElement("input");
+      this.btnLog.classList.add('login__btn-log');
+      this.btnLog.type = 'submit';
+      this.btnLog.value = 'Sign in';
+      this.btnLog.disabled = true;
+      this.grid.appendChild(this.btnLog);
+      this.btnLog.addEventListener('click', this.clickBtnLog);
+    }
+  }, {
+    key: "createPassword",
+    value: function createPassword() {
+      this.pass = document.createElement("input");
+      this.pass.classList.add('login__password');
+      this.pass.placeholder = 'password';
+      this.pass.type = 'password';
+      this.pass.name = 'password';
+      this.grid.appendChild(this.pass);
+      this.pass.addEventListener('keyup', this.checkPassword);
+    }
+  }, {
+    key: "createEmail",
+    value: function createEmail() {
+      this.email = document.createElement("input");
+      this.email.classList.add('login__email');
+      this.email.placeholder = 'e-mail';
+      this.email.type = 'text';
+      this.email.name = 'email';
+      this.grid.appendChild(this.email);
+      this.email.addEventListener('keyup', this.checkEmail);
+    }
+  }, {
+    key: "clickBtnSbmt",
+    value: function clickBtnSbmt() {
+      if (this.btnReg.disabled) {
+        //register
+        this.addUser();
+      } else {
+        //login
+        this.login();
+      }
+    }
+  }, {
+    key: "addUser",
+    value: function () {
+      var _addUser = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return fetch('account', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    "email": this.email.value,
+                    "pass": this.pass.value,
+                    "phone": this.phone.value
+                  })
+                }).then(function (response) {
+                  alert(response.status);
+                });
+
+              case 2:
+                this.main.removeChild(this.shadow);
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function addUser() {
+        return _addUser.apply(this, arguments);
+      }
+
+      return addUser;
+    }()
+  }, {
+    key: "login",
+    value: function () {
+      var _login = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2() {
+        var form;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                form = new FormData();
+                form.append("username", this.email.value);
+                form.append("password", this.pass.value);
+                _context2.next = 5;
+                return fetch("login", {
+                  method: "POST",
+                  body: form
+                }) // await fetch('login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ "username": this.email.value, "password": this.pass.value})})
+                .then(function (response) {
+                  console.log(response);
+                  alert(response.status);
+                });
+
+              case 5:
+                this.main.removeChild(this.shadow);
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function login() {
+        return _login.apply(this, arguments);
+      }
+
+      return login;
+    }()
+  }, {
+    key: "clickBtnLog",
+    value: function clickBtnLog() {
+      this.grid.classList.remove('login__grid_reg');
+      this.grid.removeChild(this.phone);
+      this.btnLog.disabled = true;
+      this.btnReg.disabled = false;
+      this.checkButton("login");
+    }
+  }, {
+    key: "clickBtnReg",
+    value: function clickBtnReg() {
+      this.grid.classList.add('login__grid_reg');
+      this.phone = document.createElement("input");
+      this.phone.classList.add('login__phone');
+      this.phone.placeholder = '+79123456789';
+      this.phone.type = 'text';
+      this.phone.name = 'phone';
+      this.grid.appendChild(this.phone);
+      this.phone.addEventListener('keyup', this.checkPhone);
+      this.btnLog.disabled = false;
+      this.btnReg.disabled = true;
+      this.checkButton("register");
+    }
   }, {
     key: "checkEmail",
     value: function checkEmail() {
@@ -10036,8 +10236,14 @@ function () {
   }, {
     key: "checkPassword",
     value: function checkPassword() {
-      var regExpToCheck = new RegExp("^([a-zA-Z_-]){3,10}$");
+      var regExpToCheck = new RegExp("^([a-zA-Z0-9_-]){3,10}$");
       this.checkRegExp(this.pass, regExpToCheck);
+    }
+  }, {
+    key: "checkPhone",
+    value: function checkPhone() {
+      var regExpToCheck = new RegExp("^[+]*([0-9]){11}$");
+      this.checkRegExp(this.phone, regExpToCheck);
     }
   }, {
     key: "checkRegExp",
@@ -10050,21 +10256,28 @@ function () {
         element.check = false;
       }
 
-      this.checkButton();
+      if (this.btnReg.disabled) {
+        this.checkButton("register");
+      } else {
+        this.checkButton("login");
+      }
     }
   }, {
     key: "checkButton",
-    value: function checkButton() {
-      if (this.email.check && this.pass.check) {
-        this.button.disabled = false;
+    value: function checkButton(param) {
+      var condition = false;
+      if (param == "register") condition = this.email.check && this.pass.check && this.phone.check;else condition = this.email.check && this.pass.check;
+
+      if (condition) {
+        this.btnSbmt.disabled = false;
       } else {
-        this.button.disabled = true;
+        this.btnSbmt.disabled = true;
       }
     }
   }]);
 
   return Login;
-}(), (_applyDecoratedDescriptor(_class.prototype, "clickButton", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickButton"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkButton", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkButton"), _class.prototype)), _class);
+}(), (_applyDecoratedDescriptor(_class.prototype, "openModal", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "openModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "closeModal", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "closeModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createGrid", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createGrid"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createBtnSubmit", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createBtnSubmit"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createTabRegister", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createTabRegister"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createTabLogin", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createTabLogin"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnSbmt", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnSbmt"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addUser", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addUser"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "login", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "login"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnLog", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnLog"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnReg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnReg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPhone", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPhone"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkButton", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkButton"), _class.prototype)), _class);
 var loginElement = document.querySelector('.login');
 if (loginElement) new Login(loginElement);
 

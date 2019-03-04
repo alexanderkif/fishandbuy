@@ -39,9 +39,6 @@ public class DocsController {
     @Autowired
     private DocRepository docRepository;
 
-    @Autowired
-    private PasswordEncoder encoder;
-
     private String titl;
     private String li;
     private String find = "";
@@ -220,7 +217,7 @@ public class DocsController {
         String phone = "";
         try{
             Account account = accountRepository.findByEmail(principal.getName());
-            phone = account.getPhone();
+//            phone = account.getPhone();
         }catch(Exception e){
             System.out.println("No user in repository "+e);
         }
@@ -232,28 +229,5 @@ public class DocsController {
         return "register";
     }
 
-    @RequestMapping("/adduser")
-    public String adduser(Model model, @ModelAttribute("username") String email,
-                          @ModelAttribute("password") String password,
-                          @ModelAttribute("phone") String phone,
-                          @ModelAttribute("existing") String existing) {
-        if ((accountRepository.findByEmail(email) == null || existing.equals("true"))
-                && !Objects.equals(email, "") && !Objects.equals(password, "")) {
-            accountRepository.save(Account.builder()
-                    .email(email)
-                    .phone(phone)
-                    .password(encoder.encode(password))
-                    .enabled(true)
-                    .build()
-            );
-            li = "login";
-            titl = "Added";
-        } else {
-            li = "login";
-            titl = "Not added";
-        }
-        model.addAttribute("links", li);
-        model.addAttribute("titl", titl);
-        return "login";
-    }
+
 }

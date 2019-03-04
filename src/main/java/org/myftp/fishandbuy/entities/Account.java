@@ -14,10 +14,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 public class Account {
 
-//    private String id;
     @Id
     private String email;
     private String password;
+    private String role;
     private String phone;
     private boolean enabled;
 

@@ -32,20 +32,23 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**", "/register", "/adduser", "/index", "/css/*", "/fonts/*", "/img/**", "/js/*"
-                        , "/error/403", "/doc/*", "/error/404", "/doc")
+                .antMatchers("/*", "/user", "/role", "/account", "/index", "/css/*", "/fonts/*", "/img/**", "/js/*", "/doc**")
                 .permitAll()
+                .antMatchers( "/account/**", "/doc/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .successForwardUrl("/")
+//                .successForwardUrl("/")
                 .permitAll()
+//                .and()
+//                .formLogin().loginPage("/index.html")
+//                .loginProcessingUrl("/perform_login")
+//                .defaultSuccessUrl("/index.html",true)
+//                .failureUrl("/index.html?error=true")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
-                .permitAll()
-                .and()
-                .exceptionHandling().accessDeniedPage("/error/403.html");
+                .permitAll();
     }
 }
