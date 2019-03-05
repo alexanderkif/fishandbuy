@@ -10,6 +10,7 @@ $color-active2-shadow2: rgba(50,50,0,0.22);
 @import "../content/content.scss";
 @import "../message/message.scss";
 @import "../login/login.scss";
+@import "../header/header.scss";
 
 html, body {
     height: 100%;
@@ -27,28 +28,36 @@ html, body {
     padding-left: 2vh;
     padding-right: 2vh;
     display: grid;
-    grid-gap: 2em;
+    grid-gap: 1.3rem;
     grid-template-areas:"h h"
                         "m c"
                         "f f";
     grid-template-columns: 200px auto;
-    grid-template-rows: 150px 1fr 100px;
+    grid-template-rows: auto 1fr 100px;
 
     @media screen and (max-width: 900px) {
+        grid-template-areas:"h h h"
+                            ". . m"
+                            "c c c"
+                            "f f f";
+        grid-template-columns: auto;
+        grid-template-rows: auto auto 1fr 100px;
+    }
+
+    @media screen and (max-width: 600px) {
         grid-template-areas:"h"
                             "m"
                             "c"
                             "f";
-        grid-template-columns: auto;
-        grid-template-rows: 150px auto 1fr 100px;
     }
     
     &__header {
         grid-area: h;
-        padding: 20px;
         background-color: $color-active2;
         box-shadow: 0 14px 28px $color-active2-shadow1, 0 10px 10px $color-active2-shadow2; 
         border-radius: 5px;
+        background: linear-gradient($color-active, $color-active2);
+        text-align: -webkit-center;
     }
     
     &__menu {
@@ -57,6 +66,7 @@ html, body {
         background-color: $color-active;
         box-shadow: 0 14px 28px $color-active-shadow1, 0 10px 10px $color-active-shadow2; 
         border-radius: 5px;
+        background: linear-gradient($color-active, $color-active2);
         
         @media screen and (max-width: 900px) {
             padding: 0;
@@ -76,5 +86,6 @@ html, body {
         background-color: $color-active;
         box-shadow: 0 14px 28px $color-active-shadow1, 0 10px 10px $color-active-shadow2;  
         border-radius: 5px;
+        background: linear-gradient($color-active2, $color-active);
     }
 }

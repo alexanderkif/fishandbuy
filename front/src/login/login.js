@@ -2,7 +2,8 @@ import {bind} from 'decko';
 
 class Login {
     constructor(element) {
-        this.main = document.querySelector('.main');
+        this.element = element;
+        this.main = document.querySelector('body');
         this.btn = element.querySelector('.login__btn');
         // this.btn.addEventListener('click', this.openModal);
         this.checkUser();
@@ -77,6 +78,10 @@ class Login {
         this.pass.name = 'password';
         this.grid.appendChild(this.pass);
         this.pass.addEventListener('keyup', this.checkPassword);
+        this.pass.addEventListener('keypress', function (e) {
+            var key = e.which || e.keyCode;
+            if (key === 13) this.clickBtnSbmt();
+        }.bind(this));
     }
 
     @bind
@@ -117,15 +122,14 @@ class Login {
         var form = new FormData();
         form.append("username", this.email.value);
         form.append("password", this.pass.value);
-        var fn = function() { this.checkUser() }.bind(this);
+        var fn = function() { 
+            this.checkUser(); 
+        }.bind(this);
         fetch("login", {
             method: "POST",
             body: form
         })
-            .then(function (response) {
-                // console.log(response);
-                fn();
-            });
+            .then( () => fn() );
         this.main.removeChild(this.shadow);
     }
 
@@ -133,24 +137,23 @@ class Login {
     logout() {
         var fn = function() { this.checkUser() }.bind(this);
         fetch("logout")
-            .then(function (response) {
-                // console.log(response);
-                fn();
-            });
+            .then( () => fn() );
     }
 
     @bind
     checkUser() {        
         var fn = function(text) {
             if (text == "nouser") {
-                this.btn.innerHTML = `Sign in`;
+                this.btn.innerHTML = `Sign in`; 
                 this.btn.removeEventListener('click', this.logout);
                 this.btn.addEventListener('click', this.openModal);
+                this.element.classList.remove('login_logout');
             }
             else {
                 this.btn.innerHTML = `Logout, ${text.split('@')[0]}`;                
                 this.btn.removeEventListener('click', this.openModal);
                 this.btn.addEventListener('click', this.logout);
+                this.element.classList.add('login_logout');
             }
         }.bind(this)
         fetch('user')

@@ -4,11 +4,18 @@
     background-color: inherit;
     border-radius: 5px;
     padding: 5px 10px;
+    font: inherit;
+    width: auto;
+
+    &_logout {
+        background-color: $color-active2;
+    }
 
     &__btn {
         height: 20px;
         width: inherit;
         text-align: center;
+        height: auto;
         cursor: pointer;
     }
 
@@ -24,14 +31,14 @@
     &__grid {
         display: grid;
         width: 400px;
-        // height: 200px;
         position: relative;
-        top: 40%; //calc(50% - 100px);
-        left: calc(50% - 200px);
-        background-color: $color-active;
-        border-radius: 5px;
-        padding: 10px;
-        grid-gap: 10px;
+        font: inherit;
+        margin: 0 auto;
+        top: 40%;
+        background: linear-gradient($color-active, $color-active2);
+        border-radius: 10px;
+        padding: 20px;
+        grid-gap: 15px;
         grid-template-areas:"e e e"
                             "p p p"
                             ". . s";
@@ -52,42 +59,48 @@
         grid-area: p;
     }
 
-    &__submit {
-        grid-area: s;
-    }
-
     &__phone {
         grid-area: f;
+    }
+
+    &__submit {
+        grid-area: s;
+        font: inherit;
+        height: 30px;
+        border-radius: 5px;
+        outline: none;
     }
 
     &__email, &__password, &__phone {
         grid: 2fr;
         width: 100%;
         border: solid 1px lightgray;
-        border-radius: 2px;
-        padding-left: 5px;
-        // outline-color: lightgray;
+        border-radius: 5px;
+        padding-left: 10px;
+        height: 30px;
+        font: inherit;
+        outline: none;
 
         &.error {
-            outline-color: lightpink;
-            // border-color: red;
-            // box-shadow: 1px 1px 5px red;
+            border: solid 2px lightpink;
         }
     }
 
     &__btn-log, &__btn-reg {
         position: absolute;
         width: 185px;
-        height: 25px;
-        top: -25px;
+        height: 30px;
+        top: -30px;
         grid: 1fr;
+        font: inherit;
         background-color: $color-active2;
         border: 0px;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
         padding-left: 5px;
         cursor: pointer;
         opacity: 0.7;
+        outline: none;
 
         &:hover {
             opacity: 1;

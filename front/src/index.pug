@@ -1,5 +1,6 @@
 include ./content/content
 include ./login/login
+include ./header/header
 
 //- - var dataJson = require('./data.json');
 - var page= 'Index'
@@ -15,11 +16,9 @@ html
         link(href="main.css" rel="stylesheet")
         
     body
-        //- .sss1
-        //- .sss2
         .main
             .main__header 
-                .text header
+                +header()
             .main__menu
                 +login()
             .main__content

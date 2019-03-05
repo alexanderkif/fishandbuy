@@ -9821,133 +9821,14 @@ function () {
 
 /***/ }),
 
-/***/ "./src/content/content.js":
-/*!********************************!*\
-  !*** ./src/content/content.js ***!
-  \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./src/img/logo.jpg":
+/*!**************************!*\
+  !*** ./src/img/logo.jpg ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Content; });
-/* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! decko */ "./node_modules/decko/dist/decko.js");
-/* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(decko__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _message_Message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../message/Message */ "./src/message/Message.js");
-var _class;
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object['ke' + 'ys'](descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object['define' + 'Property'](target, property, desc); desc = null; } return desc; }
-
-
-
-var Content = (_class =
-/*#__PURE__*/
-function () {
-  function Content() {
-    _classCallCheck(this, Content);
-
-    this.messages = document.querySelector('.content__messages');
-    this.pages = document.querySelector('.content__pages');
-    this.getDocs(1);
-    this.pages.addEventListener('click', this.clickPage);
-  } // @bind
-  // cclick() {
-  //     this.getJson('http://localhost:8080/doc/5aa38122941b260001cd3314', function(data){
-  //     this.messages.textContent = JSON.stringify(data);
-  //     }.bind(this));
-  // }
-  // var form = new FormData(document.getElementById('login-form'));
-  // fetch("/login", {
-  // method: "POST",
-  // body: form
-  // });
-
-
-  _createClass(Content, [{
-    key: "clickPage",
-    value: function clickPage(e) {
-      if (e.target.classList.contains("content__page_current")) return;
-      if (e.target.classList.contains("content__pages")) return;
-      this.messages.innerHTML = '';
-      this.pages.innerHTML = '';
-      this.getDocs(e.target.firstChild.nodeValue);
-    }
-  }, {
-    key: "getDocs",
-    value: function getDocs(page) {
-      this.getJson('doc?page=' + page, function (data) {
-        var _this = this;
-
-        data[0].forEach(function (message) {
-          var element = document.createElement("div");
-          element.className = "content__item";
-          var mess = new _message_Message__WEBPACK_IMPORTED_MODULE_1__["default"](message);
-          element.appendChild(mess);
-
-          _this.messages.appendChild(element);
-        });
-
-        for (var index = 0; index < data[2]; index++) {
-          var element = document.createElement("div");
-          element.className = "content__page";
-          if (index + 1 == +page) element.className += " content__page_current";
-          element.textContent = index + 1;
-          this.pages.appendChild(element);
-        }
-      }.bind(this));
-    }
-  }, {
-    key: "getJson",
-    value: function () {
-      var _getJson = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee(url, fn) {
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return fetch(url).then(function (response) {
-                  return response.json().then(function (data) {
-                    return {
-                      data: data,
-                      status: response.status
-                    };
-                  }).then(function (res) {
-                    fn(res.data);
-                    console.log(res.status, res.data);
-                  });
-                });
-
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function getJson(_x, _x2) {
-        return _getJson.apply(this, arguments);
-      }
-
-      return getJson;
-    }()
-  }]);
-
-  return Content;
-}(), (_applyDecoratedDescriptor(_class.prototype, "clickPage", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickPage"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "getDocs", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "getDocs"), _class.prototype)), _class);
-
+module.exports = __webpack_require__.p + "img/logo.jpg";
 
 /***/ }),
 
@@ -9966,13 +9847,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_polyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_polyfill__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scss/main.scss */ "./src/scss/main.scss");
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scss_main_scss__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _content_content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./content/content */ "./src/content/content.js");
-/* harmony import */ var _content_Content__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./content/Content */ "./src/content/Content.js");
-/* harmony import */ var _login_login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./login/login */ "./src/login/login.js");
+/* harmony import */ var _content_Content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./content/Content */ "./src/content/Content.js");
+/* harmony import */ var _login_login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login/login */ "./src/login/login.js");
+/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./img/logo.jpg */ "./src/img/logo.jpg");
+/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_img_logo_jpg__WEBPACK_IMPORTED_MODULE_5__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
 
+ // import "./content/content";
 
 
 
@@ -9981,7 +9864,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var CV = function CV() {
   _classCallCheck(this, CV);
 
-  this.content = new _content_Content__WEBPACK_IMPORTED_MODULE_4__["default"]();
+  this.content = new _content_Content__WEBPACK_IMPORTED_MODULE_3__["default"]();
 };
 
 var cv = new CV();
@@ -10020,7 +9903,8 @@ function () {
   function Login(element) {
     _classCallCheck(this, Login);
 
-    this.main = document.querySelector('.main');
+    this.element = element;
+    this.main = document.querySelector('body');
     this.btn = element.querySelector('.login__btn'); // this.btn.addEventListener('click', this.openModal);
 
     this.checkUser();
@@ -10098,6 +9982,10 @@ function () {
       this.pass.name = 'password';
       this.grid.appendChild(this.pass);
       this.pass.addEventListener('keyup', this.checkPassword);
+      this.pass.addEventListener('keypress', function (e) {
+        var key = e.which || e.keyCode;
+        if (key === 13) this.clickBtnSbmt();
+      }.bind(this));
     }
   }, {
     key: "createEmail",
@@ -10178,9 +10066,8 @@ function () {
       fetch("login", {
         method: "POST",
         body: form
-      }).then(function (response) {
-        // console.log(response);
-        fn();
+      }).then(function () {
+        return fn();
       });
       this.main.removeChild(this.shadow);
     }
@@ -10191,9 +10078,8 @@ function () {
         this.checkUser();
       }.bind(this);
 
-      fetch("logout").then(function (response) {
-        // console.log(response);
-        fn();
+      fetch("logout").then(function () {
+        return fn();
       });
     }
   }, {
@@ -10204,10 +10090,12 @@ function () {
           this.btn.innerHTML = "Sign in";
           this.btn.removeEventListener('click', this.logout);
           this.btn.addEventListener('click', this.openModal);
+          this.element.classList.remove('login_logout');
         } else {
           this.btn.innerHTML = "Logout, ".concat(text.split('@')[0]);
           this.btn.removeEventListener('click', this.openModal);
           this.btn.addEventListener('click', this.logout);
+          this.element.classList.add('login_logout');
         }
       }.bind(this);
 
