@@ -4,7 +4,8 @@ class Login {
     constructor(element) {
         this.main = document.querySelector('.main');
         this.btn = element.querySelector('.login__btn');
-        this.btn.addEventListener('click', this.openModal);
+        // this.btn.addEventListener('click', this.openModal);
+        this.checkUser();
     }
 
     @bind
@@ -105,26 +106,59 @@ class Login {
     async addUser() {
         await fetch('account', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ "email": this.email.value, "pass": this.pass.value, "phone": this.phone.value})})
         .then(function (response) {
+            // console.log(response);
             alert(response.status);
         });
         this.main.removeChild(this.shadow);
     }
 
     @bind
-    async login() {
+    login() {
         var form = new FormData();
         form.append("username", this.email.value);
         form.append("password", this.pass.value);
-        await fetch("login", {
+        var fn = function() { this.checkUser() }.bind(this);
+        fetch("login", {
             method: "POST",
             body: form
-          })
-        // await fetch('login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ "username": this.email.value, "password": this.pass.value})})
-        .then(function (response) {
-            console.log(response);
-            alert(response.status);
-        });
+        })
+            .then(function (response) {
+                // console.log(response);
+                fn();
+            });
         this.main.removeChild(this.shadow);
+    }
+
+    @bind
+    logout() {
+        var fn = function() { this.checkUser() }.bind(this);
+        fetch("logout")
+            .then(function (response) {
+                // console.log(response);
+                fn();
+            });
+    }
+
+    @bind
+    checkUser() {        
+        var fn = function(text) {
+            if (text == "nouser") {
+                this.btn.innerHTML = `Sign in`;
+                this.btn.removeEventListener('click', this.logout);
+                this.btn.addEventListener('click', this.openModal);
+            }
+            else {
+                this.btn.innerHTML = `Logout, ${text.split('@')[0]}`;                
+                this.btn.removeEventListener('click', this.openModal);
+                this.btn.addEventListener('click', this.logout);
+            }
+        }.bind(this)
+        fetch('user')
+        .then(function(response) {
+            return response.text().then(function(text) {
+                fn(text);
+            });
+        });
     }
 
     @bind

@@ -10021,8 +10021,9 @@ function () {
     _classCallCheck(this, Login);
 
     this.main = document.querySelector('.main');
-    this.btn = element.querySelector('.login__btn');
-    this.btn.addEventListener('click', this.openModal);
+    this.btn = element.querySelector('.login__btn'); // this.btn.addEventListener('click', this.openModal);
+
+    this.checkUser();
   }
 
   _createClass(Login, [{
@@ -10142,6 +10143,7 @@ function () {
                     "phone": this.phone.value
                   })
                 }).then(function (response) {
+                  // console.log(response);
                   alert(response.status);
                 });
 
@@ -10164,45 +10166,57 @@ function () {
     }()
   }, {
     key: "login",
-    value: function () {
-      var _login = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2() {
-        var form;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                form = new FormData();
-                form.append("username", this.email.value);
-                form.append("password", this.pass.value);
-                _context2.next = 5;
-                return fetch("login", {
-                  method: "POST",
-                  body: form
-                }) // await fetch('login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ "username": this.email.value, "password": this.pass.value})})
-                .then(function (response) {
-                  console.log(response);
-                  alert(response.status);
-                });
+    value: function login() {
+      var form = new FormData();
+      form.append("username", this.email.value);
+      form.append("password", this.pass.value);
 
-              case 5:
-                this.main.removeChild(this.shadow);
+      var fn = function () {
+        this.checkUser();
+      }.bind(this);
 
-              case 6:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
+      fetch("login", {
+        method: "POST",
+        body: form
+      }).then(function (response) {
+        // console.log(response);
+        fn();
+      });
+      this.main.removeChild(this.shadow);
+    }
+  }, {
+    key: "logout",
+    value: function logout() {
+      var fn = function () {
+        this.checkUser();
+      }.bind(this);
 
-      function login() {
-        return _login.apply(this, arguments);
-      }
+      fetch("logout").then(function (response) {
+        // console.log(response);
+        fn();
+      });
+    }
+  }, {
+    key: "checkUser",
+    value: function checkUser() {
+      var fn = function (text) {
+        if (text == "nouser") {
+          this.btn.innerHTML = "Sign in";
+          this.btn.removeEventListener('click', this.logout);
+          this.btn.addEventListener('click', this.openModal);
+        } else {
+          this.btn.innerHTML = "Logout, ".concat(text.split('@')[0]);
+          this.btn.removeEventListener('click', this.openModal);
+          this.btn.addEventListener('click', this.logout);
+        }
+      }.bind(this);
 
-      return login;
-    }()
+      fetch('user').then(function (response) {
+        return response.text().then(function (text) {
+          fn(text);
+        });
+      });
+    }
   }, {
     key: "clickBtnLog",
     value: function clickBtnLog() {
@@ -10277,7 +10291,7 @@ function () {
   }]);
 
   return Login;
-}(), (_applyDecoratedDescriptor(_class.prototype, "openModal", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "openModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "closeModal", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "closeModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createGrid", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createGrid"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createBtnSubmit", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createBtnSubmit"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createTabRegister", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createTabRegister"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createTabLogin", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createTabLogin"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnSbmt", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnSbmt"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addUser", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addUser"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "login", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "login"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnLog", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnLog"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnReg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnReg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPhone", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPhone"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkButton", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkButton"), _class.prototype)), _class);
+}(), (_applyDecoratedDescriptor(_class.prototype, "openModal", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "openModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "closeModal", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "closeModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createGrid", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createGrid"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createBtnSubmit", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createBtnSubmit"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createTabRegister", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createTabRegister"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createTabLogin", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createTabLogin"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnSbmt", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnSbmt"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addUser", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addUser"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "login", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "login"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "logout", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "logout"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkUser", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkUser"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnLog", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnLog"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnReg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnReg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPhone", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPhone"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkButton", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkButton"), _class.prototype)), _class);
 var loginElement = document.querySelector('.login');
 if (loginElement) new Login(loginElement);
 

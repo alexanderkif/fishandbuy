@@ -38,7 +38,11 @@ public class IndexController {
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     @ResponseBody
     public String currentUserName(Principal principal) {
-        return principal.getName();
+        try {
+            return principal.getName();
+        } catch (Exception e) {
+            return "nouser";
+        }
     }
 
     @RequestMapping(value = "/role", method = RequestMethod.GET)
