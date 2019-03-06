@@ -2,8 +2,9 @@
 $color-active: rgb(230, 250, 230);
 $color-active-shadow1: rgba(0,50,0,0.25);
 $color-active-shadow2: rgba(0,50,0,0.22);
-$color-active-bright: rgb(180, 215, 180);
+$color-active-bright: rgb(220, 240, 220);
 $color-active2: rgb(250, 250, 230);
+$color-active2-bright: rgb(250, 250, 210);
 $color-active2-shadow1: rgba(50,50,0,0.25);
 $color-active2-shadow2: rgba(50,50,0,0.22);
 
@@ -11,6 +12,7 @@ $color-active2-shadow2: rgba(50,50,0,0.22);
 @import "../message/message.scss";
 @import "../login/login.scss";
 @import "../header/header.scss";
+@import "../menu/menu.scss";
 
 html, body {
     height: 100%;
@@ -37,7 +39,7 @@ html, body {
 
     @media screen and (max-width: 900px) {
         grid-template-areas:"h h h"
-                            ". . m"
+                            "m m m"
                             "c c c"
                             "f f f";
         grid-template-columns: auto;
@@ -67,16 +69,14 @@ html, body {
         box-shadow: 0 14px 28px $color-active-shadow1, 0 10px 10px $color-active-shadow2; 
         border-radius: 5px;
         background: linear-gradient($color-active, $color-active2);
-        
+
         @media screen and (max-width: 900px) {
-            padding: 0;
-            height: fit-content;
+            padding: 5px 20px;
         }
     }
     
     &__content {
         grid-area: c;
-        // background-color: paleturquoise;
         border-radius: 5px;
     }
     

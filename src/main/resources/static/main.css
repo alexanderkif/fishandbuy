@@ -12,12 +12,12 @@
   border-radius: 3px; }
   .content__page:hover {
     transform: scale(1.1);
-    background-color: #b4d7b4;
+    background-color: #dcf0dc;
     color: white;
     cursor: pointer; }
   .content__page_current {
     background-color: #fafae6;
-    border: 2px solid #b4d7b4; }
+    border: 2px solid #dcf0dc; }
     .content__page_current:hover {
       transform: none;
       background-color: #fafae6;
@@ -65,7 +65,7 @@
     padding-left: 20px; }
   .message__date {
     grid-area: d;
-    background-color: #b4d7b4;
+    background-color: #dcf0dc;
     color: white;
     font-size: 10px;
     padding: 3px 5px;
@@ -81,13 +81,18 @@
 
 .login {
   border: solid 1px lightgray;
-  background-color: inherit;
+  background-color: #e6fae6;
   border-radius: 5px;
   padding: 5px 10px;
   font: inherit;
-  width: auto; }
+  width: auto;
+  min-width: 70px; }
+  .login:hover {
+    background-color: #dcf0dc; }
   .login_logout {
     background-color: #fafae6; }
+    .login_logout:hover {
+      background-color: lightgoldenrodyellow; }
   .login__btn {
     height: 20px;
     width: inherit;
@@ -126,7 +131,11 @@
     font: inherit;
     height: 30px;
     border-radius: 5px;
+    border: solid 1px #dcf0dc;
+    background-color: #e6fae6;
     outline: none; }
+    .login__submit:hover {
+      background-color: #dcf0dc; }
   .login__email, .login__password, .login__phone {
     grid: 2fr;
     width: 100%;
@@ -191,6 +200,32 @@
     opacity: 0.6;
     text-shadow: 0 14px 28px rgba(0, 50, 0, 0.25), 7px 10px 10px rgba(0, 50, 0, 0.42); }
 
+.menu {
+  display: flex;
+  flex-direction: column; }
+  @media screen and (max-width: 900px) {
+    .menu {
+      padding: 0;
+      height: fit-content;
+      flex-direction: row;
+      justify-content: start; } }
+  .menu__item {
+    border: solid 1px lightgray;
+    margin-bottom: 10px;
+    width: auto;
+    min-width: 70px;
+    height: 20px;
+    padding: 5px 10px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #e6fae6; }
+    @media screen and (max-width: 900px) {
+      .menu__item {
+        margin-right: 10px;
+        margin-bottom: 0px; } }
+    .menu__item:hover {
+      background-color: #dcf0dc; }
+
 html, body {
   height: 100%;
   max-width: 1024px;
@@ -212,7 +247,7 @@ html, body {
   grid-template-rows: auto 1fr 100px; }
   @media screen and (max-width: 900px) {
     .main {
-      grid-template-areas: "h h h" ". . m" "c c c" "f f f";
+      grid-template-areas: "h h h" "m m m" "c c c" "f f f";
       grid-template-columns: auto;
       grid-template-rows: auto auto 1fr 100px; } }
   @media screen and (max-width: 600px) {
@@ -234,8 +269,7 @@ html, body {
     background: linear-gradient(#e6fae6, #fafae6); }
     @media screen and (max-width: 900px) {
       .main__menu {
-        padding: 0;
-        height: fit-content; } }
+        padding: 5px 20px; } }
   .main__content {
     grid-area: c;
     border-radius: 5px; }

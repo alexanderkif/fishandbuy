@@ -1,0 +1,32 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    
+    @media screen and (max-width: 900px) {
+        padding: 0;
+        height: fit-content;
+        flex-direction: row;
+        justify-content: start;
+    }
+
+    &__item {
+        border: solid 1px lightgray;
+        margin-bottom: 10px;
+        width: auto;
+        min-width: 70px;
+        height: 20px;
+        padding: 5px 10px;
+        text-align: center;
+        border-radius: 5px;
+        background-color: $color-active;
+
+        @media screen and (max-width: 900px) {
+            margin-right: 10px;
+            margin-bottom: 0px;
+        }
+
+        &:hover {
+            background-color: $color-active-bright;
+        }
+    }
+}

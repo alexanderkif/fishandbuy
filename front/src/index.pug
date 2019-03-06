@@ -1,6 +1,7 @@
 include ./content/content
 include ./login/login
 include ./header/header
+include ./menu/menu
 
 //- - var dataJson = require('./data.json');
 - var page= 'Index'
@@ -20,7 +21,7 @@ html
             .main__header 
                 +header()
             .main__menu
-                +login()
+                +menu()
             .main__content
                 +content()
             .main__footer footer

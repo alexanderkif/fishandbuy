@@ -1,14 +1,23 @@
 
 .login {
     border: solid 1px lightgray;
-    background-color: inherit;
+    background-color: $color-active;
     border-radius: 5px;
     padding: 5px 10px;
     font: inherit;
     width: auto;
+    min-width: 70px;
+
+    &:hover {
+        background-color: $color-active-bright;
+    }
 
     &_logout {
         background-color: $color-active2;
+
+        &:hover {
+            background-color: $color-active2-bright;
+        }
     }
 
     &__btn {
@@ -68,7 +77,13 @@
         font: inherit;
         height: 30px;
         border-radius: 5px;
+        border: solid 1px $color-active-bright;
+        background-color: $color-active;
         outline: none;
+
+        &:hover {
+            background-color: $color-active-bright;
+        }
     }
 
     &__email, &__password, &__phone {

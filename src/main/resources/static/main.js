@@ -9848,14 +9848,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scss/main.scss */ "./src/scss/main.scss");
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scss_main_scss__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _content_Content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./content/Content */ "./src/content/Content.js");
-/* harmony import */ var _login_login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login/login */ "./src/login/login.js");
-/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./img/logo.jpg */ "./src/img/logo.jpg");
-/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_img_logo_jpg__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _menu_Menu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menu/Menu */ "./src/menu/Menu.js");
+/* harmony import */ var _login_Login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./login/Login */ "./src/login/Login.js");
+/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./img/logo.jpg */ "./src/img/logo.jpg");
+/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_img_logo_jpg__WEBPACK_IMPORTED_MODULE_6__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
 
- // import "./content/content";
+
 
 
 
@@ -9865,15 +9866,16 @@ var CV = function CV() {
   _classCallCheck(this, CV);
 
   this.content = new _content_Content__WEBPACK_IMPORTED_MODULE_3__["default"]();
+  this.menu = new _menu_Menu__WEBPACK_IMPORTED_MODULE_4__["default"]();
 };
 
 var cv = new CV();
 
 /***/ }),
 
-/***/ "./src/login/login.js":
+/***/ "./src/login/Login.js":
 /*!****************************!*\
-  !*** ./src/login/login.js ***!
+  !*** ./src/login/Login.js ***!
   \****************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -10182,6 +10184,86 @@ function () {
 }(), (_applyDecoratedDescriptor(_class.prototype, "openModal", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "openModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "closeModal", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "closeModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createGrid", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createGrid"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createBtnSubmit", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createBtnSubmit"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createTabRegister", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createTabRegister"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createTabLogin", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createTabLogin"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnSbmt", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnSbmt"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addUser", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addUser"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "login", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "login"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "logout", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "logout"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkUser", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkUser"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnLog", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnLog"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnReg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnReg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPhone", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPhone"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkButton", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkButton"), _class.prototype)), _class);
 var loginElement = document.querySelector('.login');
 if (loginElement) new Login(loginElement);
+
+/***/ }),
+
+/***/ "./src/menu/Menu.js":
+/*!**************************!*\
+  !*** ./src/menu/Menu.js ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Menu; });
+/* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! decko */ "./node_modules/decko/dist/decko.js");
+/* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(decko__WEBPACK_IMPORTED_MODULE_0__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+ // import Message from '../message/Message'
+
+var Menu = function Menu() {
+  _classCallCheck(this, Menu);
+} // this.messages = document.querySelector('.content__messages');
+// this.pages = document.querySelector('.content__pages');        
+// this.getDocs(1);
+// this.pages.addEventListener('click', this.clickPage);
+// @bind
+// cclick() {
+//     this.getJson('http://localhost:8080/doc/5aa38122941b260001cd3314', function(data){
+//     this.messages.textContent = JSON.stringify(data);
+//     }.bind(this));
+// }
+// var form = new FormData(document.getElementById('login-form'));
+// fetch("/login", {
+// method: "POST",
+// body: form
+// });
+// @bind
+// clickPage(e){
+//     if(e.target.classList.contains("content__page_current")) return;
+//     if(e.target.classList.contains("content__pages")) return;
+//     this.messages.innerHTML = '';
+//     this.pages.innerHTML = '';
+//     this.getDocs(e.target.firstChild.nodeValue);
+// }
+// @bind
+// getDocs(page) {
+//     this.getJson('doc?page=' + page, function(data){
+//         data[0].forEach(message => {
+//             var element = document.createElement("div");
+//             element.className = "content__item";
+//             var mess = new Message(message);
+//             element.appendChild(mess);
+//             this.messages.appendChild(element);
+//         });
+//         for (let index = 0; index < data[2]; index++) {
+//             var element = document.createElement("div");
+//             element.className = "content__page";
+//             if (index+1 == +page)
+//                 element.className += " content__page_current";
+//             element.textContent = index+1;
+//             this.pages.appendChild(element);                
+//         }
+//     }.bind(this));
+// }
+// async getJson(url, fn) {
+//     await fetch(url)
+//     .then(response => 
+//         response.json().then(data => ({
+//             data: data,
+//             status: response.status
+//         })
+//         ).then(res => {
+//             fn(res.data);
+//             console.log(res.status, res.data);
+//         })
+//     );
+// }
+;
+
+
 
 /***/ }),
 
