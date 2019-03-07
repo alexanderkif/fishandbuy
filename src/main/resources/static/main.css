@@ -225,6 +225,8 @@
         margin-bottom: 0px; } }
     .menu__item:hover {
       background-color: #dcf0dc; }
+    .menu__item_hidden {
+      display: none; }
 
 html, body {
   height: 100%;

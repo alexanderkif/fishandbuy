@@ -1,11 +1,26 @@
 import { bind } from 'decko';
-// import Message from '../message/Message'
+import Login from '../login/Login';
 
 export default class Menu {
     constructor(){
-        // this.messages = document.querySelector('.content__messages');
-        // this.pages = document.querySelector('.content__pages');        
-        // this.getDocs(1);
+        this.home = document.querySelector('.menu__item_home');
+        this.add = document.querySelector('.menu__item_add');
+        this.lots = document.querySelector('.menu__item_lots');
+        this.about = document.querySelector('.menu__item_about');
+        var loginElement = document.querySelector('.login');
+        if (loginElement) {
+            this.login = new Login(loginElement);
+            this.login.subscribe(function(data) {
+                if (data.user == "nouser") {
+                    this.add.classList.add('menu__item_hidden');
+                    this.lots.classList.add('menu__item_hidden');
+                }
+                else {
+                    this.add.classList.remove('menu__item_hidden');
+                    this.lots.classList.remove('menu__item_hidden');
+                }
+            }.bind(this));
+        };
         // this.pages.addEventListener('click', this.clickPage);
     }
     

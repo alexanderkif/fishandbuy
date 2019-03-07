@@ -9821,6 +9821,59 @@ function () {
 
 /***/ }),
 
+/***/ "./src/eventobserver/EventObserver.js":
+/*!********************************************!*\
+  !*** ./src/eventobserver/EventObserver.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return EventObserver; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var EventObserver =
+/*#__PURE__*/
+function () {
+  function EventObserver() {
+    _classCallCheck(this, EventObserver);
+
+    this.observers = [];
+  }
+
+  _createClass(EventObserver, [{
+    key: "subscribe",
+    value: function subscribe(fn) {
+      this.observers.push(fn);
+    }
+  }, {
+    key: "unsubscribe",
+    value: function unsubscribe(fn) {
+      this.observers = this.observers.filter(function (subscriber) {
+        return subscriber !== fn;
+      });
+    }
+  }, {
+    key: "broadcast",
+    value: function broadcast(data) {
+      this.observers.forEach(function (subscriber) {
+        return subscriber(data);
+      });
+    }
+  }]);
+
+  return EventObserver;
+}();
+
+
+
+/***/ }),
+
 /***/ "./src/img/logo.jpg":
 /*!**************************!*\
   !*** ./src/img/logo.jpg ***!
@@ -9849,16 +9902,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scss_main_scss__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _content_Content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./content/Content */ "./src/content/Content.js");
 /* harmony import */ var _menu_Menu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menu/Menu */ "./src/menu/Menu.js");
-/* harmony import */ var _login_Login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./login/Login */ "./src/login/Login.js");
-/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./img/logo.jpg */ "./src/img/logo.jpg");
-/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_img_logo_jpg__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./img/logo.jpg */ "./src/img/logo.jpg");
+/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_img_logo_jpg__WEBPACK_IMPORTED_MODULE_5__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
 
 
 
-
+ // import "./login/Login";
 
 
 
@@ -9877,14 +9929,18 @@ var cv = new CV();
 /*!****************************!*\
   !*** ./src/login/Login.js ***!
   \****************************/
-/*! no exports provided */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Login; });
 /* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! decko */ "./node_modules/decko/dist/decko.js");
 /* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(decko__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _eventobserver_EventObserver__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../eventobserver/EventObserver */ "./src/eventobserver/EventObserver.js");
 var _class;
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -9896,20 +9952,38 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object['ke' + 'ys'](descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object['define' + 'Property'](target, property, desc); desc = null; } return desc; }
+
 
 
 var Login = (_class =
 /*#__PURE__*/
-function () {
+function (_EventObserver) {
+  _inherits(Login, _EventObserver);
+
   function Login(element) {
+    var _this;
+
     _classCallCheck(this, Login);
 
-    this.element = element;
-    this.main = document.querySelector('body');
-    this.btn = element.querySelector('.login__btn'); // this.btn.addEventListener('click', this.openModal);
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Login).call(this));
+    _this.element = element;
+    _this.main = document.querySelector('body');
+    _this.btn = element.querySelector('.login__btn'); // this.btn.addEventListener('click', this.openModal);
 
-    this.checkUser();
+    _this.checkUser();
+
+    return _possibleConstructorReturn(_this, _assertThisInitialized(_assertThisInitialized(_this)));
   }
 
   _createClass(Login, [{
@@ -10099,6 +10173,10 @@ function () {
           this.btn.addEventListener('click', this.logout);
           this.element.classList.add('login_logout');
         }
+
+        this.broadcast({
+          user: text
+        });
       }.bind(this);
 
       fetch('user').then(function (response) {
@@ -10181,9 +10259,8 @@ function () {
   }]);
 
   return Login;
-}(), (_applyDecoratedDescriptor(_class.prototype, "openModal", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "openModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "closeModal", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "closeModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createGrid", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createGrid"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createBtnSubmit", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createBtnSubmit"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createTabRegister", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createTabRegister"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createTabLogin", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createTabLogin"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnSbmt", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnSbmt"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addUser", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addUser"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "login", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "login"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "logout", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "logout"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkUser", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkUser"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnLog", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnLog"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnReg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnReg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPhone", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPhone"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkButton", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkButton"), _class.prototype)), _class);
-var loginElement = document.querySelector('.login');
-if (loginElement) new Login(loginElement);
+}(_eventobserver_EventObserver__WEBPACK_IMPORTED_MODULE_1__["default"]), (_applyDecoratedDescriptor(_class.prototype, "openModal", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "openModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "closeModal", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "closeModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createGrid", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createGrid"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createBtnSubmit", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createBtnSubmit"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createTabRegister", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createTabRegister"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createTabLogin", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createTabLogin"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnSbmt", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnSbmt"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addUser", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addUser"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "login", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "login"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "logout", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "logout"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkUser", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkUser"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnLog", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnLog"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickBtnReg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickBtnReg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPassword", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPassword"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkPhone", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkPhone"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "checkButton", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "checkButton"), _class.prototype)), _class);
+
 
 /***/ }),
 
@@ -10199,17 +10276,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Menu; });
 /* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! decko */ "./node_modules/decko/dist/decko.js");
 /* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(decko__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _login_Login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../login/Login */ "./src/login/Login.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
- // import Message from '../message/Message'
+
+
 
 var Menu = function Menu() {
   _classCallCheck(this, Menu);
-} // this.messages = document.querySelector('.content__messages');
-// this.pages = document.querySelector('.content__pages');        
-// this.getDocs(1);
-// this.pages.addEventListener('click', this.clickPage);
-// @bind
+
+  this.home = document.querySelector('.menu__item_home');
+  this.add = document.querySelector('.menu__item_add');
+  this.lots = document.querySelector('.menu__item_lots');
+  this.about = document.querySelector('.menu__item_about');
+  var loginElement = document.querySelector('.login');
+
+  if (loginElement) {
+    this.login = new _login_Login__WEBPACK_IMPORTED_MODULE_1__["default"](loginElement);
+    this.login.subscribe(function (data) {
+      if (data.user == "nouser") {
+        this.add.classList.add('menu__item_hidden');
+        this.lots.classList.add('menu__item_hidden');
+      } else {
+        this.add.classList.remove('menu__item_hidden');
+        this.lots.classList.remove('menu__item_hidden');
+      }
+    }.bind(this));
+  }
+
+  ; // this.pages.addEventListener('click', this.clickPage);
+} // @bind
 // cclick() {
 //     this.getJson('http://localhost:8080/doc/5aa38122941b260001cd3314', function(data){
 //     this.messages.textContent = JSON.stringify(data);

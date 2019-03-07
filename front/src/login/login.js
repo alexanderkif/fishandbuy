@@ -1,12 +1,15 @@
 import {bind} from 'decko';
+import EventObserver from "../eventobserver/EventObserver";
 
-class Login {
+export default class Login extends EventObserver {
     constructor(element) {
+        super();
         this.element = element;
         this.main = document.querySelector('body');
         this.btn = element.querySelector('.login__btn');
         // this.btn.addEventListener('click', this.openModal);
         this.checkUser();
+        return this;
     }
 
     @bind
@@ -155,7 +158,8 @@ class Login {
                 this.btn.addEventListener('click', this.logout);
                 this.element.classList.add('login_logout');
             }
-        }.bind(this)
+            this.broadcast({user: text});
+        }.bind(this);
         fetch('user')
         .then(function(response) {
             return response.text().then(function(text) {
@@ -237,5 +241,3 @@ class Login {
     }
 }
 
-var loginElement = document.querySelector('.login');
-if (loginElement) new Login(loginElement);
