@@ -6,8 +6,7 @@ export default class Login extends EventObserver {
         super();
         this.element = element;
         this.main = document.querySelector('body');
-        this.btn = element.querySelector('.login__btn');
-        // this.btn.addEventListener('click', this.openModal);
+        this.btn = element.querySelector('.login__txt');
         this.checkUser();
         return this;
     }
@@ -105,7 +104,6 @@ export default class Login extends EventObserver {
             this.addUser();
         }
         else {
-            //login
             this.login();
         }      
     }
@@ -114,7 +112,6 @@ export default class Login extends EventObserver {
     async addUser() {
         await fetch('account', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ "email": this.email.value, "pass": this.pass.value, "phone": this.phone.value})})
         .then(function (response) {
-            // console.log(response);
             alert(response.status);
         });
         this.main.removeChild(this.shadow);
@@ -148,14 +145,14 @@ export default class Login extends EventObserver {
         var fn = function(text) {
             if (text == "nouser") {
                 this.btn.innerHTML = `Sign in`; 
-                this.btn.removeEventListener('click', this.logout);
-                this.btn.addEventListener('click', this.openModal);
+                this.element.removeEventListener('click', this.logout);
+                this.element.addEventListener('click', this.openModal);
                 this.element.classList.remove('login_logout');
             }
             else {
                 this.btn.innerHTML = `Logout, ${text.split('@')[0]}`;                
-                this.btn.removeEventListener('click', this.openModal);
-                this.btn.addEventListener('click', this.logout);
+                this.element.removeEventListener('click', this.openModal);
+                this.element.addEventListener('click', this.logout);
                 this.element.classList.add('login_logout');
             }
             this.broadcast({user: text});

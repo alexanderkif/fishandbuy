@@ -86,19 +86,19 @@
   padding: 5px 10px;
   font: inherit;
   width: auto;
-  min-width: 70px; }
+  min-width: 70px;
+  cursor: pointer; }
   .login:hover {
     background-color: #dcf0dc; }
   .login_logout {
     background-color: #fafae6; }
     .login_logout:hover {
       background-color: lightgoldenrodyellow; }
-  .login__btn {
+  .login__txt {
     height: 20px;
     width: inherit;
     text-align: center;
-    height: auto;
-    cursor: pointer; }
+    height: auto; }
   .login__shadow {
     background-color: rgba(0, 0, 0, 0.7);
     width: 100%;
@@ -133,7 +133,8 @@
     border-radius: 5px;
     border: solid 1px #dcf0dc;
     background-color: #e6fae6;
-    outline: none; }
+    outline: none;
+    cursor: pointer; }
     .login__submit:hover {
       background-color: #dcf0dc; }
   .login__email, .login__password, .login__phone {
@@ -212,13 +213,12 @@
   .menu__item {
     border: solid 1px lightgray;
     margin-bottom: 10px;
-    width: auto;
     min-width: 70px;
-    height: 20px;
     padding: 5px 10px;
-    text-align: center;
     border-radius: 5px;
-    background-color: #e6fae6; }
+    background-color: #e6fae6;
+    cursor: pointer;
+    display: flex; }
     @media screen and (max-width: 900px) {
       .menu__item {
         margin-right: 10px;
@@ -227,6 +227,8 @@
       background-color: #dcf0dc; }
     .menu__item_hidden {
       display: none; }
+  .menu__txt {
+    margin: auto; }
 
 html, body {
   height: 100%;

@@ -9874,6 +9874,17 @@ function () {
 
 /***/ }),
 
+/***/ "./src/favicon.ico":
+/*!*************************!*\
+  !*** ./src/favicon.ico ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "/favicon.ico";
+
+/***/ }),
+
 /***/ "./src/img/logo.jpg":
 /*!**************************!*\
   !*** ./src/img/logo.jpg ***!
@@ -9900,25 +9911,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_polyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_polyfill__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scss/main.scss */ "./src/scss/main.scss");
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scss_main_scss__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _content_Content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./content/Content */ "./src/content/Content.js");
-/* harmony import */ var _menu_Menu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menu/Menu */ "./src/menu/Menu.js");
-/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./img/logo.jpg */ "./src/img/logo.jpg");
-/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_img_logo_jpg__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _menu_Menu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./menu/Menu */ "./src/menu/Menu.js");
+/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./img/logo.jpg */ "./src/img/logo.jpg");
+/* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_img_logo_jpg__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./favicon.ico */ "./src/favicon.ico");
+/* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_favicon_ico__WEBPACK_IMPORTED_MODULE_6__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
 
 
 
- // import "./login/Login";
 
 
 
 var CV = function CV() {
   _classCallCheck(this, CV);
 
-  this.content = new _content_Content__WEBPACK_IMPORTED_MODULE_3__["default"]();
-  this.menu = new _menu_Menu__WEBPACK_IMPORTED_MODULE_4__["default"]();
+  this.menu = new _menu_Menu__WEBPACK_IMPORTED_MODULE_3__["default"]();
 };
 
 var cv = new CV();
@@ -9979,7 +9989,7 @@ function (_EventObserver) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Login).call(this));
     _this.element = element;
     _this.main = document.querySelector('body');
-    _this.btn = element.querySelector('.login__btn'); // this.btn.addEventListener('click', this.openModal);
+    _this.btn = element.querySelector('.login__txt');
 
     _this.checkUser();
 
@@ -10081,7 +10091,6 @@ function (_EventObserver) {
         //register
         this.addUser();
       } else {
-        //login
         this.login();
       }
     }
@@ -10107,7 +10116,6 @@ function (_EventObserver) {
                     "phone": this.phone.value
                   })
                 }).then(function (response) {
-                  // console.log(response);
                   alert(response.status);
                 });
 
@@ -10164,13 +10172,13 @@ function (_EventObserver) {
       var fn = function (text) {
         if (text == "nouser") {
           this.btn.innerHTML = "Sign in";
-          this.btn.removeEventListener('click', this.logout);
-          this.btn.addEventListener('click', this.openModal);
+          this.element.removeEventListener('click', this.logout);
+          this.element.addEventListener('click', this.openModal);
           this.element.classList.remove('login_logout');
         } else {
           this.btn.innerHTML = "Logout, ".concat(text.split('@')[0]);
-          this.btn.removeEventListener('click', this.openModal);
-          this.btn.addEventListener('click', this.logout);
+          this.element.removeEventListener('click', this.openModal);
+          this.element.addEventListener('click', this.logout);
           this.element.classList.add('login_logout');
         }
 
@@ -10277,7 +10285,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! decko */ "./node_modules/decko/dist/decko.js");
 /* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(decko__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _login_Login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../login/Login */ "./src/login/Login.js");
+/* harmony import */ var _content_Content__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../content/Content */ "./src/content/Content.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -10304,7 +10314,8 @@ var Menu = function Menu() {
     }.bind(this));
   }
 
-  ; // this.pages.addEventListener('click', this.clickPage);
+  ;
+  this.content = new _content_Content__WEBPACK_IMPORTED_MODULE_2__["default"](); // this.pages.addEventListener('click', this.clickPage);
 } // @bind
 // cclick() {
 //     this.getJson('http://localhost:8080/doc/5aa38122941b260001cd3314', function(data){

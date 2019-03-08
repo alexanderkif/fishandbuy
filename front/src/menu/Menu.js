@@ -1,5 +1,6 @@
 import { bind } from 'decko';
 import Login from '../login/Login';
+import Content from '../content/Content';
 
 export default class Menu {
     constructor(){
@@ -21,6 +22,7 @@ export default class Menu {
                 }
             }.bind(this));
         };
+        this.content = new Content();
         // this.pages.addEventListener('click', this.clickPage);
     }
     
