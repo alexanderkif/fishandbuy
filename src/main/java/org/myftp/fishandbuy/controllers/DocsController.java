@@ -105,15 +105,6 @@ public class DocsController {
         return docRepository.findById(id);
     }
 
-//    @RequestMapping("/login")
-//    public String login(Model model) {
-//        li = "login";
-//        titl = "Login";
-//        model.addAttribute("links", li);
-//        model.addAttribute("titl", titl);
-//        return "login";
-//    }
-
     @RequestMapping("/edit")
     public String edit(Model model, @ModelAttribute("title") String title, Principal principal) {
         Doc doc = Doc.builder()
@@ -135,13 +126,20 @@ public class DocsController {
         return "edit";
     }
 
-    @RequestMapping("/adddoc")
+//    @PostMapping
+//    public String saveDoc(@RequestBody Map<String, String> payload, Principal principal) {
+//        System.out.println("");
+//        return "";
+//    }
+
+    @PostMapping
     public String adddoc(Model model, @ModelAttribute("title") String title,
+                         @ModelAttribute("text") String text,
                          @ModelAttribute("place") String place,
-                         @ModelAttribute("newTitle") String newTitle,
-                         @ModelAttribute("file") MultipartFile file,
-                         @ModelAttribute("deleteImage") String deleteImage,
-                         @ModelAttribute("text") String text, Principal principal) {
+                         @ModelAttribute("price") String price,
+                         @ModelAttribute("imgFileIds") String[] imgFileIds,
+                         @ModelAttribute("images") MultipartFile[] files,
+                         Principal principal) {
         try {
             List<Doc> docs = docRepository.findByEmail(principal.getName());
             Doc doc = docs.stream()
@@ -154,25 +152,25 @@ public class DocsController {
                 titl = "Deleted";
             }
             else {
-                doc.setTitle(newTitle);
+                doc.setTitle(title);
                 doc.setText(text);
                 doc.setDate(new Date());
                 doc.setPlace(place);
                 doc.setEmail(principal.getName());
-                if (!Objects.equals(file.getOriginalFilename(), "")) {
-                    // Define metaData
-                    DBObject metaData = new BasicDBObject();
-                    metaData.put("account", principal.getName());
-                    metaData.put("type", "image");
-                    // Store file to MongoDB
-                    imageFileId = gridOperations.store(file.getInputStream(), file.getOriginalFilename(), "image/png", metaData).getId().toString();
-                    doc.setImageFileId(imageFileId);
-                }
-                if (deleteImage.equals("on")){
-                    // Delete image file
-                    gridOperations.delete(new Query(Criteria.where("_id").is(doc.getImageFileId())));
-                    doc.setImageFileId(null);
-                }
+//                if (!Objects.equals(file.getOriginalFilename(), "")) {
+//                    // Define metaData
+//                    DBObject metaData = new BasicDBObject();
+//                    metaData.put("account", principal.getName());
+//                    metaData.put("type", "image");
+//                    // Store file to MongoDB
+//                    imageFileId = gridOperations.store(file.getInputStream(), file.getOriginalFilename(), "image/png", metaData).getId().toString();
+//                    doc.setImageFileId(imageFileId);
+//                }
+//                if (deleteImage.equals("on")){
+//                    // Delete image file
+//                    gridOperations.delete(new Query(Criteria.where("_id").is(doc.getImageFileId())));
+//                    doc.setImageFileId(null);
+//                }
                 docRepository.save(doc);
                 li = "edit";
                 titl = "Saved";

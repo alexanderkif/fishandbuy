@@ -13,6 +13,7 @@ $color-active2-shadow2: rgba(50,50,0,0.22);
 @import "../login/login.scss";
 @import "../header/header.scss";
 @import "../menu/menu.scss";
+@import "../docform/docform.scss";
 
 html, body {
     height: 100%;
@@ -77,7 +78,11 @@ html, body {
     
     &__content {
         grid-area: c;
+        padding: 20px;
+        background-color: $color-active;
+        box-shadow: 0 14px 28px $color-active-shadow1, 0 10px 10px $color-active-shadow2; 
         border-radius: 5px;
+        background: linear-gradient($color-active, $color-active2);
     }
     
     &__footer {

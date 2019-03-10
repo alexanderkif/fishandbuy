@@ -1,3 +1,16 @@
+.content__messages, .content__pages, .content__docform, .content__about {
+  width: 100%; }
+  .content__messages_hidden, .content__pages_hidden, .content__docform_hidden, .content__about_hidden {
+    display: none; }
+
+.content__about-header {
+  font-size: 30px;
+  padding: 20px 60px 0px 60px; }
+
+.content__about-article {
+  padding: 0px 20px 20px 40px;
+  text-align: justify; }
+
 .content__item {
   padding-bottom: 2em; }
 
@@ -33,7 +46,7 @@
   transition: all .2s ease-in-out;
   box-shadow: 0 14px 28px rgba(50, 50, 0, 0.25), 0 10px 10px rgba(50, 50, 0, 0.22);
   grid-column-gap: 2%;
-  grid-row-gap: 1em;
+  grid-row-gap: 1rem;
   grid-template-areas: "i T T T" "i t t t" "i d p e";
   grid-template-columns: 200px 100px auto auto;
   grid-template-rows: auto 1fr 25px; }
@@ -131,7 +144,7 @@
     font: inherit;
     height: 30px;
     border-radius: 5px;
-    border: solid 1px #dcf0dc;
+    border: solid 1px lightgray;
     background-color: #e6fae6;
     outline: none;
     cursor: pointer; }
@@ -230,6 +243,80 @@
   .menu__txt {
     margin: auto; }
 
+.docform {
+  display: grid;
+  margin: 0 auto;
+  width: 100%;
+  border-radius: 5px;
+  grid-gap: 1.3rem;
+  grid-template-areas: "h h h" "ti ti ti" "t t t" "s p ." "i i i" ". . sbmt";
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto 1fr auto auto auto; }
+  .docform__images {
+    grid-area: i;
+    display: flex;
+    flex-wrap: wrap; }
+  .docform__plus, .docform__minus {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding-left: 5px; }
+  .docform__minus {
+    position: absolute; }
+  .docform__image {
+    width: 100px;
+    height: auto;
+    padding-left: 20px;
+    cursor: pointer; }
+  .docform__header {
+    grid-area: h; }
+  .docform__sbmt {
+    grid-area: sbmt;
+    justify-self: end;
+    min-width: 120px;
+    font: inherit;
+    height: 30px;
+    border-radius: 5px;
+    border: solid 1px lightgray;
+    background-color: #e6fae6;
+    outline: none;
+    cursor: pointer; }
+    .docform__sbmt:hover {
+      background-color: #dcf0dc; }
+  .docform__header, .docform__view-header {
+    font-size: 20px;
+    height: auto;
+    width: auto;
+    padding-left: 20px; }
+  .docform__title {
+    grid-area: ti; }
+  .docform__text {
+    grid-area: t; }
+  .docform__price {
+    grid-area: s; }
+  .docform__place {
+    grid-area: p; }
+  .docform__title, .docform__price, .docform__place {
+    grid: 2fr;
+    width: 100%;
+    border: solid 1px lightgray;
+    border-radius: 5px;
+    padding-left: 10px;
+    height: 30px;
+    font: inherit;
+    outline: none; }
+    .docform__title.error, .docform__price.error, .docform__place.error {
+      border: solid 2px lightpink; }
+  .docform__text {
+    width: 100%;
+    border: solid 1px lightgray;
+    border-radius: 5px;
+    padding-left: 10px;
+    font: inherit;
+    outline: none;
+    resize: none; }
+
 html, body {
   height: 100%;
   max-width: 1024px;
@@ -276,7 +363,11 @@ html, body {
         padding: 5px 20px; } }
   .main__content {
     grid-area: c;
-    border-radius: 5px; }
+    padding: 20px;
+    background-color: #e6fae6;
+    box-shadow: 0 14px 28px rgba(0, 50, 0, 0.25), 0 10px 10px rgba(0, 50, 0, 0.22);
+    border-radius: 5px;
+    background: linear-gradient(#e6fae6, #fafae6); }
   .main__footer {
     grid-area: f;
     padding: 20px;

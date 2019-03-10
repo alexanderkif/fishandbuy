@@ -1,12 +1,12 @@
 
 mixin menu()
     .menu
-        .menu__item.menu__item_home 
+        .menu__item.menu__item-home 
             .menu__txt Home
-        .menu__item.menu__item_add 
+        .menu__item.menu__item-add.menu__item_hidden 
             .menu__txt Add new
-        .menu__item.menu__item_lots 
+        .menu__item.menu__item-lots.menu__item_hidden
             .menu__txt My lots
-        .menu__item.menu__item_about 
+        .menu__item.menu__item-about 
             .menu__txt About
         +login()

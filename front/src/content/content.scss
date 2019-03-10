@@ -1,5 +1,23 @@
 .content {
 
+    &__messages, &__pages, &__docform, &__about {
+        width: 100%;
+        
+        &_hidden {
+            display: none;
+        }
+    }
+
+    &__about-header {
+        font-size: 30px;
+        padding: 20px 60px 0px 60px;
+    }
+
+    &__about-article {
+        padding: 0px 20px 20px 40px;
+        text-align: justify;
+    }
+
     &__item {
         padding-bottom: 2em;
     }

@@ -9704,6 +9704,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! decko */ "./node_modules/decko/dist/decko.js");
 /* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(decko__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _message_Message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../message/Message */ "./src/message/Message.js");
+/* harmony import */ var _docform_docform__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../docform/docform */ "./src/docform/docform.js");
 var _class;
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -9720,6 +9721,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 
 
+
 var Content = (_class =
 /*#__PURE__*/
 function () {
@@ -9728,22 +9730,57 @@ function () {
 
     this.messages = document.querySelector('.content__messages');
     this.pages = document.querySelector('.content__pages');
+    this.docform = document.querySelector('.content__docform');
+    this.about = document.querySelector('.content__about');
     this.getDocs(1);
     this.pages.addEventListener('click', this.clickPage);
-  } // @bind
-  // cclick() {
-  //     this.getJson('http://localhost:8080/doc/5aa38122941b260001cd3314', function(data){
-  //     this.messages.textContent = JSON.stringify(data);
-  //     }.bind(this));
-  // }
-  // var form = new FormData(document.getElementById('login-form'));
-  // fetch("/login", {
-  // method: "POST",
-  // body: form
-  // });
-
+  }
 
   _createClass(Content, [{
+    key: "changeContent",
+    value: function changeContent(e) {
+      var classes = e.currentTarget.classList;
+
+      if (classes.contains('menu__item-home') || classes.contains('menu__item-lots')) {
+        this.messages.classList.remove('content__messages_hidden');
+        this.pages.classList.remove('content__pages_hidden');
+        this.docform.classList.add('content__docform_hidden');
+        this.about.classList.add('content__about_hidden');
+      }
+
+      if (classes.contains('menu__item-add')) {
+        this.messages.classList.add('content__messages_hidden');
+        this.pages.classList.add('content__pages_hidden');
+        this.docform.classList.remove('content__docform_hidden');
+        this.about.classList.add('content__about_hidden');
+        this.docForm = new _docform_docform__WEBPACK_IMPORTED_MODULE_2__["default"]({
+          title: "",
+          text: "",
+          price: "",
+          place: "",
+          imgFileIds: []
+        });
+      }
+
+      if (classes.contains('menu__item-about')) {
+        this.messages.classList.add('content__messages_hidden');
+        this.pages.classList.add('content__pages_hidden');
+        this.docform.classList.add('content__docform_hidden');
+        this.about.classList.remove('content__about_hidden');
+      }
+    } // @bind
+    // cclick() {
+    //     this.getJson('http://localhost:8080/doc/5aa38122941b260001cd3314', function(data){
+    //     this.messages.textContent = JSON.stringify(data);
+    //     }.bind(this));
+    // }
+    // var form = new FormData(document.getElementById('login-form'));
+    // fetch("/login", {
+    // method: "POST",
+    // body: form
+    // });
+
+  }, {
     key: "clickPage",
     value: function clickPage(e) {
       if (e.target.classList.contains("content__page_current")) return;
@@ -9816,7 +9853,206 @@ function () {
   }]);
 
   return Content;
-}(), (_applyDecoratedDescriptor(_class.prototype, "clickPage", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickPage"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "getDocs", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "getDocs"), _class.prototype)), _class);
+}(), (_applyDecoratedDescriptor(_class.prototype, "changeContent", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "changeContent"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickPage", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickPage"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "getDocs", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "getDocs"), _class.prototype)), _class);
+
+
+/***/ }),
+
+/***/ "./src/docform/docform.js":
+/*!********************************!*\
+  !*** ./src/docform/docform.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Docform; });
+/* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! decko */ "./node_modules/decko/dist/decko.js");
+/* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(decko__WEBPACK_IMPORTED_MODULE_0__);
+var _class;
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object['ke' + 'ys'](descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object['define' + 'Property'](target, property, desc); desc = null; } return desc; }
+
+
+var MAX_IMG_SIZE = 1000000;
+var Docform = (_class =
+/*#__PURE__*/
+function () {
+  function Docform(_ref) {
+    var title = _ref.title,
+        text = _ref.text,
+        price = _ref.price,
+        place = _ref.place,
+        imgFileIds = _ref.imgFileIds;
+
+    _classCallCheck(this, Docform);
+
+    this.title = document.querySelector('.docform__title');
+    this.text = document.querySelector('.docform__text');
+    this.price = document.querySelector('.docform__price');
+    this.place = document.querySelector('.docform__place');
+    this.plus = document.querySelector('.docform__plus');
+    this.sbmt = document.querySelector('.docform__sbmt');
+    this.images = document.querySelector('.docform__images');
+    this.title.value = title;
+    this.text.innerHTML = text;
+    this.price.value = price;
+    this.place.value = place;
+    this.imgFileIds = imgFileIds;
+    this.drawImages(imgFileIds);
+    this.images.addEventListener('click', this.clickImage);
+    this.sbmt.addEventListener('click', this.clickSbmt);
+  }
+
+  _createClass(Docform, [{
+    key: "clickSbmt",
+    value: function () {
+      var _clickSbmt = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        var newImages, imgs, form, fn;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                newImages = [];
+                imgs = this.images.querySelectorAll('.docform__image');
+                [].forEach.call(imgs, function (img) {
+                  if (img.src.split('/')[0] == "img") newImages.push(img.src);
+                });
+                form = new FormData();
+                form.append("title", this.title.value);
+                form.append("text", this.text.innerHTML);
+                form.append("price", this.price.value);
+                form.append("place", this.place.value);
+                form.append("imgFileIds", this.imgFileIds);
+                form.append("images", newImages);
+
+                fn = function (response) {
+                  // this.checkUser(); 
+                  alert(response.status);
+                }.bind(this);
+
+                fetch("doc", {
+                  method: "POST",
+                  body: form
+                }).then(function (response) {
+                  return fn(response);
+                }); // await fetch('doc', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ 
+                //         "title": this.title.value, 
+                //         "text": this.text.innerHTML, 
+                //         "price": this.price.value,
+                //         "place": this.place.value,
+                //         "imgFileIds": this.imgFileIds,
+                //         "images": newImages
+                //     })
+                // })
+                // .then(function (response) {
+                //     alert(response.status);
+                // });
+                // this.main.removeChild(this.shadow);
+
+              case 12:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function clickSbmt() {
+        return _clickSbmt.apply(this, arguments);
+      }
+
+      return clickSbmt;
+    }()
+  }, {
+    key: "drawImages",
+    value: function drawImages() {
+      var _this = this;
+
+      this.imgFileIds.forEach(function (id) {
+        _this.createImg("img/".concat(id));
+      });
+    }
+  }, {
+    key: "clickImage",
+    value: function clickImage(e) {
+      var _this2 = this;
+
+      var replace = e.target.classList.contains('docform__image');
+      var plus = e.target.classList.contains('docform__plus');
+      if (replace) this.img = e.target;
+      if (!replace && !plus) return;
+      if (plus && this.images.childElementCount > 5) return;
+      var input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+
+      input.onchange = function (e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = function (readerEvent) {
+          var content = readerEvent.target.result;
+
+          if (file.size > MAX_IMG_SIZE) {
+            alert('File too big. Load file must be under 1MB.');
+            return;
+          }
+
+          if (replace) {
+            _this2.img.src = content;
+          } else {
+            _this2.createImg(content);
+          }
+        };
+      };
+
+      input.click();
+    }
+  }, {
+    key: "createImg",
+    value: function createImg(content) {
+      var div = document.createElement('div');
+      div.classList.add('docform__image-wrapper');
+      var img = document.createElement('img');
+      img.classList.add('docform__image');
+      img.src = content;
+      this.addMinus(div);
+      div.appendChild(img);
+      this.images.insertBefore(div, this.plus);
+    }
+  }, {
+    key: "addMinus",
+    value: function addMinus(div) {
+      var minus = document.createElement('img');
+      minus.classList.add('docform__minus');
+      minus.src = "img/minus.png";
+      div.appendChild(minus);
+      minus.addEventListener('click', this.removeImg);
+    }
+  }, {
+    key: "removeImg",
+    value: function removeImg(e) {
+      this.images.removeChild(e.target.parentElement);
+    }
+  }]);
+
+  return Docform;
+}(), (_applyDecoratedDescriptor(_class.prototype, "clickSbmt", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickSbmt"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "drawImages", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "drawImages"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickImage", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickImage"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createImg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addMinus", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addMinus"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "removeImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "removeImg"), _class.prototype)), _class);
 
 
 /***/ }),
@@ -9896,6 +10132,28 @@ module.exports = __webpack_require__.p + "img/logo.jpg";
 
 /***/ }),
 
+/***/ "./src/img/minus.png":
+/*!***************************!*\
+  !*** ./src/img/minus.png ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "img/minus.png";
+
+/***/ }),
+
+/***/ "./src/img/plus.png":
+/*!**************************!*\
+  !*** ./src/img/plus.png ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "img/plus.png";
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -9914,9 +10172,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _menu_Menu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./menu/Menu */ "./src/menu/Menu.js");
 /* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./img/logo.jpg */ "./src/img/logo.jpg");
 /* harmony import */ var _img_logo_jpg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_img_logo_jpg__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./favicon.ico */ "./src/favicon.ico");
-/* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_favicon_ico__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./favicon.ico */ "./src/favicon.ico");
+/* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_favicon_ico__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _img_plus_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./img/plus.png */ "./src/img/plus.png");
+/* harmony import */ var _img_plus_png__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_img_plus_png__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _img_minus_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./img/minus.png */ "./src/img/minus.png");
+/* harmony import */ var _img_minus_png__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_img_minus_png__WEBPACK_IMPORTED_MODULE_7__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
 
 
 
@@ -10293,12 +10557,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var Menu = function Menu() {
+  var _this = this;
+
   _classCallCheck(this, Menu);
 
-  this.home = document.querySelector('.menu__item_home');
-  this.add = document.querySelector('.menu__item_add');
-  this.lots = document.querySelector('.menu__item_lots');
-  this.about = document.querySelector('.menu__item_about');
+  this.home = document.querySelector('.menu__item-home');
+  this.add = document.querySelector('.menu__item-add');
+  this.lots = document.querySelector('.menu__item-lots');
+  this.about = document.querySelector('.menu__item-about');
   var loginElement = document.querySelector('.login');
 
   if (loginElement) {
@@ -10315,7 +10581,11 @@ var Menu = function Menu() {
   }
 
   ;
-  this.content = new _content_Content__WEBPACK_IMPORTED_MODULE_2__["default"](); // this.pages.addEventListener('click', this.clickPage);
+  this.content = new _content_Content__WEBPACK_IMPORTED_MODULE_2__["default"]();
+  this.items = document.querySelectorAll('.menu__item');
+  [].forEach.call(this.items, function (item) {
+    return item.addEventListener('click', _this.content.changeContent);
+  });
 } // @bind
 // cclick() {
 //     this.getJson('http://localhost:8080/doc/5aa38122941b260001cd3314', function(data){

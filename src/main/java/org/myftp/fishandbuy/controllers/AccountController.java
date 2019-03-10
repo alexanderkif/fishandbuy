@@ -1,6 +1,7 @@
-package org.myftp.fishandbuy.services;
+package org.myftp.fishandbuy.controllers;
 
 import org.myftp.fishandbuy.entities.Account;
+import org.myftp.fishandbuy.services.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -4,10 +4,10 @@ import Content from '../content/Content';
 
 export default class Menu {
     constructor(){
-        this.home = document.querySelector('.menu__item_home');
-        this.add = document.querySelector('.menu__item_add');
-        this.lots = document.querySelector('.menu__item_lots');
-        this.about = document.querySelector('.menu__item_about');
+        this.home = document.querySelector('.menu__item-home');
+        this.add = document.querySelector('.menu__item-add');
+        this.lots = document.querySelector('.menu__item-lots');
+        this.about = document.querySelector('.menu__item-about');
         var loginElement = document.querySelector('.login');
         if (loginElement) {
             this.login = new Login(loginElement);
@@ -23,7 +23,8 @@ export default class Menu {
             }.bind(this));
         };
         this.content = new Content();
-        // this.pages.addEventListener('click', this.clickPage);
+        this.items = document.querySelectorAll('.menu__item');
+        [].forEach.call(this.items, (item) => item.addEventListener('click', this.content.changeContent));
     }
     
     // @bind

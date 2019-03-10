@@ -1,0 +1,109 @@
+.docform {
+    display: grid;
+    margin: 0 auto;
+    width: 100%;
+    border-radius: 5px;
+    grid-gap: 1.3rem;
+    grid-template-areas:"h h h"
+                        "ti ti ti"
+                        "t t t"
+                        "s p ."
+                        "i i i"
+                        ". . sbmt";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto 1fr auto auto auto;
+
+    &__images {
+        grid-area: i;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__plus, &__minus {
+        height: 30px;
+        width: 30px;        
+        border-radius: 50%;
+        cursor: pointer;
+        padding-left: 5px;
+    }
+
+    &__minus {
+        position: absolute;
+    }
+
+    &__image {
+        width: 100px;
+        height: auto;
+        padding-left: 20px;
+        cursor: pointer;
+    }
+
+    &__header {
+        grid-area: h;
+    }
+
+    &__sbmt {
+        grid-area: sbmt;
+        justify-self: end;
+        min-width: 120px;
+        font: inherit;
+        height: 30px;
+        border-radius: 5px;
+        border: solid 1px lightgray;
+        background-color: $color-active;
+        outline: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $color-active-bright;
+        }
+    }
+    
+    &__header, &__view-header {
+        font-size: 20px;
+        height: auto;
+        width: auto;
+        padding-left: 20px;
+    }
+
+    &__title {
+        grid-area: ti;
+    }
+
+    &__text {
+        grid-area: t;
+    }
+
+    &__price {
+        grid-area: s;
+    }
+
+    &__place {
+        grid-area: p;
+    }
+    
+    &__title,  &__price, &__place {
+        grid: 2fr;
+        width: 100%;
+        border: solid 1px lightgray;
+        border-radius: 5px;
+        padding-left: 10px;
+        height: 30px;
+        font: inherit;
+        outline: none;
+
+        &.error {
+            border: solid 2px lightpink;
+        }
+    }
+    
+    &__text {
+        width: 100%;
+        border: solid 1px lightgray;
+        border-radius: 5px;
+        padding-left: 10px;
+        font: inherit;
+        outline: none;
+        resize: none;
+    }
+}

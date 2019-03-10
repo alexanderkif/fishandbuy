@@ -1,0 +1,11 @@
+
+mixin docform()
+    .docform
+        .docform__header Add new document
+        input(type='text' name='title' placeholder='title').docform__title
+        textarea(name="text" rows="5" placeholder='text here').docform__text
+        input(type='text' name='price' placeholder='price').docform__price
+        input(type='text' name='place' placeholder='place').docform__place
+        .docform__images
+            img(src = "img/plus.png").docform__plus
+        input(type='submit' value='Save').docform__sbmt

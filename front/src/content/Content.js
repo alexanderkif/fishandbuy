@@ -1,12 +1,39 @@
 import { bind } from 'decko';
 import Message from '../message/Message'
+import Docform from '../docform/docform';
 
 export default class Content {
     constructor(){
         this.messages = document.querySelector('.content__messages');
-        this.pages = document.querySelector('.content__pages');        
+        this.pages = document.querySelector('.content__pages');
+        this.docform = document.querySelector('.content__docform');
+        this.about = document.querySelector('.content__about');
         this.getDocs(1);
         this.pages.addEventListener('click', this.clickPage);
+    }
+
+    @bind
+    changeContent(e) {
+        var classes = e.currentTarget.classList;
+        if (classes.contains('menu__item-home') || classes.contains('menu__item-lots')) {
+            this.messages.classList.remove('content__messages_hidden');
+            this.pages.classList.remove('content__pages_hidden');
+            this.docform.classList.add('content__docform_hidden');
+            this.about.classList.add('content__about_hidden');
+        }
+        if (classes.contains('menu__item-add')) {
+            this.messages.classList.add('content__messages_hidden');
+            this.pages.classList.add('content__pages_hidden');
+            this.docform.classList.remove('content__docform_hidden');
+            this.about.classList.add('content__about_hidden');
+            this.docForm = new Docform({title:"",text:"",price:"",place:"",imgFileIds:[]});
+        }
+        if (classes.contains('menu__item-about')) {
+            this.messages.classList.add('content__messages_hidden');
+            this.pages.classList.add('content__pages_hidden');
+            this.docform.classList.add('content__docform_hidden');
+            this.about.classList.remove('content__about_hidden');
+        }
     }
     
     // @bind
