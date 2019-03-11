@@ -23,9 +23,6 @@ export default class Docform {
 
     @bind
     async clickSbmt() {
-        var newImages = [];
-        var imgs = this.images.querySelectorAll('.docform__image');
-        [].forEach.call(imgs, img => { if(img.src.split('/')[0]=="img") newImages.push(img.src)});
 
         var form = new FormData();
         form.append("title", this.title.value);
@@ -33,9 +30,7 @@ export default class Docform {
         form.append("price", this.price.value);
         form.append("place", this.place.value);
         form.append("imgFileIds", this.imgFileIds);
-        form.append("images", newImages);
         var fn = function(response) { 
-            // this.checkUser(); 
             alert(response.status);
         }.bind(this);
         fetch("doc", {
@@ -57,13 +52,12 @@ export default class Docform {
         // .then(function (response) {
         //     alert(response.status);
         // });
-        // this.main.removeChild(this.shadow);
     }
 
     @bind
     drawImages() {
         this.imgFileIds.forEach(id => {
-            this.createImg(`img/${id}`);
+            this.drawImg(id);
         });
     }
 
@@ -79,32 +73,33 @@ export default class Docform {
         input.accept = 'image/*';
         input.onchange = e => {
             var file = e.target.files[0];
-            var reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = readerEvent => {
-                var content = readerEvent.target.result;
-                if (file.size > MAX_IMG_SIZE) {
-                    alert('File too big. Load file must be under 1MB.');
-                    return;
+            if (file.size > MAX_IMG_SIZE) {
+                alert('File too big. Load file must be under 1MB.');
+                return;
+            }
+            var id = this.saveFile(file);
+            if(replace) {
+                for (let i=0; i<this.imgFileIds.length; i++) {
+                    if (this.img.src.split('/')[1] == this.imgFileIds[i])
+                    this.imgFileIds[i] = id;
                 }
-                if(replace) {
-                    this.img.src = content;
-                }
-                else {
-                    this.createImg(content);
-                }
+                this.img.src = `image/${id}`;
+            }
+            else {
+                this.imgFileIds.push(id);
+                this.drawImg(id);
             }
         }
         input.click();
     }
 
     @bind
-    createImg(content) {
+    drawImg(id) {
         var div = document.createElement('div');
         div.classList.add('docform__image-wrapper');
         var img = document.createElement('img');
         img.classList.add('docform__image');
-        img.src = content;
+        img.src = `image/${id}`;
         this.addMinus(div);
         div.appendChild(img);
         this.images.insertBefore(div, this.plus);
@@ -122,5 +117,27 @@ export default class Docform {
     @bind
     removeImg(e) {
         this.images.removeChild(e.target.parentElement);
+    }
+
+    @bind
+    saveFile(file) {
+        var form = new FormData();
+        form.append("file", file);
+        var fn = function(text) { 
+            alert(text);
+        }.bind(this);
+        fetch("image", {
+            method: "POST",
+            body: form
+        })
+            .then( (response) => {
+                // console.log(response);
+                // console.log(response.blob());
+                // console.log(response.text());
+                // console.log(response.formData());
+                console.log(response);
+                // fn(response.text());
+                }
+            );
     }
 }

@@ -28,10 +28,10 @@ import java.util.stream.Collectors;
 @RequestMapping("doc")
 public class DocsController {
 
-    @Autowired
-    private GridFsOperations gridOperations;
-    // this variable is used to store ImageId for other actions like: findOne or delete
-    private String imageFileId = "";
+//    @Autowired
+//    private GridFsOperations gridOperations;
+//    // this variable is used to store ImageId for other actions like: findOne or delete
+//    private String imageFileId = "";
 
     @Autowired
     private AccountRepository accountRepository;
@@ -138,8 +138,9 @@ public class DocsController {
                          @ModelAttribute("place") String place,
                          @ModelAttribute("price") String price,
                          @ModelAttribute("imgFileIds") String[] imgFileIds,
-                         @ModelAttribute("images") MultipartFile[] files,
+//                         @ModelAttribute("images") MultipartFile[] files,
                          Principal principal) {
+        System.out.println("post here");
         try {
             List<Doc> docs = docRepository.findByEmail(principal.getName());
             Doc doc = docs.stream()
@@ -184,20 +185,20 @@ public class DocsController {
         return "edit";
     }
 
-    @RequestMapping("/img/{imageId}")
-    public void gridfs_img(@PathVariable String imageId, HttpServletResponse response){
-        // read file from MongoDB
-        GridFSDBFile imageFile = gridOperations.findOne(new Query(Criteria.where("_id").is(imageId)));
-        if(imageFile!=null) {
-            try {
-                imageFile.writeTo(response.getOutputStream());
-                response.setContentType("image/gif");
-                response.flushBuffer();
-            } catch (IOException ex) {
-                throw new RuntimeException("IOError writing file to output stream");
-            }
-        }
-    }
+//    @RequestMapping("/img/{imageId}")
+//    public void gridfs_img(@PathVariable String imageId, HttpServletResponse response){
+//        // read file from MongoDB
+//        GridFSDBFile imageFile = gridOperations.findOne(new Query(Criteria.where("_id").is(imageId)));
+//        if(imageFile!=null) {
+//            try {
+//                imageFile.writeTo(response.getOutputStream());
+//                response.setContentType("image/gif");
+//                response.flushBuffer();
+//            } catch (IOException ex) {
+//                throw new RuntimeException("IOError writing file to output stream");
+//            }
+//        }
+//    }
 
     @RequestMapping("/list")
     public String list(Model model, Principal principal) {

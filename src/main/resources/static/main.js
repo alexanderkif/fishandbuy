@@ -9921,26 +9921,19 @@ function () {
       var _clickSbmt = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee() {
-        var newImages, imgs, form, fn;
+        var form, fn;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                newImages = [];
-                imgs = this.images.querySelectorAll('.docform__image');
-                [].forEach.call(imgs, function (img) {
-                  if (img.src.split('/')[0] == "img") newImages.push(img.src);
-                });
                 form = new FormData();
                 form.append("title", this.title.value);
                 form.append("text", this.text.innerHTML);
                 form.append("price", this.price.value);
                 form.append("place", this.place.value);
                 form.append("imgFileIds", this.imgFileIds);
-                form.append("images", newImages);
 
                 fn = function (response) {
-                  // this.checkUser(); 
                   alert(response.status);
                 }.bind(this);
 
@@ -9961,9 +9954,8 @@ function () {
                 // .then(function (response) {
                 //     alert(response.status);
                 // });
-                // this.main.removeChild(this.shadow);
 
-              case 12:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -9983,7 +9975,7 @@ function () {
       var _this = this;
 
       this.imgFileIds.forEach(function (id) {
-        _this.createImg("img/".concat(id));
+        _this.drawImg(id);
       });
     }
   }, {
@@ -10002,35 +9994,37 @@ function () {
 
       input.onchange = function (e) {
         var file = e.target.files[0];
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
 
-        reader.onload = function (readerEvent) {
-          var content = readerEvent.target.result;
+        if (file.size > MAX_IMG_SIZE) {
+          alert('File too big. Load file must be under 1MB.');
+          return;
+        }
 
-          if (file.size > MAX_IMG_SIZE) {
-            alert('File too big. Load file must be under 1MB.');
-            return;
+        var id = _this2.saveFile(file);
+
+        if (replace) {
+          for (var i = 0; i < _this2.imgFileIds.length; i++) {
+            if (_this2.img.src.split('/')[1] == _this2.imgFileIds[i]) _this2.imgFileIds[i] = id;
           }
 
-          if (replace) {
-            _this2.img.src = content;
-          } else {
-            _this2.createImg(content);
-          }
-        };
+          _this2.img.src = "image/".concat(id);
+        } else {
+          _this2.imgFileIds.push(id);
+
+          _this2.drawImg(id);
+        }
       };
 
       input.click();
     }
   }, {
-    key: "createImg",
-    value: function createImg(content) {
+    key: "drawImg",
+    value: function drawImg(id) {
       var div = document.createElement('div');
       div.classList.add('docform__image-wrapper');
       var img = document.createElement('img');
       img.classList.add('docform__image');
-      img.src = content;
+      img.src = "image/".concat(id);
       this.addMinus(div);
       div.appendChild(img);
       this.images.insertBefore(div, this.plus);
@@ -10049,10 +10043,31 @@ function () {
     value: function removeImg(e) {
       this.images.removeChild(e.target.parentElement);
     }
+  }, {
+    key: "saveFile",
+    value: function saveFile(file) {
+      var form = new FormData();
+      form.append("file", file);
+
+      var fn = function (text) {
+        alert(text);
+      }.bind(this);
+
+      fetch("image", {
+        method: "POST",
+        body: form
+      }).then(function (response) {
+        // console.log(response);
+        // console.log(response.blob());
+        // console.log(response.text());
+        // console.log(response.formData());
+        console.log(response); // fn(response.text());
+      });
+    }
   }]);
 
   return Docform;
-}(), (_applyDecoratedDescriptor(_class.prototype, "clickSbmt", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickSbmt"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "drawImages", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "drawImages"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickImage", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickImage"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "createImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "createImg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addMinus", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addMinus"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "removeImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "removeImg"), _class.prototype)), _class);
+}(), (_applyDecoratedDescriptor(_class.prototype, "clickSbmt", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickSbmt"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "drawImages", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "drawImages"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickImage", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickImage"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "drawImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "drawImg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addMinus", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addMinus"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "removeImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "removeImg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "saveFile", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "saveFile"), _class.prototype)), _class);
 
 
 /***/ }),
