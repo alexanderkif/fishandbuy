@@ -23,7 +23,8 @@ public class Doc {
     private String title;
     private String text;
     private String place;
+    private String price;
     private String email;
-    private List<String> imgFileIds;
+    private String[] imgFileIds;
 
 }

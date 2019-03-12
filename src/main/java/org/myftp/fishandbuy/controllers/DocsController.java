@@ -137,68 +137,30 @@ public class DocsController {
                          @ModelAttribute("text") String text,
                          @ModelAttribute("place") String place,
                          @ModelAttribute("price") String price,
-                         @ModelAttribute("imgFileIds") String imgFileIds,
-//                         @ModelAttribute("images") MultipartFile[] files,
+                         @ModelAttribute("imgFileIds") String[] imgFileIds,
                          Principal principal) {
         System.out.println("post here");
         try {
-            List<Doc> docs = docRepository.findByEmail(principal.getName());
-            Doc doc = docs.stream()
-                    .filter(d -> d.getTitle().equals(title))
-                    .findFirst()
-                    .orElse(new Doc());
-            if (Objects.equals(text.toLowerCase(), "delete")){
-                docRepository.delete(doc);
-                li = "edit";
-                titl = "Deleted";
-            }
-            else {
-                doc.setTitle(title);
-                doc.setText(text);
-                doc.setDate(new Date());
-                doc.setPlace(place);
-                doc.setEmail(principal.getName());
-//                if (!Objects.equals(file.getOriginalFilename(), "")) {
-//                    // Define metaData
-//                    DBObject metaData = new BasicDBObject();
-//                    metaData.put("account", principal.getName());
-//                    metaData.put("type", "image");
-//                    // Store file to MongoDB
-//                    imageFileId = gridOperations.store(file.getInputStream(), file.getOriginalFilename(), "image/png", metaData).getId().toString();
-//                    doc.setImageFileId(imageFileId);
-//                }
-//                if (deleteImage.equals("on")){
-//                    // Delete image file
-//                    gridOperations.delete(new Query(Criteria.where("_id").is(doc.getImageFileId())));
-//                    doc.setImageFileId(null);
-//                }
+//            List<Doc> docs = docRepository.findByEmail(principal.getName());
+//            Doc doc = docs.stream()
+//                    .filter(d -> d.getTitle().equals(title))
+//                    .findFirst()
+//                    .orElse(new Doc());
+            Doc doc = Doc.builder()
+                    .email(principal.getName())
+                    .date(new Date())
+                    .title(title)
+                    .text(text)
+                    .place(place)
+                    .price(price)
+                    .imgFileIds(imgFileIds)
+                    .build();
                 docRepository.save(doc);
-                li = "edit";
-                titl = "Saved";
-            }
         } catch (Exception e){
-            li = "edit";
-            titl = "Not saved";
+            return "error";
         }
-        model.addAttribute("links", li);
-        model.addAttribute("titl", titl);
         return "edit";
     }
-
-//    @RequestMapping("/img/{imageId}")
-//    public void gridfs_img(@PathVariable String imageId, HttpServletResponse response){
-//        // read file from MongoDB
-//        GridFSDBFile imageFile = gridOperations.findOne(new Query(Criteria.where("_id").is(imageId)));
-//        if(imageFile!=null) {
-//            try {
-//                imageFile.writeTo(response.getOutputStream());
-//                response.setContentType("image/gif");
-//                response.flushBuffer();
-//            } catch (IOException ex) {
-//                throw new RuntimeException("IOError writing file to output stream");
-//            }
-//        }
-//    }
 
     @RequestMapping("/list")
     public String list(Model model, Principal principal) {

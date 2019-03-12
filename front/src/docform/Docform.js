@@ -19,39 +19,66 @@ export default class Docform {
         this.drawImages(imgFileIds);
         this.images.addEventListener('click', this.clickImage);
         this.sbmt.addEventListener('click', this.clickSbmt);
-        this.toDelete = [];
+        // this.toDelete = [];
     }    
 
     @bind
     clickSbmt() {
         var imgs = this.images.querySelectorAll('.docform__image');
 
+        var count = 0;
+        // this.images.addEventListener("PictureSave", function(){ count++ }.bind(this));
+
         for (let i = 0; i < imgs.length; i++) {
             if (imgs[i].src.split('/')[0]!="image") {
                 if (this.imgFileIds[i]) this.deleteFile(this.imgFileIds[i].src.split('/')[1]);
-                fn = function(id) {
+                var fn = function(id) {
                     this.imgFileIds[i] = id;
+                    count++;
+                    // this.sbmt.dispatchEvent(new Event("PictureSave"));
                 }.bind(this);
-                var attr = imgs[i].getAttribute('file');
-                // var ffile = JSON.parse(attr);
-                this.saveFile(attr, fn);
-            }            
+                this.saveFile(imgs[i].file, fn);
+            }
         }
 
+        var timerId = setInterval( function(){
+            if (count == imgs.length) {
+                this.sendForm(fn);
+                clearInterval(timerId);
+            }
+        }.bind(this), 1000);
+
+        // this.images.removeEventListener("PictureSave", () => count++);
+
+        // for (let i = 0; i < imgs.length; i++) {
+        //     if (imgs[i].src.split('/')[0]!="image") {
+        //         if (this.imgFileIds[i]) this.deleteFile(this.imgFileIds[i].src.split('/')[1]);
+        //         var fn = function(id) {
+        //             this.imgFileIds[i] = id;
+        //         }.bind(this);
+        //         this.saveFile(imgs[i].file, fn);
+        //     }            
+        // }
+
+        // var fn = this.sendForm(fn);
+    }
+
+    sendForm(fn) {
         var form = new FormData();
         form.append("title", this.title.value);
         form.append("text", this.text.value);
         form.append("price", this.price.value);
         form.append("place", this.place.value);
-        form.append("imgFileIds", JSON.stringify(this.imgFileIds));
-        var fn = function(response) { 
+        form.append("imgFileIds", this.imgFileIds);
+        var fn = function (response) {
             alert(response.status);
         }.bind(this);
         fetch("doc", {
             method: "POST",
             body: form
         })
-        .then( (response) => fn(response) );
+            .then((response) => fn(response));
+        // return fn;
     }
 
     @bind
@@ -96,15 +123,16 @@ export default class Docform {
     @bind
     saveFile(file, fn) {
         var form = new FormData();
-        form.append("file", JSON.stringify(file));
+        form.append("file", file);
         fetch("image", {
             method: "POST",
             body: form
         })
         .then(function(response) {
-            return response.text().then(function(text) {
-                fn(text);
-            });
+            return response.text()
+        })
+        .then(function(text) {
+            fn(text);
         });
     }
 
@@ -121,15 +149,15 @@ export default class Docform {
     }
 
     @bind
-    drawImg(src, file) {
+    drawImg(content, file) {
         var div = document.createElement('div');
         div.classList.add('docform__image-wrapper');
         var img = document.createElement('img');
         img.classList.add('docform__image');
         // if (this.imgs[i].src.split('/')[0]!="image") img.src = img;
         // else img.src = `image/${id}`;
-        img.src = src;
-        img.setAttribute('file', file);
+        img.src = content;
+        img.file = file;
         this.addMinus(div);
         div.appendChild(img);
         this.images.insertBefore(div, this.plus);
