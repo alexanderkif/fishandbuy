@@ -43,8 +43,8 @@ public class ImageController {
     }
 
     @PostMapping
-    public String saveImage(Model model, @ModelAttribute("images") MultipartFile file,
-                            Principal principal, HttpServletResponse response){
+    public String saveImage(Model model, @ModelAttribute("file") MultipartFile file,
+                            Principal principal){
         if (!Objects.equals(file.getOriginalFilename(), "")) {
             // Define metaData
             DBObject metaData = new BasicDBObject();

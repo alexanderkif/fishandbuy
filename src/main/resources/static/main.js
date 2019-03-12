@@ -9872,10 +9872,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var decko__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(decko__WEBPACK_IMPORTED_MODULE_0__);
 var _class;
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -9913,75 +9909,67 @@ function () {
     this.drawImages(imgFileIds);
     this.images.addEventListener('click', this.clickImage);
     this.sbmt.addEventListener('click', this.clickSbmt);
+    this.toDelete = [];
   }
 
   _createClass(Docform, [{
     key: "clickSbmt",
-    value: function () {
-      var _clickSbmt = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee() {
-        var form, fn;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                form = new FormData();
-                form.append("title", this.title.value);
-                form.append("text", this.text.innerHTML);
-                form.append("price", this.price.value);
-                form.append("place", this.place.value);
-                form.append("imgFileIds", this.imgFileIds);
+    value: function clickSbmt() {
+      var _this = this;
 
-                fn = function (response) {
-                  alert(response.status);
-                }.bind(this);
+      var imgs = this.images.querySelectorAll('.docform__image');
 
-                fetch("doc", {
-                  method: "POST",
-                  body: form
-                }).then(function (response) {
-                  return fn(response);
-                }); // await fetch('doc', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ 
-                //         "title": this.title.value, 
-                //         "text": this.text.innerHTML, 
-                //         "price": this.price.value,
-                //         "place": this.place.value,
-                //         "imgFileIds": this.imgFileIds,
-                //         "images": newImages
-                //     })
-                // })
-                // .then(function (response) {
-                //     alert(response.status);
-                // });
+      var _loop = function _loop(i) {
+        if (imgs[i].src.split('/')[0] != "image") {
+          if (_this.imgFileIds[i]) _this.deleteFile(_this.imgFileIds[i].src.split('/')[1]);
 
-              case 8:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
+          fn = function (id) {
+            this.imgFileIds[i] = id;
+          }.bind(_this);
 
-      function clickSbmt() {
-        return _clickSbmt.apply(this, arguments);
+          attr = imgs[i].getAttribute('file'); // var ffile = JSON.parse(attr);
+
+          _this.saveFile(attr, fn);
+        }
+      };
+
+      for (var i = 0; i < imgs.length; i++) {
+        var attr;
+
+        _loop(i);
       }
 
-      return clickSbmt;
-    }()
+      var form = new FormData();
+      form.append("title", this.title.value);
+      form.append("text", this.text.value);
+      form.append("price", this.price.value);
+      form.append("place", this.place.value);
+      form.append("imgFileIds", JSON.stringify(this.imgFileIds));
+
+      var fn = function (response) {
+        alert(response.status);
+      }.bind(this);
+
+      fetch("doc", {
+        method: "POST",
+        body: form
+      }).then(function (response) {
+        return fn(response);
+      });
+    }
   }, {
     key: "drawImages",
     value: function drawImages() {
-      var _this = this;
+      var _this2 = this;
 
       this.imgFileIds.forEach(function (id) {
-        _this.drawImg(id);
+        _this2.drawImg("image/".concat(id), null);
       });
     }
   }, {
     key: "clickImage",
     value: function clickImage(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       var replace = e.target.classList.contains('docform__image');
       var plus = e.target.classList.contains('docform__plus');
@@ -10000,31 +9988,58 @@ function () {
           return;
         }
 
-        var id = _this2.saveFile(file);
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
 
-        if (replace) {
-          for (var i = 0; i < _this2.imgFileIds.length; i++) {
-            if (_this2.img.src.split('/')[1] == _this2.imgFileIds[i]) _this2.imgFileIds[i] = id;
+        reader.onload = function (readerEvent) {
+          var content = readerEvent.target.result;
+
+          if (replace) {
+            _this3.img.src = content;
+          } else {
+            _this3.drawImg(content, file);
           }
-
-          _this2.img.src = "image/".concat(id);
-        } else {
-          _this2.imgFileIds.push(id);
-
-          _this2.drawImg(id);
-        }
+        };
       };
 
       input.click();
     }
   }, {
+    key: "saveFile",
+    value: function saveFile(file, fn) {
+      var form = new FormData();
+      form.append("file", JSON.stringify(file));
+      fetch("image", {
+        method: "POST",
+        body: form
+      }).then(function (response) {
+        return response.text().then(function (text) {
+          fn(text);
+        });
+      });
+    }
+  }, {
+    key: "deleteFile",
+    value: function deleteFile(id) {
+      fetch("image/".concat(id), {
+        method: "DELETE"
+      }).then(function (response) {
+        return response.text().then(function (text) {
+          alert(text);
+        });
+      });
+    }
+  }, {
     key: "drawImg",
-    value: function drawImg(id) {
+    value: function drawImg(src, file) {
       var div = document.createElement('div');
       div.classList.add('docform__image-wrapper');
       var img = document.createElement('img');
-      img.classList.add('docform__image');
-      img.src = "image/".concat(id);
+      img.classList.add('docform__image'); // if (this.imgs[i].src.split('/')[0]!="image") img.src = img;
+      // else img.src = `image/${id}`;
+
+      img.src = src;
+      img.setAttribute('file', file);
       this.addMinus(div);
       div.appendChild(img);
       this.images.insertBefore(div, this.plus);
@@ -10043,31 +10058,10 @@ function () {
     value: function removeImg(e) {
       this.images.removeChild(e.target.parentElement);
     }
-  }, {
-    key: "saveFile",
-    value: function saveFile(file) {
-      var form = new FormData();
-      form.append("file", file);
-
-      var fn = function (text) {
-        alert(text);
-      }.bind(this);
-
-      fetch("image", {
-        method: "POST",
-        body: form
-      }).then(function (response) {
-        // console.log(response);
-        // console.log(response.blob());
-        // console.log(response.text());
-        // console.log(response.formData());
-        console.log(response); // fn(response.text());
-      });
-    }
   }]);
 
   return Docform;
-}(), (_applyDecoratedDescriptor(_class.prototype, "clickSbmt", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickSbmt"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "drawImages", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "drawImages"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickImage", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickImage"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "drawImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "drawImg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addMinus", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addMinus"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "removeImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "removeImg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "saveFile", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "saveFile"), _class.prototype)), _class);
+}(), (_applyDecoratedDescriptor(_class.prototype, "clickSbmt", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickSbmt"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "drawImages", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "drawImages"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickImage", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickImage"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "saveFile", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "saveFile"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "deleteFile", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "deleteFile"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "drawImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "drawImg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addMinus", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addMinus"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "removeImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "removeImg"), _class.prototype)), _class);
 
 
 /***/ }),

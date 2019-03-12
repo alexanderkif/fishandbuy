@@ -137,7 +137,7 @@ public class DocsController {
                          @ModelAttribute("text") String text,
                          @ModelAttribute("place") String place,
                          @ModelAttribute("price") String price,
-                         @ModelAttribute("imgFileIds") String[] imgFileIds,
+                         @ModelAttribute("imgFileIds") String imgFileIds,
 //                         @ModelAttribute("images") MultipartFile[] files,
                          Principal principal) {
         System.out.println("post here");
