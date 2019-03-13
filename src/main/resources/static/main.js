@@ -9908,7 +9908,7 @@ function () {
     this.imgFileIds = imgFileIds;
     this.drawImages(imgFileIds);
     this.images.addEventListener('click', this.clickImage);
-    this.sbmt.addEventListener('click', this.clickSbmt); // this.toDelete = [];
+    this.sbmt.addEventListener('click', this.clickSbmt);
   }
 
   _createClass(Docform, [{
@@ -9917,7 +9917,7 @@ function () {
       var _this = this;
 
       var imgs = this.images.querySelectorAll('.docform__image');
-      var count = 0; // this.images.addEventListener("PictureSave", function(){ count++ }.bind(this));
+      var count = 0;
 
       var _loop = function _loop(i) {
         if (imgs[i].src.split('/')[0] != "image") {
@@ -9925,7 +9925,7 @@ function () {
 
           fn = function (id) {
             this.imgFileIds[i] = id;
-            count++; // this.sbmt.dispatchEvent(new Event("PictureSave"));
+            count++;
           }.bind(_this);
 
           _this.saveFile(imgs[i].file, fn);
@@ -9943,17 +9943,7 @@ function () {
           this.sendForm(fn);
           clearInterval(timerId);
         }
-      }.bind(this), 1000); // this.images.removeEventListener("PictureSave", () => count++);
-      // for (let i = 0; i < imgs.length; i++) {
-      //     if (imgs[i].src.split('/')[0]!="image") {
-      //         if (this.imgFileIds[i]) this.deleteFile(this.imgFileIds[i].src.split('/')[1]);
-      //         var fn = function(id) {
-      //             this.imgFileIds[i] = id;
-      //         }.bind(this);
-      //         this.saveFile(imgs[i].file, fn);
-      //     }            
-      // }
-      // var fn = this.sendForm(fn);
+      }.bind(this), 1000);
     }
   }, {
     key: "sendForm",
@@ -9974,7 +9964,7 @@ function () {
         body: form
       }).then(function (response) {
         return fn(response);
-      }); // return fn;
+      });
     }
   }, {
     key: "drawImages",
@@ -10054,9 +10044,7 @@ function () {
       var div = document.createElement('div');
       div.classList.add('docform__image-wrapper');
       var img = document.createElement('img');
-      img.classList.add('docform__image'); // if (this.imgs[i].src.split('/')[0]!="image") img.src = img;
-      // else img.src = `image/${id}`;
-
+      img.classList.add('docform__image');
       img.src = content;
       img.file = file;
       this.addMinus(div);
@@ -10708,8 +10696,9 @@ function () {
         title = _ref.title,
         text = _ref.text,
         place = _ref.place,
+        price = _ref.price,
         email = _ref.email,
-        imageFileId = _ref.imageFileId;
+        imgFileIds = _ref.imgFileIds;
 
     _classCallCheck(this, Message);
 
@@ -10719,9 +10708,10 @@ function () {
     this.setTitle(title);
     this.setText(text);
     this.setDate(date);
-    this.setPlace(place);
+    this.setPlace(place); // this.setPrice(price);
+
     this.setEmail(email);
-    this.setImage(imageFileId);
+    if (imgFileIds[0]) this.setImage(imgFileIds[0]);
     return this.element;
   }
 
@@ -10769,11 +10759,11 @@ function () {
     }
   }, {
     key: "setImage",
-    value: function setImage(imageFileId) {
+    value: function setImage(imgFileId) {
       // this.imgWrapper = document.createElement("div");
       // this.imgWrapper.className = "message__image-wrapper";
       // this.element.appendChild(this.imgWrapper);
-      this.getImg('doc/img/' + imageFileId, function (data) {
+      this.getImg('image/' + imgFileId, function (data) {
         if (data != 'data:image/jpeg;base64,') {
           var image = document.createElement("img");
           image.className = "message__image";

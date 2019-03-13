@@ -1,7 +1,7 @@
 import { bind } from 'decko';
 
 export default class Message {
-    constructor({id,date,title,text,place,email,imageFileId}){
+    constructor({id,date,title,text,place,price,email,imgFileIds}){
         this.element = document.createElement("div");
         this.element.className = "message";
         this.id = id;
@@ -9,8 +9,9 @@ export default class Message {
         this.setText(text);
         this.setDate(date);
         this.setPlace(place);
+        // this.setPrice(price);
         this.setEmail(email);
-        this.setImage(imageFileId);
+        if (imgFileIds[0]) this.setImage(imgFileIds[0]);
 
         return this.element;
     }
@@ -58,12 +59,12 @@ export default class Message {
     }
 
     @bind
-    setImage(imageFileId) {
+    setImage(imgFileId) {
         // this.imgWrapper = document.createElement("div");
         // this.imgWrapper.className = "message__image-wrapper";
         // this.element.appendChild(this.imgWrapper);
 
-        this.getImg('doc/img/' + imageFileId, function(data){
+        this.getImg('image/' + imgFileId, function(data){
             if (data != 'data:image/jpeg;base64,') {
                 var image = document.createElement("img");
                 image.className = "message__image";

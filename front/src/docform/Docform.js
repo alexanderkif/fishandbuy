@@ -19,7 +19,6 @@ export default class Docform {
         this.drawImages(imgFileIds);
         this.images.addEventListener('click', this.clickImage);
         this.sbmt.addEventListener('click', this.clickSbmt);
-        // this.toDelete = [];
     }    
 
     @bind
@@ -27,7 +26,6 @@ export default class Docform {
         var imgs = this.images.querySelectorAll('.docform__image');
 
         var count = 0;
-        // this.images.addEventListener("PictureSave", function(){ count++ }.bind(this));
 
         for (let i = 0; i < imgs.length; i++) {
             if (imgs[i].src.split('/')[0]!="image") {
@@ -35,7 +33,6 @@ export default class Docform {
                 var fn = function(id) {
                     this.imgFileIds[i] = id;
                     count++;
-                    // this.sbmt.dispatchEvent(new Event("PictureSave"));
                 }.bind(this);
                 this.saveFile(imgs[i].file, fn);
             }
@@ -47,20 +44,6 @@ export default class Docform {
                 clearInterval(timerId);
             }
         }.bind(this), 1000);
-
-        // this.images.removeEventListener("PictureSave", () => count++);
-
-        // for (let i = 0; i < imgs.length; i++) {
-        //     if (imgs[i].src.split('/')[0]!="image") {
-        //         if (this.imgFileIds[i]) this.deleteFile(this.imgFileIds[i].src.split('/')[1]);
-        //         var fn = function(id) {
-        //             this.imgFileIds[i] = id;
-        //         }.bind(this);
-        //         this.saveFile(imgs[i].file, fn);
-        //     }            
-        // }
-
-        // var fn = this.sendForm(fn);
     }
 
     sendForm(fn) {
@@ -78,7 +61,6 @@ export default class Docform {
             body: form
         })
             .then((response) => fn(response));
-        // return fn;
     }
 
     @bind
@@ -154,8 +136,6 @@ export default class Docform {
         div.classList.add('docform__image-wrapper');
         var img = document.createElement('img');
         img.classList.add('docform__image');
-        // if (this.imgs[i].src.split('/')[0]!="image") img.src = img;
-        // else img.src = `image/${id}`;
         img.src = content;
         img.file = file;
         this.addMinus(div);

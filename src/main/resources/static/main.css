@@ -56,7 +56,7 @@
       grid-template-columns: auto auto auto;
       grid-template-rows: auto auto 1fr 25px; } }
   .message:hover {
-    transform: scale(1.02); }
+    transform: scale(1.01); }
   .message__image {
     grid-area: i;
     max-height: 200px;
