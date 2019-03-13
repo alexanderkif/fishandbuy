@@ -8,14 +8,16 @@ export default class Docform {
         this.text = document.querySelector('.docform__text');
         this.price = document.querySelector('.docform__price');
         this.place = document.querySelector('.docform__place');
-        this.plus = document.querySelector('.docform__plus');
+        // this.plus = document.querySelector('.docform__plus');
         this.sbmt = document.querySelector('.docform__sbmt');
         this.images = document.querySelector('.docform__images');
         this.title.value = title;
-        this.text.innerHTML = text;
+        this.text.value = text;
         this.price.value = price;
         this.place.value = place;
         this.imgFileIds = imgFileIds;
+        this.images.innerHTML = "";
+        this.addPlus(this.images);
         this.drawImages(imgFileIds);
         this.images.addEventListener('click', this.clickImage);
         this.sbmt.addEventListener('click', this.clickSbmt);
@@ -150,6 +152,15 @@ export default class Docform {
         minus.src = "img/minus.png";
         div.appendChild(minus);
         minus.addEventListener('click', this.removeImg);
+    }
+
+    @bind
+    addPlus(div) {
+        this.plus = document.createElement('img');
+        this.plus.classList.add('docform__plus');
+        this.plus.src = "img/plus.png";
+        div.appendChild(this.plus);
+        // this.plus.addEventListener('click', this.removeImg);
     }
 
     @bind

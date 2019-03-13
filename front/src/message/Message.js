@@ -1,7 +1,7 @@
 import { bind } from 'decko';
 
 export default class Message {
-    constructor({id,date,title,text,place,price,email,imgFileIds}){
+    constructor({id,date,title,text,place,price,imgFileIds}){
         this.element = document.createElement("div");
         this.element.className = "message";
         this.id = id;
@@ -9,10 +9,8 @@ export default class Message {
         this.setText(text);
         this.setDate(date);
         this.setPlace(place);
-        // this.setPrice(price);
-        this.setEmail(email);
-        if (imgFileIds[0]) this.setImage(imgFileIds[0]);
-
+        this.setPrice(price);
+        this.setImage(imgFileIds);
         return this.element;
     }
 
@@ -51,33 +49,44 @@ export default class Message {
     }
 
     @bind
-    setEmail(email) {
+    setPrice(price) {
         var element = document.createElement("div");
-        element.className = "message__email";
-        element.textContent = email;
+        element.className = "message__price";
+        element.textContent = price;
         this.element.appendChild(element);
     }
 
     @bind
-    setImage(imgFileId) {
-        // this.imgWrapper = document.createElement("div");
-        // this.imgWrapper.className = "message__image-wrapper";
-        // this.element.appendChild(this.imgWrapper);
+    setImage(imgFileIds) {
+        if(!imgFileIds) return;
 
-        this.getImg('image/' + imgFileId, function(data){
-            if (data != 'data:image/jpeg;base64,') {
+        this.image = document.createElement("div");
+        this.image.className = "message__image";
+        this.element.appendChild(this.image);
+
+        this.activeImage = document.createElement("img");
+        this.activeImage.className = "message__image-active";
+        this.image.appendChild(this.activeImage);
+
+        this.imageRow = document.createElement("div");
+        this.imageRow.className = "message__image-row";
+        this.image.appendChild(this.imageRow);
+        this.imageRow.addEventListener('click', this.setActiveImage);
+
+        for (let i = 0; i < imgFileIds.length; i++) {
+            this.getImg('image/' + imgFileIds[i], function(data){
                 var image = document.createElement("img");
-                image.className = "message__image";
-                image.src = data;
-                this.element.appendChild(image);
-            }
-            else {
-                var image = document.createElement("div");
-                image.className = "message__image";
-                image.textContent = "no image";
-                this.element.appendChild(image);
-            }
-        }.bind(this));
+                image.className = "message__image-small";
+                if (data != 'data:image/jpeg;base64,') {
+                    image.src = data;
+                }
+                else {
+                    image.textContent = "no image";
+                }
+                this.imageRow.appendChild(image);
+                if (!this.activeImage.src) this.activeImage.src = data;
+            }.bind(this));
+        }      
     }
 
     async getImg(url, fn) {
@@ -97,4 +106,10 @@ export default class Message {
         bytes.forEach((b) => binary += String.fromCharCode(b));
         return window.btoa(binary);
     };
+
+    @bind
+    setActiveImage(e) {
+        if (e.target.classList.contains('message__image-small'))
+            this.activeImage.src = e.target.src;
+    }
 }

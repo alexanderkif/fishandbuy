@@ -9897,15 +9897,17 @@ function () {
     this.title = document.querySelector('.docform__title');
     this.text = document.querySelector('.docform__text');
     this.price = document.querySelector('.docform__price');
-    this.place = document.querySelector('.docform__place');
-    this.plus = document.querySelector('.docform__plus');
+    this.place = document.querySelector('.docform__place'); // this.plus = document.querySelector('.docform__plus');
+
     this.sbmt = document.querySelector('.docform__sbmt');
     this.images = document.querySelector('.docform__images');
     this.title.value = title;
-    this.text.innerHTML = text;
+    this.text.value = text;
     this.price.value = price;
     this.place.value = place;
     this.imgFileIds = imgFileIds;
+    this.images.innerHTML = "";
+    this.addPlus(this.images);
     this.drawImages(imgFileIds);
     this.images.addEventListener('click', this.clickImage);
     this.sbmt.addEventListener('click', this.clickSbmt);
@@ -10061,6 +10063,14 @@ function () {
       minus.addEventListener('click', this.removeImg);
     }
   }, {
+    key: "addPlus",
+    value: function addPlus(div) {
+      this.plus = document.createElement('img');
+      this.plus.classList.add('docform__plus');
+      this.plus.src = "img/plus.png";
+      div.appendChild(this.plus); // this.plus.addEventListener('click', this.removeImg);
+    }
+  }, {
     key: "removeImg",
     value: function removeImg(e) {
       this.images.removeChild(e.target.parentElement);
@@ -10068,7 +10078,7 @@ function () {
   }]);
 
   return Docform;
-}(), (_applyDecoratedDescriptor(_class.prototype, "clickSbmt", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickSbmt"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "drawImages", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "drawImages"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickImage", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickImage"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "saveFile", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "saveFile"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "deleteFile", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "deleteFile"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "drawImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "drawImg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addMinus", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addMinus"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "removeImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "removeImg"), _class.prototype)), _class);
+}(), (_applyDecoratedDescriptor(_class.prototype, "clickSbmt", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickSbmt"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "drawImages", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "drawImages"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "clickImage", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "clickImage"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "saveFile", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "saveFile"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "deleteFile", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "deleteFile"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "drawImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "drawImg"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addMinus", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addMinus"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addPlus", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "addPlus"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "removeImg", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "removeImg"), _class.prototype)), _class);
 
 
 /***/ }),
@@ -10602,59 +10612,7 @@ var Menu = function Menu() {
   [].forEach.call(this.items, function (item) {
     return item.addEventListener('click', _this.content.changeContent);
   });
-} // @bind
-// cclick() {
-//     this.getJson('http://localhost:8080/doc/5aa38122941b260001cd3314', function(data){
-//     this.messages.textContent = JSON.stringify(data);
-//     }.bind(this));
-// }
-// var form = new FormData(document.getElementById('login-form'));
-// fetch("/login", {
-// method: "POST",
-// body: form
-// });
-// @bind
-// clickPage(e){
-//     if(e.target.classList.contains("content__page_current")) return;
-//     if(e.target.classList.contains("content__pages")) return;
-//     this.messages.innerHTML = '';
-//     this.pages.innerHTML = '';
-//     this.getDocs(e.target.firstChild.nodeValue);
-// }
-// @bind
-// getDocs(page) {
-//     this.getJson('doc?page=' + page, function(data){
-//         data[0].forEach(message => {
-//             var element = document.createElement("div");
-//             element.className = "content__item";
-//             var mess = new Message(message);
-//             element.appendChild(mess);
-//             this.messages.appendChild(element);
-//         });
-//         for (let index = 0; index < data[2]; index++) {
-//             var element = document.createElement("div");
-//             element.className = "content__page";
-//             if (index+1 == +page)
-//                 element.className += " content__page_current";
-//             element.textContent = index+1;
-//             this.pages.appendChild(element);                
-//         }
-//     }.bind(this));
-// }
-// async getJson(url, fn) {
-//     await fetch(url)
-//     .then(response => 
-//         response.json().then(data => ({
-//             data: data,
-//             status: response.status
-//         })
-//         ).then(res => {
-//             fn(res.data);
-//             console.log(res.status, res.data);
-//         })
-//     );
-// }
-;
+};
 
 
 
@@ -10697,7 +10655,6 @@ function () {
         text = _ref.text,
         place = _ref.place,
         price = _ref.price,
-        email = _ref.email,
         imgFileIds = _ref.imgFileIds;
 
     _classCallCheck(this, Message);
@@ -10708,10 +10665,9 @@ function () {
     this.setTitle(title);
     this.setText(text);
     this.setDate(date);
-    this.setPlace(place); // this.setPrice(price);
-
-    this.setEmail(email);
-    if (imgFileIds[0]) this.setImage(imgFileIds[0]);
+    this.setPlace(place);
+    this.setPrice(price);
+    this.setImage(imgFileIds);
     return this.element;
   }
 
@@ -10750,32 +10706,43 @@ function () {
       this.element.appendChild(element);
     }
   }, {
-    key: "setEmail",
-    value: function setEmail(email) {
+    key: "setPrice",
+    value: function setPrice(price) {
       var element = document.createElement("div");
-      element.className = "message__email";
-      element.textContent = email;
+      element.className = "message__price";
+      element.textContent = price;
       this.element.appendChild(element);
     }
   }, {
     key: "setImage",
-    value: function setImage(imgFileId) {
-      // this.imgWrapper = document.createElement("div");
-      // this.imgWrapper.className = "message__image-wrapper";
-      // this.element.appendChild(this.imgWrapper);
-      this.getImg('image/' + imgFileId, function (data) {
-        if (data != 'data:image/jpeg;base64,') {
+    value: function setImage(imgFileIds) {
+      if (!imgFileIds) return;
+      this.image = document.createElement("div");
+      this.image.className = "message__image";
+      this.element.appendChild(this.image);
+      this.activeImage = document.createElement("img");
+      this.activeImage.className = "message__image-active";
+      this.image.appendChild(this.activeImage);
+      this.imageRow = document.createElement("div");
+      this.imageRow.className = "message__image-row";
+      this.image.appendChild(this.imageRow);
+      this.imageRow.addEventListener('click', this.setActiveImage);
+
+      for (var i = 0; i < imgFileIds.length; i++) {
+        this.getImg('image/' + imgFileIds[i], function (data) {
           var image = document.createElement("img");
-          image.className = "message__image";
-          image.src = data;
-          this.element.appendChild(image);
-        } else {
-          var image = document.createElement("div");
-          image.className = "message__image";
-          image.textContent = "no image";
-          this.element.appendChild(image);
-        }
-      }.bind(this));
+          image.className = "message__image-small";
+
+          if (data != 'data:image/jpeg;base64,') {
+            image.src = data;
+          } else {
+            image.textContent = "no image";
+          }
+
+          this.imageRow.appendChild(image);
+          if (!this.activeImage.src) this.activeImage.src = data;
+        }.bind(this));
+      }
     }
   }, {
     key: "getImg",
@@ -10824,10 +10791,15 @@ function () {
       });
       return window.btoa(binary);
     }
+  }, {
+    key: "setActiveImage",
+    value: function setActiveImage(e) {
+      if (e.target.classList.contains('message__image-small')) this.activeImage.src = e.target.src;
+    }
   }]);
 
   return Message;
-}(), (_applyDecoratedDescriptor(_class.prototype, "setTitle", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "setTitle"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "setText", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "setText"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "setDate", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "setDate"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "setPlace", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "setPlace"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "setEmail", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "setEmail"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "setImage", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "setImage"), _class.prototype)), _class);
+}(), (_applyDecoratedDescriptor(_class.prototype, "setTitle", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "setTitle"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "setText", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "setText"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "setDate", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "setDate"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "setPlace", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "setPlace"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "setPrice", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "setPrice"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "setImage", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "setImage"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "setActiveImage", [decko__WEBPACK_IMPORTED_MODULE_0__["bind"]], Object.getOwnPropertyDescriptor(_class.prototype, "setActiveImage"), _class.prototype)), _class);
 
 
 /***/ }),

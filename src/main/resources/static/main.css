@@ -41,28 +41,48 @@
   display: grid;
   margin: 0 auto;
   width: 100%;
+  height: auto;
   border-radius: 5px;
   background-color: #fafae6;
-  transition: all .2s ease-in-out;
-  box-shadow: 0 14px 28px rgba(50, 50, 0, 0.25), 0 10px 10px rgba(50, 50, 0, 0.22);
+  transition: all .1s ease-in-out;
+  box-shadow: 0 14px 28px rgba(50, 50, 0, 0.25), 0 10px 10px rgba(50, 50, 0, 0.22), 0 0px 1px gray;
   grid-column-gap: 2%;
   grid-row-gap: 1rem;
-  grid-template-areas: "i T T T" "i t t t" "i d p e";
-  grid-template-columns: 200px 100px auto auto;
+  grid-template-areas: "i T T T" "i t t t" "i d p pr";
+  grid-template-columns: 250px 100px auto auto;
   grid-template-rows: auto 1fr 25px; }
   @media screen and (max-width: 600px) {
     .message {
-      grid-template-areas: ". i ." "T T T" "t t t" "d p e";
+      grid-template-areas: ". i ." "T T T" "t t t" "d p pr";
       grid-template-columns: auto auto auto;
-      grid-template-rows: auto auto 1fr 25px; } }
-  .message:hover {
-    transform: scale(1.01); }
+      grid-template-rows: auto auto 1fr 25px;
+      padding-top: 10px; } }
   .message__image {
     grid-area: i;
-    max-height: 200px;
-    max-width: 200px;
+    max-width: 250px;
     margin: auto auto;
+    border-radius: inherit;
+    display: grid;
+    margin: 0 auto;
+    grid-template-areas: "ia" "ir";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 50px; }
+  .message__image-active {
+    grid-area: ia;
+    max-width: inherit;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit; }
+  .message__image-row {
+    grid-area: ir;
+    display: flex;
+    width: inherit;
+    justify-content: flex-start;
     border-radius: inherit; }
+  .message__image-small {
+    max-height: 50px;
+    max-width: 50px;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit; }
   .message__title {
     grid-area: T;
     padding: 10px;
@@ -78,7 +98,7 @@
     padding-left: 20px; }
   .message__date {
     grid-area: d;
-    background-color: #dcf0dc;
+    background-color: rgba(0, 50, 0, 0.25);
     color: white;
     font-size: 10px;
     padding: 3px 5px;
@@ -87,8 +107,8 @@
   .message__place {
     grid-area: p;
     margin: auto 0; }
-  .message__email {
-    grid-area: e;
+  .message__price {
+    grid-area: pr;
     margin: auto auto;
     border-radius: inherit; }
 
@@ -116,7 +136,7 @@
     background-color: rgba(0, 0, 0, 0.7);
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px; }
   .login__grid {
