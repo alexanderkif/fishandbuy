@@ -74,18 +74,20 @@ export default class Message {
         this.imageRow.addEventListener('click', this.setActiveImage);
 
         for (let i = 0; i < imgFileIds.length; i++) {
-            this.getImg('image/' + imgFileIds[i], function(data){
-                var image = document.createElement("img");
-                image.className = "message__image-small";
-                if (data != 'data:image/jpeg;base64,') {
-                    image.src = data;
-                }
-                else {
-                    image.textContent = "no image";
-                }
-                this.imageRow.appendChild(image);
-                if (!this.activeImage.src) this.activeImage.src = data;
-            }.bind(this));
+            if (imgFileIds[i]!="") {
+                this.getImg('image/' + imgFileIds[i], function(data){
+                    var image = document.createElement("img");
+                    image.className = "message__image-small";
+                    if (data != 'data:image/jpeg;base64,') {
+                        image.src = data;
+                    }
+                    else {
+                        image.textContent = "no image";
+                    }
+                    this.imageRow.appendChild(image);
+                    if (!this.activeImage.src) this.activeImage.src = data;
+                }.bind(this));
+            }
         }      
     }
 

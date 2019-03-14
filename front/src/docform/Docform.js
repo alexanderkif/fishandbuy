@@ -32,8 +32,10 @@ export default class Docform {
         for (let i = 0; i < imgs.length; i++) {
             if (imgs[i].src.split('/')[0]!="image") {
                 if (this.imgFileIds[i]) this.deleteFile(this.imgFileIds[i].src.split('/')[1]);
-                var fn = function(id) {
-                    this.imgFileIds[i] = id;
+                var fn = function(text) {
+                    if (text!="noimage") {
+                        this.imgFileIds[i] = text;
+                    }
                     count++;
                 }.bind(this);
                 this.saveFile(imgs[i].file, fn);
@@ -42,27 +44,35 @@ export default class Docform {
 
         var timerId = setInterval( function(){
             if (count == imgs.length) {
-                this.sendForm(fn);
                 clearInterval(timerId);
+                this.sendForm(fn);
             }
         }.bind(this), 1000);
     }
 
-    sendForm(fn) {
+    @bind
+    sendForm() {
+        var fn = function (text) {
+            alert(text);
+        }.bind(this);
+        
         var form = new FormData();
         form.append("title", this.title.value);
         form.append("text", this.text.value);
         form.append("price", this.price.value);
         form.append("place", this.place.value);
         form.append("imgFileIds", this.imgFileIds);
-        var fn = function (response) {
-            alert(response.status);
-        }.bind(this);
+        
         fetch("doc", {
             method: "POST",
             body: form
         })
-            .then((response) => fn(response));
+        .then(function(response) {
+            return response.text()
+        })
+        .then(function(text) {
+            fn(text);
+        });
     }
 
     @bind
@@ -113,7 +123,9 @@ export default class Docform {
             body: form
         })
         .then(function(response) {
-            return response.text()
+            if (response.status=="200")
+                return  response.text();
+            else return "noimage";
         })
         .then(function(text) {
             fn(text);

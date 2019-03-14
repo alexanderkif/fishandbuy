@@ -137,8 +137,9 @@ public class DocsController {
                          @ModelAttribute("text") String text,
                          @ModelAttribute("place") String place,
                          @ModelAttribute("price") String price,
-                         @ModelAttribute("imgFileIds") String[] imgFileIds,
+                         @ModelAttribute("imgFileIds") String imgFileIds,
                          Principal principal) {
+
         System.out.println("post here");
         try {
 //            List<Doc> docs = docRepository.findByEmail(principal.getName());
@@ -153,13 +154,13 @@ public class DocsController {
                     .text(text)
                     .place(place)
                     .price(price)
-                    .imgFileIds(imgFileIds)
+                    .imgFileIds(imgFileIds.split(","))
                     .build();
                 docRepository.save(doc);
         } catch (Exception e){
             return "error";
         }
-        return "edit";
+        return "saved";
     }
 
     @RequestMapping("/list")
