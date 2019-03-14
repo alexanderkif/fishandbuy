@@ -4,6 +4,7 @@ import Docform from '../docform/docform';
 
 export default class Content {
     constructor(){
+        this.content = document.querySelector('.content');
         this.messages = document.querySelector('.content__messages');
         this.pages = document.querySelector('.content__pages');
         this.docform = document.querySelector('.content__docform');
@@ -16,12 +17,14 @@ export default class Content {
     changeContent(e) {
         var classes = e.currentTarget.classList;
         if (classes.contains('menu__item-home') || classes.contains('menu__item-lots')) {
+            this.content.classList.add('content_hidden');
             this.messages.classList.remove('content__messages_hidden');
             this.pages.classList.remove('content__pages_hidden');
             this.docform.classList.add('content__docform_hidden');
             this.about.classList.add('content__about_hidden');
         }
         if (classes.contains('menu__item-add')) {
+            this.content.classList.remove('content_hidden');
             this.messages.classList.add('content__messages_hidden');
             this.pages.classList.add('content__pages_hidden');
             this.docform.classList.remove('content__docform_hidden');
@@ -29,6 +32,7 @@ export default class Content {
             this.docForm = new Docform({title:"",text:"",price:"",place:"",imgFileIds:[]});
         }
         if (classes.contains('menu__item-about')) {
+            this.content.classList.remove('content_hidden');
             this.messages.classList.add('content__messages_hidden');
             this.pages.classList.add('content__pages_hidden');
             this.docform.classList.add('content__docform_hidden');

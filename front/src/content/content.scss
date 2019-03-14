@@ -1,4 +1,14 @@
 .content {
+    box-shadow: 0 14px 28px $color-active-shadow1, 0 10px 10px $color-active-shadow2;
+    background: linear-gradient($color-active, $color-active2);
+    padding: 20px;
+    border-radius: 5px;
+
+    &_hidden {
+        box-shadow: none; 
+        background: none;
+        padding: 0px;
+    }
 
     &__messages, &__pages, &__docform, &__about {
         width: 100%;

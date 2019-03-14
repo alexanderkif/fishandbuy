@@ -6,9 +6,10 @@
     height: auto;
     // border: solid 1px lightgray;
     border-radius: 5px;
-    background-color: $color-active2;
+    // background-color: $color-active2;
     transition: all .1s ease-in-out;
-    box-shadow: 0 14px 28px $color-active2-shadow1, 0 10px 10px $color-active2-shadow2, 0 0px 1px gray; 
+    box-shadow: 0 14px 28px $color-active2-shadow1, 0 10px 10px $color-active2-shadow2; //, 0 0px 1px gray;    
+    background: linear-gradient($color-active, $color-active2);
     grid-column-gap: 2%;
     grid-row-gap: 1rem;
     grid-template-areas:"i T T T"
@@ -42,7 +43,7 @@
         grid-template-areas:"ia"
                             "ir";
         grid-template-columns: 1fr;
-        grid-template-rows: auto 50px;
+        grid-template-rows: auto auto;
     }
 
     &__image-active {
@@ -54,10 +55,11 @@
 
     &__image-row {
         grid-area: ir;
-        display: flex;
         width: inherit;
-        justify-content: flex-start;
         border-radius: inherit;
+        display: grid;
+        grid-template-columns: auto auto auto auto auto;
+        justify-content: left;
     }
 
     &__image-small {
