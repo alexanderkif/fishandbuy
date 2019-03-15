@@ -3,6 +3,7 @@ import { bind } from 'decko';
 export default class Message {
     constructor({id,date,title,text,place,price,imgFileIds}){
         this.element = document.createElement("div");
+        this.main = document.querySelector('body');
         this.element.className = "message";
         this.id = id;
         this.setTitle(title);
@@ -67,6 +68,7 @@ export default class Message {
         this.activeImage = document.createElement("img");
         this.activeImage.className = "message__image-active";
         this.image.appendChild(this.activeImage);
+        this.activeImage.addEventListener('click', this.openModalImage);
 
         this.imageRow = document.createElement("div");
         this.imageRow.className = "message__image-row";
@@ -113,5 +115,48 @@ export default class Message {
     setActiveImage(e) {
         if (e.target.classList.contains('message__image-small'))
             this.activeImage.src = e.target.src;
+    }
+
+    @bind
+    openModalImage() {
+        this.shadow = document.createElement("div");
+        this.shadow.classList.add('message__shadow');
+        this.main.appendChild(this.shadow);
+        this.createBigImage();
+    }
+
+    @bind
+    closeModal() {
+        this.main.removeChild(this.shadow);
+    }
+
+    @bind
+    createBigImage() {
+        // this.grid = document.createElement("div");
+        // this.grid.classList.add('message__grid');
+        // this.shadow.appendChild(this.grid);
+        // this.grid.addEventListener('click', function (e) { e.stopPropagation(); });
+
+        this.bigimage = document.createElement("img");
+        this.bigimage.classList.add('message__bigimage');
+        this.bigimage.src = this.activeImage.src;
+        this.shadow.appendChild(this.bigimage);
+
+        this.prev = document.createElement("div");
+        this.prev.classList.add('message__prev');
+        this.prev.innerText = "<";
+        this.shadow.appendChild(this.prev);
+
+        this.next = document.createElement("div");
+        this.next.classList.add('message__next');
+        this.next.innerText = ">";
+        this.shadow.appendChild(this.next);
+
+        this.close = document.createElement("div");
+        this.close.classList.add('message__close');
+        this.close.innerText = "x";
+        this.shadow.appendChild(this.close);
+        this.close.addEventListener('click', this.closeModal);
+
     }
 }
