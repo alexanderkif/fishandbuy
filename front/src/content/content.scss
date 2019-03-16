@@ -1,13 +1,13 @@
 .content {
-    box-shadow: 0 14px 28px $color-active-shadow1, 0 10px 10px $color-active-shadow2;
+    box-shadow: $box-shadow1;
     background: linear-gradient($color-active, $color-active2);
-    padding: 20px;
-    border-radius: 5px;
+    padding: 1rem;
+    border-radius: 0.3rem;
 
     &_hidden {
         box-shadow: none; 
         background: none;
-        padding: 0px;
+        padding: 0;
     }
 
     &__messages, &__pages, &__docform, &__about {
@@ -19,28 +19,29 @@
     }
 
     &__about-header {
-        font-size: 30px;
-        padding: 20px 60px 0px 60px;
+        font-size: 2rem;
+        padding: 1rem 4rem 0 5rem;
     }
 
     &__about-article {
-        padding: 0px 20px 20px 40px;
+        padding: 0 2rem 1rem 3rem;
         text-align: justify;
     }
 
     &__item {
-        padding-bottom: 2em;
+        padding-bottom: 2rem;
     }
 
     &__page {
         display: inline-block;
         width: auto;
-        height: 20px;
-        padding: 5px 10px;
-        margin: 0px 5px;
+        height: 1rem;
+        padding: 0.3rem 0.5rem;
+        margin: 0 0.3rem;
         background-color: $color-active;
         transition: all .2s ease-in-out;
-        border-radius: 3px;
+        border-radius: 0.2rem;
+        box-shadow: $box-shadow1;
 
         &:hover {
             transform: scale(1.1);  
@@ -51,7 +52,7 @@
 
         &_current {
             background-color: $color-active2;
-            border: 2px solid $color-active-bright;
+            border: 0.1rem solid $color-active-bright;
 
             &:hover {
                 transform: none;

@@ -1,6 +1,6 @@
 import { bind } from 'decko';
 import Message from '../message/Message'
-import Docform from '../docform/docform';
+import Docform from '../docform/Docform';
 
 export default class Content {
     constructor(){

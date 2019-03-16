@@ -1,12 +1,12 @@
 
 .login {
-    border: solid 1px lightgray;
+    border: solid 0.1rem lightgray;
     background-color: $color-active;
-    border-radius: 5px;
-    padding: 5px 10px;
+    border-radius: 0.3rem;
+    padding: 0.3rem 0.5rem;
     font: inherit;
     width: auto;
-    min-width: 70px;
+    min-width: 4rem;
     cursor: pointer;
 
     &:hover {
@@ -22,7 +22,7 @@
     }
 
     &__txt {
-        height: 20px;
+        height: 1rem;
         width: inherit;
         text-align: center;
         height: auto;
@@ -33,21 +33,21 @@
         width: 100%;
         height: 100%;
         position: fixed;
-        top: 0px;
-        left: 0px;
+        top: 0;
+        left: 0;
     }
 
     &__grid {
         display: grid;
-        width: 400px;
+        width: 25rem;
         position: relative;
         font: inherit;
         margin: 0 auto;
         top: 40%;
         background: linear-gradient($color-active, $color-active2);
-        border-radius: 10px;
-        padding: 20px;
-        grid-gap: 15px;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        grid-gap: 1rem;
         grid-template-areas:"e e e"
                             "p p p"
                             ". . s";
@@ -75,9 +75,9 @@
     &__submit {
         grid-area: s;
         font: inherit;
-        height: 30px;
-        border-radius: 5px;
-        border: solid 1px lightgray;
+        height: 2rem;
+        border-radius: 0.3rem;
+        border: solid 0.1rem lightgray;
         background-color: $color-active;
         outline: none;
         cursor: pointer;
@@ -90,30 +90,30 @@
     &__email, &__password, &__phone {
         grid: 2fr;
         width: 100%;
-        border: solid 1px lightgray;
-        border-radius: 5px;
-        padding-left: 10px;
-        height: 30px;
+        border: solid 0.1rem lightgray;
+        border-radius: 0.3rem;
+        padding-left: 0.5rem;
+        height: 2rem;
         font: inherit;
         outline: none;
 
         &.error {
-            border: solid 2px lightpink;
+            border: solid 0.1rem lightpink;
         }
     }
 
     &__btn-log, &__btn-reg {
         position: absolute;
-        width: 185px;
-        height: 30px;
-        top: -30px;
+        width: 12rem;
+        height: 2rem;
+        top: -2rem;
         grid: 1fr;
         font: inherit;
         background-color: $color-active2;
-        border: 0px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        padding-left: 5px;
+        border: 0;
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+        padding-left: 0.3rem;
         cursor: pointer;
         opacity: 0.7;
         outline: none;
@@ -130,10 +130,10 @@
     }
 
     &__btn-log {
-        left: calc(50% - 190px);
+        left: calc(50% - 12.3rem);
     } 
     
     &__btn-reg {
-        left: calc(50% + 5px);
+        left: calc(50% + 0.3rem);
     }
 }

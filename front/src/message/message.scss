@@ -5,27 +5,39 @@
     width: 100%;
     height: auto;
     // border: solid 1px lightgray;
-    border-radius: 5px;
+    border-radius: 0.3rem;
     // background-color: $color-active2;
     transition: all .1s ease-in-out;
-    box-shadow: 0 14px 28px $color-active2-shadow1, 0 10px 10px $color-active2-shadow2; //, 0 0px 1px gray;    
+    box-shadow: $box-shadow1;   
     background: linear-gradient($color-active, $color-active2);
     grid-column-gap: 2%;
     grid-row-gap: 1rem;
     grid-template-areas:"i T T T"
                         "i t t t"
-                        "i d p pr";
-    grid-template-columns: 250px 100px auto auto;
-    grid-template-rows: auto 1fr 25px;
+                        "i d p pr"
+                        "i ph ph ph";
+    grid-template-columns: 15rem 6rem auto auto;
+    grid-template-rows: auto 1fr auto auto;
     
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 40rem) {
         grid-template-areas:". i ."
                             "T T T"
                             "t t t"
-                            "d p pr";
+                            "d p pr"
+                            "ph ph ph";
         grid-template-columns: auto auto auto;
-        grid-template-rows: auto auto 1fr 25px;
-        padding-top: 10px;
+        grid-template-rows: auto auto 1fr auto auto;
+    }
+    
+    @media screen and (max-width: 31.5rem) {
+        grid-template-areas:"i i"
+                            "T T"
+                            "t t"
+                            "p p"
+                            "d pr"
+                            "ph ph";
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto 1fr auto auto auto;
     }
 
     &:hover { 
@@ -34,16 +46,21 @@
 
     &__image {
         grid-area: i;
-        max-width: 250px;
+        max-width: 15rem;
         width: inherit;
         border-radius: inherit;
         display: grid;
+        margin: 0 auto;
         text-align: -webkit-center;
         // grid-row-gap: 3px;
         grid-template-areas:"ia"
                             "ir";
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
+
+        @media screen and (max-width: 31.5rem) {
+            max-width: 25rem;
+        }
     }
 
     &__image-active {
@@ -63,27 +80,31 @@
     }
 
     &__image-small {
-        max-height: 50px;
-        max-width: 50px;
+        max-height: 3rem;
+        max-width: 3rem;
         border-bottom-left-radius: inherit;
         border-bottom-right-radius: inherit;
     }
     
     &__title {
         grid-area: T;
-        padding: 10px;
-        padding-left: 20px;
+        padding: 0.5rem;
+        padding-left: 1rem;
         background-color: $color-active;
-        border-bottom: 2px solid rgba(0,0,0,0.5);
-        font-size: 24px;
+        border-bottom: 0.1rem solid rgba(0,0,0,0.5);
+        font-size: 1.5rem;
         font-weight: bold;
         border-top-right-radius: inherit;
+
+        @media screen and (max-width: 40rem) {
+            text-align: center;
+        }
     }
     
     &__text {
         grid-area: t;
-        padding: 10px;
-        padding-left: 20px;
+        padding: 0.5rem;
+        padding-left: 1rem;
         // background-color: #befce4;
     }
     
@@ -91,21 +112,31 @@
         grid-area: d;
         background-color: $color-active-shadow1;
         color: white;
-        font-size: 10px;
-        padding: 3px 5px;
+        font-size: 1rem;
+        padding: 0.2rem 0.3rem;
         margin: auto auto;
         border-radius: inherit;
     }
     
     &__place {
         grid-area: p;
+        padding-left: 1rem;
         margin: auto 0;
+    }
+    
+    &__phone {
+        grid-area: ph;
+        padding-left: 1rem;
+        margin: auto 0;
+        padding-bottom: 0.5rem;
     }
     
     &__price {
         grid-area: pr;
-        margin: auto auto;
+        text-align: center;
         border-radius: inherit;
+        min-height: 1rem;
+        margin: auto 0;
     }
 
     &__shadow {
@@ -113,11 +144,11 @@
         width: 100%;
         height: 100%;
         position: fixed;
-        top: 0px;
-        left: 0px;
+        top: 0;
+        left: 0;
         display: flex;
         text-align: -webkit-center;
-        font-size: 70px;
+        font-size: 4rem;
         color: lightgray;
     }
 
@@ -131,7 +162,7 @@
     &__prev {
         grid-area: prev;
         position: fixed;
-        left: 20px;
+        left: 1rem;
         top: 50%;
         cursor: pointer;
     }
@@ -139,16 +170,16 @@
     &__next {
         grid-area: next;
         position: fixed;
-        right: 20px;
+        right: 1rem;
         top: 50%;
         cursor: pointer;
     }
 
     &__close {
         position: fixed;
-        right: 50px;
-        top: 10px;
-        padding: 10px;
+        right: 3rem;
+        top: 0.5rem;
+        padding: 0.5rem;
         cursor: pointer;
     }
 }

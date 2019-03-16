@@ -1,18 +1,43 @@
 import { bind } from 'decko';
 
 export default class Message {
-    constructor({id,date,title,text,place,price,imgFileIds}){
+    constructor({id,date,title,text,place,price,imgFileIds,email}){
         this.element = document.createElement("div");
         this.main = document.querySelector('body');
         this.element.className = "message";
         this.id = id;
+        this.email = email.replace(".", "((at))");;
         this.setTitle(title);
         this.setText(text);
         this.setDate(date);
         this.setPlace(place);
         this.setPrice(price);
         this.setImage(imgFileIds);
+        this.setPhone();
         return this.element;
+    }
+
+    @bind
+    setPhone() {
+        this.phone = document.createElement("div");
+        this.phone.className = "message__phone";
+        this.phone.textContent = "Click here to get phone number";
+        this.element.appendChild(this.phone);
+        this.phone.addEventListener('click', this.getPhone);
+    }
+
+    @bind
+    getPhone() {
+        fetch(`account/${this.email}`, { method: "GET" })
+        .then(function(response) {
+            if (response.status==404) {
+                return {phone: "Only users can see the phone number."};
+            }
+            return response.json();
+        })
+        .then(data => {
+            this.phone.textContent = data.phone;
+        });
     }
 
     @bind
@@ -132,10 +157,6 @@ export default class Message {
 
     @bind
     createBigImage() {
-        // this.grid = document.createElement("div");
-        // this.grid.classList.add('message__grid');
-        // this.shadow.appendChild(this.grid);
-        // this.grid.addEventListener('click', function (e) { e.stopPropagation(); });
 
         this.bigimage = document.createElement("img");
         this.bigimage.classList.add('message__bigimage');

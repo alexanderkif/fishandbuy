@@ -24,7 +24,7 @@ public class AccountController {
 
     @GetMapping("{email}")
     public Account getuser(@PathVariable String email) {
-        return accountRepository.findByEmail(email);
+        return accountRepository.findByEmail(email.replace("((at))", "."));
     }
 
     @PostMapping
