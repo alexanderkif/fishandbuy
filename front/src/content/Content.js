@@ -16,7 +16,17 @@ export default class Content {
     @bind
     changeContent(e) {
         var classes = e.currentTarget.classList;
-        if (classes.contains('menu__item-home') || classes.contains('menu__item-lots')) {
+        if (classes.contains('menu__item-home')) {
+            this.messages.innerHTML = "";
+            this.pages.innerHTML = "";
+            this.getDocs(1);
+            this.content.classList.add('content_hidden');
+            this.messages.classList.remove('content__messages_hidden');
+            this.pages.classList.remove('content__pages_hidden');
+            this.docform.classList.add('content__docform_hidden');
+            this.about.classList.add('content__about_hidden');
+        }
+        if (classes.contains('menu__item-lots')) {
             this.content.classList.add('content_hidden');
             this.messages.classList.remove('content__messages_hidden');
             this.pages.classList.remove('content__pages_hidden');
@@ -29,7 +39,8 @@ export default class Content {
             this.pages.classList.add('content__pages_hidden');
             this.docform.classList.remove('content__docform_hidden');
             this.about.classList.add('content__about_hidden');
-            this.docForm = new Docform({title:"",text:"",price:"",place:"",imgFileIds:[]});
+            if (this.inDocForm) this.inDocForm.clear();
+            else this.inDocForm = new Docform({title:"",text:"",price:"",place:"",imgFileIds:[]});
         }
         if (classes.contains('menu__item-about')) {
             this.content.classList.remove('content_hidden');
@@ -79,7 +90,7 @@ export default class Content {
             })
             ).then(res => {
                 fn(res.data);
-                console.log(res.status, res.data);
+                // console.log(res.status, res.data);
             })
         );
     }

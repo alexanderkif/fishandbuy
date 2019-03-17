@@ -4,6 +4,7 @@ const MAX_IMG_SIZE = 1000000;
 
 export default class Docform {
     constructor({title,text,price,place,imgFileIds}){
+        // this.element = document.querySelector('.docform');
         this.title = document.querySelector('.docform__title');
         this.text = document.querySelector('.docform__text');
         this.price = document.querySelector('.docform__price');
@@ -21,7 +22,18 @@ export default class Docform {
         this.drawImages(imgFileIds);
         this.images.addEventListener('click', this.clickImage);
         this.sbmt.addEventListener('click', this.clickSbmt);
-    }    
+        return this;
+    }
+
+    @bind
+    clear() {
+        this.title.value = "";
+        this.text.value = "";
+        this.price.value = "";
+        this.place.value = "";
+        this.imgFileIds = "";
+        this.images.innerHTML = "";
+    }
 
     @bind
     clickSbmt() {
@@ -53,6 +65,7 @@ export default class Docform {
     @bind
     sendForm() {
         var fn = function (text) {
+            this.sbmt.dispatchEvent(new Event('newDocSaved', {bubbles: true, cancelable: true}));
             alert(text);
         }.bind(this);
         

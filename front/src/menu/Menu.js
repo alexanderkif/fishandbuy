@@ -25,5 +25,8 @@ export default class Menu {
         this.content = new Content();
         this.items = document.querySelectorAll('.menu__item');
         [].forEach.call(this.items, (item) => item.addEventListener('click', this.content.changeContent));
+        document.addEventListener('newDocSaved', function(){
+            this.home.click();
+        }.bind(this));
     }
 }

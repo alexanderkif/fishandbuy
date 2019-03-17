@@ -33,6 +33,7 @@
         width: 100%;
         height: 100%;
         position: fixed;
+        display: flex;
         top: 0;
         left: 0;
     }
@@ -42,8 +43,8 @@
         width: 25rem;
         position: relative;
         font: inherit;
-        margin: 0 auto;
-        top: 40%;
+        margin: auto auto;
+        // top: 40%;
         background: linear-gradient($color-active, $color-active2);
         border-radius: 0.5rem;
         padding: 1rem;

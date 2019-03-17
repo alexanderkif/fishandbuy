@@ -59,7 +59,7 @@
   grid-template-rows: auto 1fr auto auto; }
   @media screen and (max-width: 40rem) {
     .message {
-      grid-template-areas: ". i ." "T T T" "t t t" "d p pr" "ph ph ph";
+      grid-template-areas: "i i i" "T T T" "t t t" "d p pr" "ph ph ph";
       grid-template-columns: auto auto auto;
       grid-template-rows: auto auto 1fr auto auto; } }
   @media screen and (max-width: 31.5rem) {
@@ -100,6 +100,10 @@
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;
     cursor: pointer; }
+    @media screen and (max-width: 31.5rem) {
+      .message__image-small {
+        max-height: 5rem;
+        max-width: 5rem; } }
   .message__title {
     grid-area: T;
     padding: 0.5rem;
@@ -121,7 +125,8 @@
     background-color: #d1efd1;
     font-size: 1rem;
     padding: 0.2rem 0.3rem;
-    margin: auto auto;
+    margin: auto 1rem;
+    width: 5rem;
     border-radius: inherit; }
   .message__place {
     grid-area: p;
@@ -200,6 +205,7 @@
     width: 100%;
     height: 100%;
     position: fixed;
+    display: flex;
     top: 0;
     left: 0; }
   .login__grid {
@@ -207,8 +213,7 @@
     width: 25rem;
     position: relative;
     font: inherit;
-    margin: 0 auto;
-    top: 40%;
+    margin: auto auto;
     background: linear-gradient(#e6fae6, #fafae6);
     border-radius: 0.5rem;
     padding: 1rem;
@@ -422,12 +427,9 @@ html, body {
   grid-template-rows: auto 1fr 6rem; }
   @media screen and (max-width: 55rem) {
     .main {
-      grid-template-areas: "h h h" "m m m" "c c c" "f f f";
+      grid-template-areas: "h" "m" "c" "f";
       grid-template-columns: auto;
       grid-template-rows: auto auto 1fr 6rem; } }
-  @media screen and (max-width: 37rem) {
-    .main {
-      grid-template-areas: "h" "m" "c" "f"; } }
   .main__header {
     grid-area: h;
     background-color: #fafae6;

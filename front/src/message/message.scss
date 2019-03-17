@@ -4,9 +4,7 @@
     margin: 0 auto;
     width: 100%;
     height: auto;
-    // border: solid 1px lightgray;
     border-radius: 0.3rem;
-    // background-color: $color-active2;
     transition: all .1s ease-in-out;
     box-shadow: $box-shadow1;   
     background: linear-gradient($color-active, $color-active2);
@@ -20,7 +18,7 @@
     grid-template-rows: auto 1fr auto auto;
     
     @media screen and (max-width: 40rem) {
-        grid-template-areas:". i ."
+        grid-template-areas:"i i i"
                             "T T T"
                             "t t t"
                             "d p pr"
@@ -52,7 +50,6 @@
         display: grid;
         margin: 0 auto;
         text-align: -webkit-center;
-        // grid-row-gap: 3px;
         grid-template-areas:"ia"
                             "ir";
         grid-template-columns: 1fr;
@@ -86,6 +83,11 @@
         border-bottom-left-radius: inherit;
         border-bottom-right-radius: inherit;
         cursor: pointer;
+
+        @media screen and (max-width: 31.5rem) {
+            max-height: 5rem;
+            max-width: 5rem;
+        }
     }
     
     &__title {
@@ -93,7 +95,6 @@
         padding: 0.5rem;
         padding-left: 1.5rem;
         background-color: $color-dark;
-        // color: $color-active;
         border-bottom: 0.1rem solid rgba(0,0,0,0.5);
         font-size: 1.5rem;
         font-weight: bold;
@@ -108,16 +109,15 @@
         grid-area: t;
         padding: 0.5rem;
         padding-left: 1rem;
-        // background-color: #befce4;
     }
     
     &__date {
         grid-area: d;
         background-color: $color-dark;
-        // color: $color-active2;
         font-size: 1rem;
         padding: 0.2rem 0.3rem;
-        margin: auto auto;
+        margin: auto 1rem;
+        width: 5rem;
         border-radius: inherit;
     }
     

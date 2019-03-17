@@ -112,7 +112,7 @@ export default class Login extends EventObserver {
     async addUser() {
         await fetch('account', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ "email": this.email.value, "pass": this.pass.value, "phone": this.phone.value})})
         .then(function (response) {
-            alert(response.status);
+            if (response.status == 200) alert('User created. Sign in now.');
         });
         this.main.removeChild(this.shadow);
     }
