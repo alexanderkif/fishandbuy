@@ -52,7 +52,7 @@ export default class Message {
     setText(text) {
         var element = document.createElement("div");
         element.className = "message__text";
-        element.textContent = text;
+        element.innerText = text;
         this.element.appendChild(element);
     }
 
@@ -157,27 +157,56 @@ export default class Message {
 
     @bind
     createBigImage() {
+        this.smalls = this.imageRow.querySelectorAll(".message__image-small");
 
         this.bigimage = document.createElement("img");
         this.bigimage.classList.add('message__bigimage');
         this.bigimage.src = this.activeImage.src;
         this.shadow.appendChild(this.bigimage);
+        this.bigimage.addEventListener('click', this.showNext);
 
         this.prev = document.createElement("div");
         this.prev.classList.add('message__prev');
-        this.prev.innerText = "<";
+        this.prev.innerHTML = '<i class="material-icons">skip_previous</i>';
         this.shadow.appendChild(this.prev);
+        this.prev.addEventListener('click', this.showPrev);
 
         this.next = document.createElement("div");
         this.next.classList.add('message__next');
-        this.next.innerText = ">";
+        this.next.innerHTML = '<i class="material-icons">skip_next</i>';
         this.shadow.appendChild(this.next);
+        this.next.addEventListener('click', this.showNext);
 
         this.close = document.createElement("div");
         this.close.classList.add('message__close');
-        this.close.innerText = "x";
+        this.close.innerHTML = '<i class="material-icons">close</i>';
         this.shadow.appendChild(this.close);
         this.close.addEventListener('click', this.closeModal);
+    }
 
+    @bind
+    showPrev() {
+        for (var i = 0; i < this.smalls.length; i++) {
+            if (this.smalls[i].src == this.bigimage.src) {
+                var smallTmp;
+                if (i == 0) smallTmp = this.smalls[this.smalls.length-1];
+                else smallTmp = this.smalls[i-1];
+                this.bigimage.src = smallTmp.src;
+                return;
+            }
+        }
+    }
+
+    @bind
+    showNext() {
+        for (var i = this.smalls.length-1; i > -1; i--) {
+            if (this.smalls[i].src == this.bigimage.src) {
+                var smallTmp;
+                if (i == this.smalls.length-1) smallTmp = this.smalls[0];
+                else smallTmp = this.smalls[i+1];
+                this.bigimage.src = smallTmp.src;
+                return;
+            }
+        }
     }
 }

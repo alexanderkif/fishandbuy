@@ -28,19 +28,12 @@ import java.util.stream.Collectors;
 @RequestMapping("doc")
 public class DocsController {
 
-//    @Autowired
-//    private GridFsOperations gridOperations;
-//    // this variable is used to store ImageId for other actions like: findOne or delete
-//    private String imageFileId = "";
-
     @Autowired
     private AccountRepository accountRepository;
 
     @Autowired
     private DocRepository docRepository;
 
-    private String titl;
-    private String li;
     private String find = "";
     private String place = "";
     final int docsOnPage = 3;
@@ -118,11 +111,7 @@ public class DocsController {
                 doc = tmp;
             }
         }
-        li = "edit";
-        titl = "Edit";
         model.addAttribute("doc", doc);
-        model.addAttribute("links", li);
-        model.addAttribute("titl", titl);
         return "edit";
     }
 
@@ -163,33 +152,25 @@ public class DocsController {
         return "saved";
     }
 
-    @RequestMapping("/list")
-    public String list(Model model, Principal principal) {
-        List<Doc> docs = docRepository.findByEmail(principal.getName());
-        li = "list";
-        titl = "List";
-        model.addAttribute("links", li);
-        model.addAttribute("titl", titl);
-        model.addAttribute("docs", docs);
-        return "list";
-    }
-
-    @RequestMapping("/register")
-    public String register(Model model, Principal principal) {
-        String phone = "";
-        try{
-            Account account = accountRepository.findByEmail(principal.getName());
-//            phone = account.getPhone();
-        }catch(Exception e){
-            System.out.println("No user in repository "+e);
-        }
-        li = "register";
-        titl = "Register";
-        model.addAttribute("links", li);
-        model.addAttribute("titl", titl);
-        model.addAttribute("phone", phone);
-        return "register";
-    }
+//    @RequestMapping("/list")
+//    public String list(Model model, Principal principal) {
+//        List<Doc> docs = docRepository.findByEmail(principal.getName());
+//        model.addAttribute("docs", docs);
+//        return "list";
+//    }
+//
+//    @RequestMapping("/register")
+//    public String register(Model model, Principal principal) {
+//        String phone = "";
+//        try{
+//            Account account = accountRepository.findByEmail(principal.getName());
+////            phone = account.getPhone();
+//        }catch(Exception e){
+//            System.out.println("No user in repository "+e);
+//        }
+//        model.addAttribute("phone", phone);
+//        return "register";
+//    }
 
 
 }

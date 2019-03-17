@@ -56,7 +56,7 @@
         grid-template-areas:"ia"
                             "ir";
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
+        grid-template-rows: auto 1fr;
 
         @media screen and (max-width: 31.5rem) {
             max-width: 25rem;
@@ -68,6 +68,7 @@
         max-width: inherit;
         border-top-left-radius: inherit;
         border-top-right-radius: inherit;
+        cursor: pointer;
     }
 
     &__image-row {
@@ -84,17 +85,19 @@
         max-width: 3rem;
         border-bottom-left-radius: inherit;
         border-bottom-right-radius: inherit;
+        cursor: pointer;
     }
     
     &__title {
         grid-area: T;
         padding: 0.5rem;
-        padding-left: 1rem;
-        background-color: $color-active;
+        padding-left: 1.5rem;
+        background-color: $color-dark;
+        // color: $color-active;
         border-bottom: 0.1rem solid rgba(0,0,0,0.5);
         font-size: 1.5rem;
         font-weight: bold;
-        border-top-right-radius: inherit;
+        border-radius: inherit;
 
         @media screen and (max-width: 40rem) {
             text-align: center;
@@ -110,8 +113,8 @@
     
     &__date {
         grid-area: d;
-        background-color: $color-active-shadow1;
-        color: white;
+        background-color: $color-dark;
+        // color: $color-active2;
         font-size: 1rem;
         padding: 0.2rem 0.3rem;
         margin: auto auto;
@@ -129,6 +132,7 @@
         padding-left: 1rem;
         margin: auto 0;
         padding-bottom: 0.5rem;
+        cursor: pointer;
     }
     
     &__price {
@@ -159,27 +163,33 @@
         max-height: 100%;
     }
 
+    &__prev, &__next, &__close {
+        position: fixed;
+        cursor: pointer;
+
+        i {
+            font-size: 5rem;
+        
+            @media screen and (max-width: 40rem) {
+                font-size: 3rem;
+            }
+        }
+    }
+
     &__prev {
         grid-area: prev;
-        position: fixed;
         left: 1rem;
         top: 50%;
-        cursor: pointer;
     }
 
     &__next {
         grid-area: next;
-        position: fixed;
         right: 1rem;
         top: 50%;
-        cursor: pointer;
     }
 
     &__close {
-        position: fixed;
-        right: 3rem;
-        top: 0.5rem;
-        padding: 0.5rem;
-        cursor: pointer;
+        right: 1rem;
+        top: 1rem;
     }
 }

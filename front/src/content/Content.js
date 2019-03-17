@@ -39,19 +39,6 @@ export default class Content {
             this.about.classList.remove('content__about_hidden');
         }
     }
-    
-    // @bind
-    // cclick() {
-    //     this.getJson('http://localhost:8080/doc/5aa38122941b260001cd3314', function(data){
-    //     this.messages.textContent = JSON.stringify(data);
-    //     }.bind(this));
-    // }
-
-    // var form = new FormData(document.getElementById('login-form'));
-    // fetch("/login", {
-    // method: "POST",
-    // body: form
-    // });
 
     @bind
     clickPage(e){
