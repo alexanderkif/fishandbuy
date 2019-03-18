@@ -137,7 +137,8 @@
     
     &__price {
         grid-area: pr;
-        text-align: center;
+        text-align: right;
+        padding-right: 1.5rem;
         border-radius: inherit;
         min-height: 1rem;
         margin: auto 0;

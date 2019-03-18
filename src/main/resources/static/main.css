@@ -32,7 +32,6 @@
     .content__page:hover {
       transform: scale(1.1);
       background-color: #dcf0dc;
-      color: white;
       cursor: pointer; }
     .content__page_current {
       background-color: #fafae6;
@@ -140,7 +139,8 @@
     cursor: pointer; }
   .message__price {
     grid-area: pr;
-    text-align: center;
+    text-align: right;
+    padding-right: 1.5rem;
     border-radius: inherit;
     min-height: 1rem;
     margin: auto 0; }

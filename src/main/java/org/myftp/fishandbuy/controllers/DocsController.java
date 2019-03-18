@@ -44,48 +44,41 @@ public class DocsController {
     @GetMapping
     public List list(@ModelAttribute("page") String p,
                         @ModelAttribute("find") String find,
-                        @ModelAttribute("place") String place) {
+                        @ModelAttribute("place") String place,
+                        @ModelAttribute("mylots") String mylots,
+                        Principal principal) {
         Integer page;
+        List<Doc> all;
+        Long pages = 1L;
         if (Objects.equals(p, "")) page=1;
         else page = Integer.valueOf(p);
 
-        if (!Objects.equals(find, ""))this.find = find;
-        if (!Objects.equals(place, ""))this.place = place;
+        if (!Objects.equals(find, "") && !Objects.equals(find, "undefined"))this.find = find;
+        if (!Objects.equals(place, "") && !Objects.equals(place, "undefined"))this.place = place;
         if (Objects.equals(place, "everywhere"))this.place = "";
 
         PageRequest pageRequest = new PageRequest(page-1, docsOnPage, Sort.Direction.DESC, "date");
-        List<Doc> all = docRepository
-                .findByPlaceContainsAndTitleContainsIgnoreCaseOrPlaceContainsAndTextContainsIgnoreCase(this.place,
-                        this.find, this.place, this.find, pageRequest);
+        if (Objects.equals(mylots, "true")) {
+            all = docRepository.findByEmail(principal.getName(), pageRequest);
+            pages = Math.round(Math.ceil(1.0 * docRepository
+                    .findByEmailAndPlaceContainsAndTitleContainsIgnoreCaseOrEmailAndPlaceContainsAndTextContainsIgnoreCase(
+                            principal.getName(), this.place, this.find,
+                            principal.getName(), this.place, this.find).size() / docsOnPage));
+        } else {
+            all = docRepository
+                    .findByPlaceContainsAndTitleContainsIgnoreCaseOrPlaceContainsAndTextContainsIgnoreCase(this.place,
+                            this.find, this.place, this.find, pageRequest);
+            pages = Math.round(Math.ceil(1.0 * docRepository
+                    .findByPlaceContainsAndTitleContainsIgnoreCaseOrPlaceContainsAndTextContainsIgnoreCase(this.place,
+                            this.find, this.place, this.find).size() / docsOnPage));
+        }
 
         Set places = docRepository.findByPlaceContaining("")
                 .map(Doc::getPlace)
                 .collect(Collectors.toSet());
 
-        Long pages = Math.round(Math.ceil(1.0 * docRepository
-                .findByPlaceContainsAndTitleContainsIgnoreCaseOrPlaceContainsAndTextContainsIgnoreCase(this.place,
-                this.find, this.place, this.find).size() / docsOnPage));
-//        Long pages = Math.round(Math.ceil(1.0 * all.size() / docsOnPage));
         if (pages==0) pages=1L;
 
-//        Map<Doc, Account> maps = new LinkedHashMap<>();
-
-//        all.stream()
-//                .sorted(Comparator.comparing(Doc::getDate).reversed())
-//                .skip((page-1)*docsOnPage)
-//                .limit(docsOnPage)
-//        all.forEach((d)->maps.put(d, accountRepository.findByEmail(d.getEmail())));
-
-//        li = "index";
-//        titl = "Index";
-//        model.addAttribute("links", li);
-//        model.addAttribute("titl", titl);
-//        model.addAttribute("docs", maps);
-//        model.addAttribute("pages", pages);
-//        model.addAttribute("page", page);
-//        model.addAttribute("places", places);
-//        model.addAttribute("place", this.place);
-//        model.addAttribute("find", this.find);
         List list = new ArrayList();
         list.add(all);
         list.add(places);
@@ -98,22 +91,22 @@ public class DocsController {
         return docRepository.findById(id);
     }
 
-    @RequestMapping("/edit")
-    public String edit(Model model, @ModelAttribute("title") String title, Principal principal) {
-        Doc doc = Doc.builder()
-                .title("")
-                .text("")
-                .place("")
-                .build();
-        if (title!=null){
-            Doc tmp = docRepository.findByTitle(title);
-            if (tmp!=null && tmp.getEmail().equals(principal.getName())){
-                doc = tmp;
-            }
-        }
-        model.addAttribute("doc", doc);
-        return "edit";
-    }
+//    @RequestMapping("/edit")
+//    public String edit(Model model, @ModelAttribute("title") String title, Principal principal) {
+//        Doc doc = Doc.builder()
+//                .title("")
+//                .text("")
+//                .place("")
+//                .build();
+//        if (title!=null){
+//            Doc tmp = docRepository.findByTitle(title);
+//            if (tmp!=null && tmp.getEmail().equals(principal.getName())){
+//                doc = tmp;
+//            }
+//        }
+//        model.addAttribute("doc", doc);
+//        return "edit";
+//    }
 
 //    @PostMapping
 //    public String saveDoc(@RequestBody Map<String, String> payload, Principal principal) {
@@ -122,7 +115,8 @@ public class DocsController {
 //    }
 
     @PostMapping
-    public String adddoc(Model model, @ModelAttribute("title") String title,
+    public String adddoc(Model model, @ModelAttribute("id") String id,
+                         @ModelAttribute("title") String title,
                          @ModelAttribute("text") String text,
                          @ModelAttribute("place") String place,
                          @ModelAttribute("price") String price,

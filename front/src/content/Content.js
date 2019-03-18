@@ -9,7 +9,10 @@ export default class Content {
         this.pages = document.querySelector('.content__pages');
         this.docform = document.querySelector('.content__docform');
         this.about = document.querySelector('.content__about');
-        this.getDocs(1);
+        this.find = "";
+        this.place = "";
+        this.mylots = "";
+        this.getDocs(1,this.find,this.place,this.mylots);
         this.pages.addEventListener('click', this.clickPage);
     }
 
@@ -19,7 +22,8 @@ export default class Content {
         if (classes.contains('menu__item-home')) {
             this.messages.innerHTML = "";
             this.pages.innerHTML = "";
-            this.getDocs(1);
+            this.mylots = "";
+            this.getDocs(1,this.find,this.place,this.mylots);
             this.content.classList.add('content_hidden');
             this.messages.classList.remove('content__messages_hidden');
             this.pages.classList.remove('content__pages_hidden');
@@ -27,6 +31,10 @@ export default class Content {
             this.about.classList.add('content__about_hidden');
         }
         if (classes.contains('menu__item-lots')) {
+            this.messages.innerHTML = "";
+            this.pages.innerHTML = "";
+            this.mylots = "true";
+            this.getDocs(1,this.find,this.place,this.mylots);
             this.content.classList.add('content_hidden');
             this.messages.classList.remove('content__messages_hidden');
             this.pages.classList.remove('content__pages_hidden');
@@ -57,12 +65,12 @@ export default class Content {
         if(e.target.classList.contains("content__pages")) return;
         this.messages.innerHTML = '';
         this.pages.innerHTML = '';
-        this.getDocs(e.target.firstChild.nodeValue);
+        this.getDocs(e.target.firstChild.nodeValue,this.find,this.place,this.mylots);
     }
 
     @bind
-    getDocs(page) {
-        this.getJson('doc?page=' + page, function(data){
+    getDocs(page,find,place,mylots) {
+        this.getJson('doc?page='+page+"&find="+find+"&place="+place+"&mylots="+mylots, function(data){
             data[0].forEach(message => {
                 var element = document.createElement("div");
                 element.className = "content__item";
