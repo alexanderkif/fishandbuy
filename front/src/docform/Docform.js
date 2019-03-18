@@ -33,6 +33,7 @@ export default class Docform {
         this.place.value = "";
         this.imgFileIds = "";
         this.images.innerHTML = "";
+        this.addPlus(this.images);
     }
 
     @bind
