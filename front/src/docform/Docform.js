@@ -66,7 +66,7 @@ export default class Docform {
     @bind
     sendForm() {
         var fn = function (text) {
-            this.sbmt.dispatchEvent(new Event('newDocSaved', {bubbles: true, cancelable: true}));
+            this.sbmt.dispatchEvent(new Event('goHome', {bubbles: true, cancelable: true}));
             alert(text);
         }.bind(this);
         

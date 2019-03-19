@@ -12,7 +12,7 @@ export default class Content {
         this.find = "";
         this.place = "";
         this.mylots = "";
-        this.getDocs(1,this.find,this.place,this.mylots);
+        // this.getDocs(1,this.find,this.place,this.mylots);
         this.pages.addEventListener('click', this.clickPage);
     }
 
@@ -63,9 +63,14 @@ export default class Content {
     clickPage(e){
         if(e.target.classList.contains("content__page_current")) return;
         if(e.target.classList.contains("content__pages")) return;
+        this.getPage(e.target.firstChild.nodeValue);
+    }
+
+    @bind
+    getPage(number) {
         this.messages.innerHTML = '';
         this.pages.innerHTML = '';
-        this.getDocs(e.target.firstChild.nodeValue,this.find,this.place,this.mylots);
+        this.getDocs(number, this.find, this.place, this.mylots);
     }
 
     @bind

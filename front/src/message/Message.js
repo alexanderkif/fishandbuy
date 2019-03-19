@@ -6,7 +6,7 @@ export default class Message {
         this.main = document.querySelector('body');
         this.element.className = "message";
         this.id = id;
-        this.email = email.replace(".", "((at))");;
+        this.email = email;
         this.setTitle(title);
         this.setText(text);
         this.setDate(date);
@@ -14,7 +14,19 @@ export default class Message {
         this.setPrice(price);
         this.setImage(imgFileIds);
         this.setPhone();
+        this.setEdit();
         return this.element;
+    }
+
+    @bind
+    setEdit() {
+        if (this.email == document.user) {
+            this.edit = document.createElement("div");
+            this.edit.className = "message__edit";
+            this.edit.innerHTML = '<i class="material-icons">edit</i>';
+            this.title.appendChild(this.edit);
+            // this.edit.addEventListener('click', this.editMessage);
+        }
     }
 
     @bind
@@ -28,7 +40,7 @@ export default class Message {
 
     @bind
     getPhone() {
-        fetch(`account/${this.email}`, { method: "GET" })
+        fetch(`account/${this.email.replace(".", "((at))")}`, { method: "GET" })
         .then(function(response) {
             if (response.status==404) {
                 return {phone: "Only users can see the phone number."};
@@ -42,10 +54,10 @@ export default class Message {
 
     @bind
     setTitle(title) {
-        var element = document.createElement("div");
-        element.className = "message__title";
-        element.textContent = title;
-        this.element.appendChild(element);
+        this.title = document.createElement("div");
+        this.title.className = "message__title";
+        this.title.textContent = title;
+        this.element.appendChild(this.title);
     }
 
     @bind

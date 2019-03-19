@@ -111,10 +111,17 @@
     border-bottom: 0.1rem solid rgba(0, 0, 0, 0.5);
     font-size: 1.5rem;
     font-weight: bold;
-    border-radius: inherit; }
+    border-radius: inherit;
+    position: relative; }
     @media screen and (max-width: 40rem) {
       .message__title {
         text-align: center; } }
+  .message__edit {
+    position: absolute;
+    right: 0.7rem;
+    top: 0.7rem;
+    font-size: inherit;
+    cursor: pointer; }
   .message__text {
     grid-area: t;
     padding: 0.5rem;

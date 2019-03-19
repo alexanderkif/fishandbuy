@@ -15,18 +15,24 @@ export default class Menu {
                 if (data.user == "nouser") {
                     this.add.classList.add('menu__item_hidden');
                     this.lots.classList.add('menu__item_hidden');
+                    document.user = "nouser";
                 }
                 else {
                     this.add.classList.remove('menu__item_hidden');
                     this.lots.classList.remove('menu__item_hidden');
+                    document.user = data.user;
                 }
+                this.goHome();
             }.bind(this));
         };
         this.content = new Content();
         this.items = document.querySelectorAll('.menu__item');
         [].forEach.call(this.items, (item) => item.addEventListener('click', this.content.changeContent));
-        document.addEventListener('newDocSaved', function(){
-            this.home.click();
-        }.bind(this));
+        document.addEventListener('goHome', this.goHome);
+    }
+
+    @bind
+    goHome() {
+        this.home.click();
     }
 }

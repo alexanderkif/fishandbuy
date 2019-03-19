@@ -99,10 +99,24 @@
         font-size: 1.5rem;
         font-weight: bold;
         border-radius: inherit;
+        position: relative;
 
         @media screen and (max-width: 40rem) {
             text-align: center;
         }
+    }
+
+    &__edit {
+        position: absolute;
+        right: 0.7rem;
+        top: 0.7rem;
+        font-size: inherit;
+        cursor: pointer;
+        // display: none;
+
+        // &_visible {
+        //     display: block;
+        // }
     }
     
     &__text {
