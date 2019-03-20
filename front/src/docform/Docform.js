@@ -16,6 +16,7 @@ export default class Docform {
         this.price.value = price;
         this.place.value = place;
         this.imgFileIds = imgFileIds;
+        if (this.imgFileIds=="") this.imgFileIds = [];
         this.images.innerHTML = "";
         this.addPlus(this.images);
         this.drawImages(imgFileIds);
@@ -25,26 +26,46 @@ export default class Docform {
     }
 
     @bind
-    clear() {
-        this.id = "";
-        this.title.value = "";
-        this.text.value = "";
-        this.price.value = "";
-        this.place.value = "";
-        this.imgFileIds = "";
+    setDocform({id,title,text,price,place,imgFileIds}) {
+        this.id = id;
+        this.title.value = title;
+        this.text.value = text;
+        this.price.value = price;
+        this.place.value = place;
+        this.imgFileIds = imgFileIds;
+        if (this.imgFileIds=="") this.imgFileIds = [];
         this.images.innerHTML = "";
         this.addPlus(this.images);
+        this.drawImages(imgFileIds);
+    }
+
+    getIdFromSrc(img) {
+        let arr = img.src.split('/');
+        return arr[arr.length-1];
     }
 
     @bind
     clickSbmt() {
         var imgs = this.images.querySelectorAll('.docform__image');
 
-        var count = 0;
+        var i = 0;
+        while (i < this.imgFileIds.length) {
+            var toDelete = true;
+            for (let j = 0; j < imgs.length; j++) {
+                if (this.imgFileIds[i] == this.getIdFromSrc(imgs[j]))
+                    toDelete = false;
+            }
+            if (toDelete) {
+                this.deleteFile(this.imgFileIds[i]);
+                this.imgFileIds.splice(i,1);
+                continue;
+            }
+            i++;
+        }
 
+        var count = this.imgFileIds.length;
         for (let i = 0; i < imgs.length; i++) {
-            if (imgs[i].src.split('/')[0]!="image") {
-                if (this.imgFileIds[i]) this.deleteFile(this.imgFileIds[i].src.split('/')[1]);
+            if (!this.imgFileIds.includes(this.getIdFromSrc(imgs[i]))) {                
                 var fn = function(text) {
                     if (text!="noimage") {
                         this.imgFileIds[i] = text;

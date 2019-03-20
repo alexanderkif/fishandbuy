@@ -133,7 +133,7 @@ public class DocsController {
                 .price(price)
                 .imgFileIds(imgFileIds.split(","))
                 .build();
-        if (Objects.equals(id, "")) {
+        if (!Objects.equals(id, "")) {
             doc.setId(id);
         }
         try {

@@ -19,7 +19,6 @@ export default class Content {
     @bind
     editMessage(e) {
         let msg = e.target;
-        if (this.inDocForm) this.inDocForm.clear();
         this.content.classList.remove('content_hidden');
         this.messages.classList.add('content__messages_hidden');
         this.pages.classList.add('content__pages_hidden');
@@ -32,7 +31,8 @@ export default class Content {
             var price = data.price;
             var place = data.place;
             var imgFileIds = data.imgFileIds;
-            this.inDocForm = new Docform({id:id,title:title,text:text,price:price,place:place,imgFileIds:imgFileIds});
+            if (this.inDocForm) this.inDocForm.setDocform({id:id,title:title,text:text,price:price,place:place,imgFileIds:imgFileIds});
+            else this.inDocForm = new Docform({id:id,title:title,text:text,price:price,place:place,imgFileIds:imgFileIds});
         }.bind(this);
         this.getJson(`doc/${msg.children[0].innerText}`, fn);        
     }
@@ -64,8 +64,8 @@ export default class Content {
             this.pages.classList.add('content__pages_hidden');
             this.docform.classList.remove('content__docform_hidden');
             this.about.classList.add('content__about_hidden');
-            if (this.inDocForm) this.inDocForm.clear();
-            else this.inDocForm = new Docform({id:"",title:"",text:"",price:"",place:"",imgFileIds:[]});
+            if (this.inDocForm) this.inDocForm.setDocform({id:"",title:"",text:"",price:"",place:"",imgFileIds:""});
+            else this.inDocForm = new Docform({id:"",title:"",text:"",price:"",place:"",imgFileIds:""});
         }
         if (classes.contains('menu__item-about')) {
             this.content.classList.remove('content_hidden');
