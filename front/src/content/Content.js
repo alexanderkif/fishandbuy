@@ -12,18 +12,37 @@ export default class Content {
         this.find = "";
         this.place = "";
         this.mylots = "";
-        // this.getDocs(1,this.find,this.place,this.mylots);
         this.pages.addEventListener('click', this.clickPage);
+        this.content.addEventListener('editMessage', this.editMessage);
+    }
+
+    @bind
+    editMessage(e) {
+        let msg = e.target;
+        if (this.inDocForm) this.inDocForm.clear();
+        this.content.classList.remove('content_hidden');
+        this.messages.classList.add('content__messages_hidden');
+        this.pages.classList.add('content__pages_hidden');
+        this.docform.classList.remove('content__docform_hidden');
+        this.about.classList.add('content__about_hidden');
+        var fn = function(data){
+            var id = data.id;
+            var title = data.title;
+            var text = data.text;
+            var price = data.price;
+            var place = data.place;
+            var imgFileIds = data.imgFileIds;
+            this.inDocForm = new Docform({id:id,title:title,text:text,price:price,place:place,imgFileIds:imgFileIds});
+        }.bind(this);
+        this.getJson(`doc/${msg.children[0].innerText}`, fn);        
     }
 
     @bind
     changeContent(e) {
         var classes = e.currentTarget.classList;
         if (classes.contains('menu__item-home')) {
-            this.messages.innerHTML = "";
-            this.pages.innerHTML = "";
             this.mylots = "";
-            this.getDocs(1,this.find,this.place,this.mylots);
+            this.getPage(1);
             this.content.classList.add('content_hidden');
             this.messages.classList.remove('content__messages_hidden');
             this.pages.classList.remove('content__pages_hidden');
@@ -31,10 +50,8 @@ export default class Content {
             this.about.classList.add('content__about_hidden');
         }
         if (classes.contains('menu__item-lots')) {
-            this.messages.innerHTML = "";
-            this.pages.innerHTML = "";
             this.mylots = "true";
-            this.getDocs(1,this.find,this.place,this.mylots);
+            this.getPage(1);
             this.content.classList.add('content_hidden');
             this.messages.classList.remove('content__messages_hidden');
             this.pages.classList.remove('content__pages_hidden');
@@ -48,7 +65,7 @@ export default class Content {
             this.docform.classList.remove('content__docform_hidden');
             this.about.classList.add('content__about_hidden');
             if (this.inDocForm) this.inDocForm.clear();
-            else this.inDocForm = new Docform({title:"",text:"",price:"",place:"",imgFileIds:[]});
+            else this.inDocForm = new Docform({id:"",title:"",text:"",price:"",place:"",imgFileIds:[]});
         }
         if (classes.contains('menu__item-about')) {
             this.content.classList.remove('content_hidden');

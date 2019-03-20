@@ -186,6 +186,8 @@
   .message__close {
     right: 1rem;
     top: 1rem; }
+  .message__id {
+    display: none; }
 
 .login {
   border: solid 0.1rem lightgray;

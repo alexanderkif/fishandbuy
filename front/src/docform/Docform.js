@@ -3,15 +3,14 @@ import { bind } from 'decko';
 const MAX_IMG_SIZE = 1000000;
 
 export default class Docform {
-    constructor({title,text,price,place,imgFileIds}){
-        // this.element = document.querySelector('.docform');
+    constructor({id,title,text,price,place,imgFileIds}){
         this.title = document.querySelector('.docform__title');
         this.text = document.querySelector('.docform__text');
         this.price = document.querySelector('.docform__price');
         this.place = document.querySelector('.docform__place');
-        // this.plus = document.querySelector('.docform__plus');
         this.sbmt = document.querySelector('.docform__sbmt');
         this.images = document.querySelector('.docform__images');
+        this.id = id;
         this.title.value = title;
         this.text.value = text;
         this.price.value = price;
@@ -27,6 +26,7 @@ export default class Docform {
 
     @bind
     clear() {
+        this.id = "";
         this.title.value = "";
         this.text.value = "";
         this.price.value = "";
@@ -71,6 +71,7 @@ export default class Docform {
         }.bind(this);
         
         var form = new FormData();
+        form.append("id", this.id);
         form.append("title", this.title.value);
         form.append("text", this.text.value);
         form.append("price", this.price.value);

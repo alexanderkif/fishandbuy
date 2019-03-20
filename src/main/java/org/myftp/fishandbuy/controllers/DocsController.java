@@ -115,7 +115,7 @@ public class DocsController {
 //    }
 
     @PostMapping
-    public String adddoc(Model model, @ModelAttribute("id") String id,
+    public String savedoc(Model model, @ModelAttribute("id") String id,
                          @ModelAttribute("title") String title,
                          @ModelAttribute("text") String text,
                          @ModelAttribute("place") String place,
@@ -124,22 +124,26 @@ public class DocsController {
                          Principal principal) {
 
         System.out.println("post here");
+        Doc doc = Doc.builder()
+                .email(principal.getName())
+                .date(new Date())
+                .title(title)
+                .text(text)
+                .place(place)
+                .price(price)
+                .imgFileIds(imgFileIds.split(","))
+                .build();
+        if (Objects.equals(id, "")) {
+            doc.setId(id);
+        }
         try {
 //            List<Doc> docs = docRepository.findByEmail(principal.getName());
 //            Doc doc = docs.stream()
 //                    .filter(d -> d.getTitle().equals(title))
 //                    .findFirst()
 //                    .orElse(new Doc());
-            Doc doc = Doc.builder()
-                    .email(principal.getName())
-                    .date(new Date())
-                    .title(title)
-                    .text(text)
-                    .place(place)
-                    .price(price)
-                    .imgFileIds(imgFileIds.split(","))
-                    .build();
-                docRepository.save(doc);
+
+            docRepository.save(doc);
         } catch (Exception e){
             return "error";
         }

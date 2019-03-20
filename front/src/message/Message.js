@@ -1,12 +1,13 @@
 import { bind } from 'decko';
+import EventObserver from '../eventobserver/EventObserver';
 
 export default class Message {
     constructor({id,date,title,text,place,price,imgFileIds,email}){
         this.element = document.createElement("div");
         this.main = document.querySelector('body');
         this.element.className = "message";
-        this.id = id;
         this.email = email;
+        this.setId(id);
         this.setTitle(title);
         this.setText(text);
         this.setDate(date);
@@ -25,8 +26,21 @@ export default class Message {
             this.edit.className = "message__edit";
             this.edit.innerHTML = '<i class="material-icons">edit</i>';
             this.title.appendChild(this.edit);
-            // this.edit.addEventListener('click', this.editMessage);
+            this.edit.addEventListener('click', this.editMessage);
         }
+    }
+
+    @bind
+    editMessage() {
+        this.element.dispatchEvent(new Event("editMessage", {bubbles: true, cancelable: true}));
+    }
+
+    @bind
+    setId(id) {
+        this.id = document.createElement("div");
+        this.id.className = "message__id";
+        this.id.textContent = id;
+        this.element.appendChild(this.id);
     }
 
     @bind
