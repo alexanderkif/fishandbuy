@@ -118,6 +118,12 @@
         text-align: center; } }
   .message__edit {
     position: absolute;
+    right: 2.4rem;
+    top: 0.7rem;
+    font-size: inherit;
+    cursor: pointer; }
+  .message__delete {
+    position: absolute;
     right: 0.7rem;
     top: 0.7rem;
     font-size: inherit;

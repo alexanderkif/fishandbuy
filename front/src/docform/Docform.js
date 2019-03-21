@@ -141,6 +141,7 @@ export default class Docform {
                 var content = readerEvent.target.result;
                 if(replace) {
                     this.img.src = content;
+                    this.img.file = file;
                 }
                 else {
                     this.drawImg(content, file);
@@ -175,7 +176,7 @@ export default class Docform {
         })
         .then(function(response) {
             return response.text().then(function(text) {
-                alert(text);
+                console.log(text);
             });
         });
     }
@@ -208,7 +209,6 @@ export default class Docform {
         this.plus.classList.add('docform__plus');
         this.plus.src = "img/plus.png";
         div.appendChild(this.plus);
-        // this.plus.addEventListener('click', this.removeImg);
     }
 
     @bind

@@ -7,6 +7,7 @@ export default class Message {
         this.main = document.querySelector('body');
         this.element.className = "message";
         this.email = email;
+        this.imgFileIds = imgFileIds;
         this.setId(id);
         this.setTitle(title);
         this.setText(text);
@@ -27,12 +28,49 @@ export default class Message {
             this.edit.innerHTML = '<i class="material-icons">edit</i>';
             this.title.appendChild(this.edit);
             this.edit.addEventListener('click', this.editMessage);
+            this.delete = document.createElement("div");
+            this.delete.className = "message__delete";
+            this.delete.innerHTML = '<i class="material-icons">delete</i>';
+            this.title.appendChild(this.delete);
+            this.delete.addEventListener('click', this.deleteMessage);
         }
     }
 
     @bind
     editMessage() {
         this.element.dispatchEvent(new Event("editMessage", {bubbles: true, cancelable: true}));
+    }
+
+    @bind
+    deleteMessage() {
+        if (confirm('Are you sure you want to delete this document?')) {
+            for (let i = 0; i < this.imgFileIds.length; i++) {
+                this.deleteFile(this.imgFileIds[i]);
+            }
+            fetch(`doc/${this.id.innerText}`, {
+                method: "DELETE"
+            })
+            .then(function(response) {
+                return response.text().then(function(text) {
+                    console.log(text);
+                });
+            });
+            this.element.dispatchEvent(new Event('goHome', {bubbles: true, cancelable: true}));
+        } else {
+            console.log('no');
+        }
+    }
+
+    @bind
+    deleteFile(id) {
+        fetch(`image/${id}`, {
+            method: "DELETE"
+        })
+        .then(function(response) {
+            return response.text().then(function(text) {
+                console.log(text);
+            });
+        });
     }
 
     @bind

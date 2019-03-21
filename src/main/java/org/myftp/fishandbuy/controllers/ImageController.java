@@ -31,7 +31,7 @@ public class ImageController {
         if(imageFile!=null) {
             try {
                 imageFile.writeTo(response.getOutputStream());
-                response.setContentType("image/*"); //("image/gif");
+                response.setContentType("image/*");
                 response.flushBuffer();
             } catch (IOException ex) {
                 throw new RuntimeException("IOError writing file to output stream");
@@ -49,8 +49,7 @@ public class ImageController {
             metaData.put("type", "image");
             // Store file to MongoDB
             try {
-                String imageFileId = gridOperations.store(file.getInputStream(), file.getOriginalFilename(), "image/*", metaData).getId().toString(); //"image/png"
-                return imageFileId;
+                return gridOperations.store(file.getInputStream(), file.getOriginalFilename(), "image/*", metaData).getId().toString();
             } catch (IOException e) {
                 e.printStackTrace();
             }

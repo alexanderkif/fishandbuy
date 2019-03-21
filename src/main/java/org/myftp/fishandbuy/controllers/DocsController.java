@@ -91,28 +91,15 @@ public class DocsController {
         return docRepository.findById(id);
     }
 
-//    @RequestMapping("/edit")
-//    public String edit(Model model, @ModelAttribute("title") String title, Principal principal) {
-//        Doc doc = Doc.builder()
-//                .title("")
-//                .text("")
-//                .place("")
-//                .build();
-//        if (title!=null){
-//            Doc tmp = docRepository.findByTitle(title);
-//            if (tmp!=null && tmp.getEmail().equals(principal.getName())){
-//                doc = tmp;
-//            }
-//        }
-//        model.addAttribute("doc", doc);
-//        return "edit";
-//    }
-
-//    @PostMapping
-//    public String saveDoc(@RequestBody Map<String, String> payload, Principal principal) {
-//        System.out.println("");
-//        return "";
-//    }
+    @DeleteMapping("{id}")
+    public String deleteDoc(@PathVariable String id) {
+        try {
+            docRepository.delete(id);
+            return "message deleted";
+        }catch (Exception e) {
+            return "error";
+        }
+    }
 
     @PostMapping
     public String savedoc(Model model, @ModelAttribute("id") String id,
@@ -137,38 +124,10 @@ public class DocsController {
             doc.setId(id);
         }
         try {
-//            List<Doc> docs = docRepository.findByEmail(principal.getName());
-//            Doc doc = docs.stream()
-//                    .filter(d -> d.getTitle().equals(title))
-//                    .findFirst()
-//                    .orElse(new Doc());
-
             docRepository.save(doc);
         } catch (Exception e){
             return "error";
         }
         return "saved";
     }
-
-//    @RequestMapping("/list")
-//    public String list(Model model, Principal principal) {
-//        List<Doc> docs = docRepository.findByEmail(principal.getName());
-//        model.addAttribute("docs", docs);
-//        return "list";
-//    }
-//
-//    @RequestMapping("/register")
-//    public String register(Model model, Principal principal) {
-//        String phone = "";
-//        try{
-//            Account account = accountRepository.findByEmail(principal.getName());
-////            phone = account.getPhone();
-//        }catch(Exception e){
-//            System.out.println("No user in repository "+e);
-//        }
-//        model.addAttribute("phone", phone);
-//        return "register";
-//    }
-
-
 }
