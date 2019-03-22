@@ -109,8 +109,6 @@ public class DocsController {
                          @ModelAttribute("price") String price,
                          @ModelAttribute("imgFileIds") String imgFileIds,
                          Principal principal) {
-
-        System.out.println("post here");
         Doc doc = Doc.builder()
                 .email(principal.getName())
                 .date(new Date())

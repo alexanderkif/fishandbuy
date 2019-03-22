@@ -48,36 +48,40 @@ export default class Docform {
     clickSbmt() {
         var imgs = this.images.querySelectorAll('.docform__image');
 
-        var i = 0;
-        while (i < this.imgFileIds.length) {
-            var toDelete = true;
-            for (let j = 0; j < imgs.length; j++) {
-                if (this.imgFileIds[i] == this.getIdFromSrc(imgs[j]))
-                    toDelete = false;
-            }
-            if (toDelete) {
-                this.deleteFile(this.imgFileIds[i]);
-                this.imgFileIds.splice(i,1);
-                continue;
-            }
-            i++;
+        var count = 0;
+
+        //delete from minus
+        if (this.images.idToDelete) {
+            this.images.idToDelete.forEach(id => {
+                this.deleteFile(id);
+                this.imgFileIds.splice(this.imgFileIds.indexOf(id),1);
+            });
+            delete this.images.idToDelete;
+            // count--;
         }
 
-        var count = this.imgFileIds.length;
         for (let i = 0; i < imgs.length; i++) {
-            if (!this.imgFileIds.includes(this.getIdFromSrc(imgs[i]))) {                
+            //delete when replace
+            if (imgs[i].idToDelete) {
+                this.deleteFile(imgs[i].idToDelete);
+                delete imgs[i].idToDelete;
+            }
+
+            //save new images files
+            if (!this.imgFileIds.includes(this.getIdFromSrc(imgs[i]))) {
                 var fn = function(text) {
                     if (text!="noimage") {
                         this.imgFileIds[i] = text;
                     }
                     count++;
                 }.bind(this);
+                count--;
                 this.saveFile(imgs[i].file, fn);
             }
         }
 
         var timerId = setInterval( function(){
-            if (count == imgs.length) {
+            if (count == 0) {
                 clearInterval(timerId);
                 this.sendForm(fn);
             }
@@ -140,6 +144,7 @@ export default class Docform {
             reader.onload = readerEvent => {
                 var content = readerEvent.target.result;
                 if(replace) {
+                    if (!this.img.idToDelete) this.img.idToDelete = this.getIdFromSrc(this.img);
                     this.img.src = content;
                     this.img.file = file;
                 }
@@ -176,7 +181,7 @@ export default class Docform {
         })
         .then(function(response) {
             return response.text().then(function(text) {
-                console.log(text);
+                // console.log(text);
             });
         });
     }
@@ -213,6 +218,13 @@ export default class Docform {
 
     @bind
     removeImg(e) {
+        if (!this.images.idToDelete) this.images.idToDelete = [];
+        if (e.target.parentElement.idToDelete) {
+            this.images.idToDelete.push(this.getIdFromSrc(e.target.parentElement.idToDelete));
+        }
+        else {
+            this.images.idToDelete.push(this.getIdFromSrc(e.target.parentElement.children[1]));
+        }
         this.images.removeChild(e.target.parentElement);
     }
 }

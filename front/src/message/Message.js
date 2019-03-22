@@ -57,7 +57,7 @@ export default class Message {
             });
             this.element.dispatchEvent(new Event('goHome', {bubbles: true, cancelable: true}));
         } else {
-            console.log('no');
+            // console.log('no');
         }
     }
 
