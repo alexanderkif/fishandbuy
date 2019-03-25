@@ -1,0 +1,46 @@
+
+.search {
+    border: solid 0.1rem lightgray;
+    background-color: $color-active2;
+    border-radius: 0.3rem;
+    padding: 0.3rem 0.5rem;
+    font-family: inherit;
+    width: auto;
+    text-align: end;
+    color: inherit;
+    display: grid;
+    grid-template-areas: "si si"
+                        ". ss";
+    gap: 0.2rem;
+
+    @media screen and (max-width: 55rem) {
+        grid-template-areas: "si ss";
+        grid-template-columns: 1fr 4rem;
+        background-color: white;
+        padding: 0.2rem 0.5rem;
+    }
+
+    &__input {
+        grid-area: si;
+        border: inherit;
+        border-radius: 0.2rem;
+        color: inherit;
+        outline: none;
+        font-family: inherit;
+
+        @media screen and (max-width: 55rem) {
+            border: 0;
+        }
+    }
+
+    &__button {
+        grid-area: ss;
+        border: inherit;
+        border-radius: 0.2rem;
+        background-color: $color-active;
+        color: inherit;
+        outline: none;
+        font-family: inherit;
+        cursor: pointer;
+    }
+}

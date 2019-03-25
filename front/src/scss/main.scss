@@ -16,6 +16,7 @@ $color-dark: #d1efd1;
 @import "../header/header.scss";
 @import "../menu/menu.scss";
 @import "../docform/docform.scss";
+@import "../search/search.scss";
 
 html, body {
     height: 100%;
@@ -45,7 +46,7 @@ html, body {
                             "m"
                             "c"
                             "f";
-        grid-template-columns: auto;
+        grid-template-columns: 100%;
         grid-template-rows: auto auto 1fr 6rem;
     }
     

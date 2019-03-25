@@ -9,4 +9,7 @@ mixin menu()
             .menu__txt My lots
         .menu__item.menu__item-about 
             .menu__txt About
-        +login()
+        .menu__wrapper.menu__item-login
+            +login()
+        .menu__wrapper.menu__item-search
+            +search()

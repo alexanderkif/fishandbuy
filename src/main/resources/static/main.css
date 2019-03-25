@@ -202,8 +202,8 @@
   padding: 0.3rem 0.5rem;
   font: inherit;
   width: auto;
-  min-width: 4rem;
-  cursor: pointer; }
+  cursor: pointer;
+  display: flex; }
   .login:hover {
     background-color: #d1efd1; }
   .login_logout {
@@ -213,8 +213,9 @@
   .login__txt {
     height: 1rem;
     width: inherit;
-    text-align: center;
-    height: auto; }
+    margin: auto;
+    height: auto;
+    text-align: center; }
   .login__shadow {
     background-color: rgba(0, 0, 0, 0.7);
     width: 100%;
@@ -307,7 +308,7 @@
     height: inherit;
     width: auto;
     align-self: center;
-    max-width: 15rem; }
+    max-width: 13rem; }
   .header__text {
     grid-area: t;
     align-self: center;
@@ -317,6 +318,9 @@
     color: #b0e3b0;
     opacity: 0.6;
     text-shadow: 0.1rem 0.2rem 0.2rem rgba(50, 50, 0, 0.25), 0.2rem 0.3rem 0.5rem rgba(50, 50, 0, 0.22); }
+    @media screen and (max-width: 55rem) {
+      .header__text {
+        font-size: 3rem; } }
 
 .menu {
   display: flex;
@@ -326,7 +330,8 @@
       padding: 0;
       height: fit-content;
       flex-direction: row;
-      justify-content: start; } }
+      justify-content: space-around;
+      flex-wrap: wrap; } }
   .menu__item {
     border: solid 0.1rem lightgray;
     margin-bottom: 1rem;
@@ -339,11 +344,20 @@
     @media screen and (max-width: 55rem) {
       .menu__item {
         margin-right: 1rem;
-        margin-bottom: 0; } }
+        margin-bottom: 0;
+        margin-top: 0.2rem; } }
     .menu__item:hover {
       background-color: #d1efd1; }
     .menu__item_hidden {
       display: none; }
+  .menu__wrapper {
+    margin-bottom: 1rem;
+    display: grid; }
+    @media screen and (max-width: 55rem) {
+      .menu__wrapper {
+        margin-right: 1%;
+        margin-bottom: 0;
+        margin-top: 0.2rem; } }
   .menu__txt {
     margin: auto; }
 
@@ -421,6 +435,44 @@
     outline: none;
     resize: none; }
 
+.search {
+  border: solid 0.1rem lightgray;
+  background-color: #fafae6;
+  border-radius: 0.3rem;
+  padding: 0.3rem 0.5rem;
+  font-family: inherit;
+  width: auto;
+  text-align: end;
+  color: inherit;
+  display: grid;
+  grid-template-areas: "si si" ". ss";
+  gap: 0.2rem; }
+  @media screen and (max-width: 55rem) {
+    .search {
+      grid-template-areas: "si ss";
+      grid-template-columns: 1fr 4rem;
+      background-color: white;
+      padding: 0.2rem 0.5rem; } }
+  .search__input {
+    grid-area: si;
+    border: inherit;
+    border-radius: 0.2rem;
+    color: inherit;
+    outline: none;
+    font-family: inherit; }
+    @media screen and (max-width: 55rem) {
+      .search__input {
+        border: 0; } }
+  .search__button {
+    grid-area: ss;
+    border: inherit;
+    border-radius: 0.2rem;
+    background-color: #e6fae6;
+    color: inherit;
+    outline: none;
+    font-family: inherit;
+    cursor: pointer; }
+
 html, body {
   height: 100%;
   max-width: 64rem;
@@ -443,7 +495,7 @@ html, body {
   @media screen and (max-width: 55rem) {
     .main {
       grid-template-areas: "h" "m" "c" "f";
-      grid-template-columns: auto;
+      grid-template-columns: 100%;
       grid-template-rows: auto auto 1fr 6rem; } }
   .main__header {
     grid-area: h;

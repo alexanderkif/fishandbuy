@@ -17,7 +17,7 @@
         height: inherit;
         width: auto;
         align-self: center;
-        max-width: 15rem;
+        max-width: 13rem;
     }
 
     &__text {
@@ -29,5 +29,9 @@
         color: #b0e3b0;
         opacity: 0.6;
         text-shadow: $box-shadow1;
+
+        @media screen and (max-width: 55rem) {
+            font-size: 3rem;
+        }
     }
 }
