@@ -1,6 +1,7 @@
 import { bind } from 'decko';
 import Login from '../login/Login';
 import Content from '../content/Content';
+import Search from '../search/Search';
 
 export default class Menu {
     constructor(){
@@ -25,8 +26,12 @@ export default class Menu {
                 this.goHome();
             }.bind(this));
         };
+        var searchElement = document.querySelector('.search');
+        if (searchElement) {
+            this.search = new Search(searchElement);
+        }
         this.content = new Content();
-        this.items = document.querySelectorAll('.menu__item');
+        this.items = document.querySelectorAll('.menu__item, .menu__wrapper');
         [].forEach.call(this.items, (item) => item.addEventListener('click', this.content.changeContent));
         document.addEventListener('goHome', this.goHome);
     }

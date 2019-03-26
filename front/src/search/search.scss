@@ -31,6 +31,10 @@
         @media screen and (max-width: 55rem) {
             border: 0;
         }
+
+        &.error {
+            border: solid 0.1rem lightpink;
+        }
     }
 
     &__button {
@@ -42,5 +46,19 @@
         outline: none;
         font-family: inherit;
         cursor: pointer;
+
+        &:hover {
+            background-color: $color-dark;
+        }
+
+        &:disabled {
+            background-color: $color-active2;
+            cursor: default;
+            opacity: 1;
+
+            &:hover {
+                background-color: none;
+            }
+        }
     }
 }

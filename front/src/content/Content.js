@@ -40,8 +40,19 @@ export default class Content {
     @bind
     changeContent(e) {
         var classes = e.currentTarget.classList;
+        if (classes.contains('search__button')) {
+            this.mylots = "";
+            this.find = document.find;
+            this.getPage(1);
+            this.content.classList.add('content_hidden');
+            this.messages.classList.remove('content__messages_hidden');
+            this.pages.classList.remove('content__pages_hidden');
+            this.docform.classList.add('content__docform_hidden');
+            this.about.classList.add('content__about_hidden');
+        }
         if (classes.contains('menu__item-home')) {
             this.mylots = "";
+            this.find = "";
             this.getPage(1);
             this.content.classList.add('content_hidden');
             this.messages.classList.remove('content__messages_hidden');

@@ -463,6 +463,8 @@
     @media screen and (max-width: 55rem) {
       .search__input {
         border: 0; } }
+    .search__input.error {
+      border: solid 0.1rem lightpink; }
   .search__button {
     grid-area: ss;
     border: inherit;
@@ -472,6 +474,14 @@
     outline: none;
     font-family: inherit;
     cursor: pointer; }
+    .search__button:hover {
+      background-color: #d1efd1; }
+    .search__button:disabled {
+      background-color: #fafae6;
+      cursor: default;
+      opacity: 1; }
+      .search__button:disabled:hover {
+        background-color: none; }
 
 html, body {
   height: 100%;

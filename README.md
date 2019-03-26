@@ -1,5 +1,5 @@
 # Fishandbuy
-Look at 
-http://fishandbuy-fishandbuy.7e14.starter-us-west-2.openshiftapps.com/
+####Look at <br>
+####https://fishandbuy.herokuapp.com/
 
-Used SpringBoot, Maven, Secure, BCrypt, Mongo DB, MongoRepository, GridFS, Lombok, Thymeleaf, Bootstrap-4
+####Used SpringBoot, Maven, Secure, BCrypt, Mongo DB, MongoRepository, GridFS, Lombok, BEM, JavaScript, Pug, SASS.
