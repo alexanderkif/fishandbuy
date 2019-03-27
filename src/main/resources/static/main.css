@@ -459,7 +459,8 @@
     border-radius: 0.2rem;
     color: inherit;
     outline: none;
-    font-family: inherit; }
+    font-family: inherit;
+    min-width: 3rem; }
     @media screen and (max-width: 55rem) {
       .search__input {
         border: 0; } }

@@ -40,9 +40,10 @@ export default class Content {
     @bind
     changeContent(e) {
         var classes = e.currentTarget.classList;
-        if (classes.contains('search__button')) {
+        if (e.target.classList.contains('search__button')) {
             this.mylots = "";
             this.find = document.find;
+            if (document.find=="") this.find = "clear";
             this.getPage(1);
             this.content.classList.add('content_hidden');
             this.messages.classList.remove('content__messages_hidden');
@@ -52,7 +53,7 @@ export default class Content {
         }
         if (classes.contains('menu__item-home')) {
             this.mylots = "";
-            this.find = "";
+            this.find = "clear";
             this.getPage(1);
             this.content.classList.add('content_hidden');
             this.messages.classList.remove('content__messages_hidden');

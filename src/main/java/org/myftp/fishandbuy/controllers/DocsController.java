@@ -54,6 +54,7 @@ public class DocsController {
         else page = Integer.valueOf(p);
 
         if (!Objects.equals(find, "") && !Objects.equals(find, "undefined"))this.find = find;
+        if (Objects.equals(find, "clear"))this.find = "";
         if (!Objects.equals(place, "") && !Objects.equals(place, "undefined"))this.place = place;
         if (Objects.equals(place, "everywhere"))this.place = "";
 

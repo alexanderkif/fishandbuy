@@ -8,7 +8,7 @@ export default class Search {
         this.input.addEventListener('keyup', this.checkInput);
         this.input.addEventListener('keypress', function (e) {
             var key = e.which || e.keyCode;
-            if (key === 13) this.clickBtnSearch();
+            if (key === 13 && !this.button.disabled) this.button.click();
         }.bind(this));
         // this.button.addEventListener('click', this.clickBtnSearch);
     }
@@ -19,10 +19,12 @@ export default class Search {
         if (regExpToCheck.test(this.input.value)) {
             this.input.classList.remove("error");
             this.button.disabled = false;
+            document.find = this.input.value;
         }
         else {
             this.input.classList.add("error");
             this.button.disabled = true;
+            document.find = "";
         }
     }
 
