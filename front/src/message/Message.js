@@ -154,9 +154,14 @@ export default class Message {
         this.image.className = "message__image";
         this.element.appendChild(this.image);
 
+        this.activeImageWrapper = document.createElement("div");
+        this.activeImageWrapper.className = "message__image-active-wrapper";
+        this.image.appendChild(this.activeImageWrapper);
+        // this.activeImage.addEventListener('click', this.openModalImage);
+
         this.activeImage = document.createElement("img");
         this.activeImage.className = "message__image-active";
-        this.image.appendChild(this.activeImage);
+        this.activeImageWrapper.appendChild(this.activeImage);
         this.activeImage.addEventListener('click', this.openModalImage);
 
         this.imageRow = document.createElement("div");

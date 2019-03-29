@@ -45,6 +45,7 @@
     &__image {
         grid-area: i;
         max-width: 15rem;
+        height: 15rem;
         width: inherit;
         border-radius: inherit;
         display: grid;
@@ -60,12 +61,22 @@
         }
     }
 
-    &__image-active {
+    &__image-active-wrapper {
         grid-area: ia;
         max-width: inherit;
         border-top-left-radius: inherit;
         border-top-right-radius: inherit;
+        height: 12rem;
+        display: flex;
+        background-color: rgba(0,0,0,0.2);
+    }
+
+    &__image-active {
+        max-width: inherit;
+        max-height: 12rem;
+        border-radius: inherit;
         cursor: pointer;
+        margin: auto;
     }
 
     &__image-row {
@@ -75,6 +86,7 @@
         display: grid;
         grid-template-columns: auto auto auto auto auto;
         justify-content: left;
+        height: 3rem;
     }
 
     &__image-small {

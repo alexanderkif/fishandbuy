@@ -69,6 +69,7 @@
   .message__image {
     grid-area: i;
     max-width: 15rem;
+    height: 15rem;
     width: inherit;
     border-radius: inherit;
     display: grid;
@@ -80,19 +81,28 @@
     @media screen and (max-width: 31.5rem) {
       .message__image {
         max-width: 25rem; } }
-  .message__image-active {
+  .message__image-active-wrapper {
     grid-area: ia;
     max-width: inherit;
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
-    cursor: pointer; }
+    height: 12rem;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.2); }
+  .message__image-active {
+    max-width: inherit;
+    max-height: 12rem;
+    border-radius: inherit;
+    cursor: pointer;
+    margin: auto; }
   .message__image-row {
     grid-area: ir;
     width: inherit;
     border-radius: inherit;
     display: grid;
     grid-template-columns: auto auto auto auto auto;
-    justify-content: left; }
+    justify-content: left;
+    height: 3rem; }
   .message__image-small {
     max-height: 3rem;
     max-width: 3rem;
@@ -460,7 +470,8 @@
     color: inherit;
     outline: none;
     font-family: inherit;
-    min-width: 3rem; }
+    min-width: 3rem;
+    padding: 0.1rem 0.5rem; }
     @media screen and (max-width: 55rem) {
       .search__input {
         border: 0; } }
