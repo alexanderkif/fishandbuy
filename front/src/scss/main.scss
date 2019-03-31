@@ -1,12 +1,12 @@
 
 $color-active: rgb(230, 250, 230);
-$color-active-shadow1: rgba(0,50,0,0.25);
-$color-active-shadow2: rgba(0,50,0,0.22);
+$color-active-shadow1: rgba(0,50,0,0.15);
+$color-active-shadow2: rgba(0,50,0,0.12);
 $color-active-bright: rgb(220, 240, 220);
 $color-active2: rgb(250, 250, 230);
 $color-active2-bright: rgb(250, 250, 210);
-$color-active2-shadow1: rgba(50,50,0,0.25);
-$color-active2-shadow2: rgba(50,50,0,0.22);
+$color-active2-shadow1: rgba(50,50,0,0.15);
+$color-active2-shadow2: rgba(50,50,0,0.12);
 $box-shadow1: 0.1rem 0.2rem 0.2rem $color-active2-shadow1, 0.2rem 0.3rem 0.5rem $color-active2-shadow2;
 $color-dark: #d1efd1;
 
@@ -30,7 +30,6 @@ html, body {
     min-height: 95vh;
     padding-top: 2vh;
     padding-bottom: 3vh;
-    min-width: 96vh;
     padding-left: 2vh;
     padding-right: 2vh;
     display: grid;

@@ -15,7 +15,7 @@ export default class Search {
 
     @bind
     checkInput(){
-        var regExpToCheck = new RegExp("^([a-zA-Z0-9_-]){3,}$");
+        var regExpToCheck = new RegExp("^([.,'a-zA-Z 0-9_-]){3,}$");
         if (regExpToCheck.test(this.input.value)) {
             this.input.classList.remove("error");
             this.button.disabled = false;
