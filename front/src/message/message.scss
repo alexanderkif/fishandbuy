@@ -65,6 +65,7 @@
         border-top-right-radius: inherit;
         height: 12rem;
         display: flex;
+        justify-content: center;
         background-color: rgba(0,0,0,0.2);
 
         @media screen and (max-width: 40rem) {
@@ -78,6 +79,14 @@
         border-radius: inherit;
         cursor: pointer;
         margin: auto;
+        z-index: 10;
+    }
+
+    &__no-image {
+        position: absolute;
+        align-self: center;
+        font-weight: bold;
+        font-size: 1.5rem;
     }
 
     &__image-row {
@@ -197,6 +206,7 @@
         text-align: -webkit-center;
         font-size: 4rem;
         color: lightgray;
+        z-index: 100;
     }
 
     &__bigimage {
@@ -212,28 +222,38 @@
 
         i {
             font-size: 5rem;
+            align-self: center;
         
             @media screen and (max-width: 40rem) {
                 font-size: 3rem;
             }
         }
+
+        &:hover {
+            background-color: rgba(0,0,0,0.5);
+        }
     }
 
     &__prev {
         grid-area: prev;
-        left: 1rem;
-        top: 50%;
+        left: 0rem;
+        height: inherit;
+        display: flex;
+        // top: 50%;
     }
 
     &__next {
         grid-area: next;
-        right: 1rem;
-        top: 50%;
+        right: 0rem;
+        height: inherit;
+        display: flex;
+        // top: 50%;
     }
 
     &__close {
         right: 1rem;
         top: 1rem;
+        display: block;
     }
 
     &__id {

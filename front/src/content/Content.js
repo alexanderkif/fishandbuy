@@ -120,6 +120,8 @@ export default class Content {
                 element.textContent = index+1;
                 this.pages.appendChild(element);                
             }
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         }.bind(this));
     }
 

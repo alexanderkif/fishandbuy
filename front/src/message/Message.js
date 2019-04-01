@@ -157,7 +157,11 @@ export default class Message {
         this.activeImageWrapper = document.createElement("div");
         this.activeImageWrapper.className = "message__image-active-wrapper";
         this.image.appendChild(this.activeImageWrapper);
-        // this.activeImage.addEventListener('click', this.openModalImage);
+
+        this.noImage = document.createElement("div");
+        this.noImage.className = "message__no-image";
+        this.noImage.innerText = "No image yet";
+        this.activeImageWrapper.appendChild(this.noImage);
 
         this.activeImage = document.createElement("img");
         this.activeImage.className = "message__image-active";
@@ -236,13 +240,13 @@ export default class Message {
 
         this.prev = document.createElement("div");
         this.prev.classList.add('message__prev');
-        this.prev.innerHTML = '<i class="material-icons">skip_previous</i>';
+        this.prev.innerHTML = '<i class="material-icons">navigate_before</i>';
         this.shadow.appendChild(this.prev);
         this.prev.addEventListener('click', this.showPrev);
 
         this.next = document.createElement("div");
         this.next.classList.add('message__next');
-        this.next.innerHTML = '<i class="material-icons">skip_next</i>';
+        this.next.innerHTML = '<i class="material-icons">navigate_next</i>';
         this.shadow.appendChild(this.next);
         this.next.addEventListener('click', this.showNext);
 

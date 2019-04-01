@@ -1,6 +1,7 @@
 import { bind } from 'decko';
 
 const MAX_IMG_SIZE = 1000000;
+const MAX_IMAGES = 5;
 
 export default class Docform {
     constructor({id,title,text,price,place,imgFileIds}){
@@ -128,7 +129,7 @@ export default class Docform {
         const plus = e.target.classList.contains('docform__plus');
         if (replace) this.img = e.target;
         if(!replace && !plus) return;
-        if(plus && this.images.childElementCount > 5) return;
+        if(plus && this.images.childElementCount > MAX_IMAGES) return;
         var input = document.createElement('input');
         input.type = 'file';
         input.accept = 'image/*';
@@ -197,6 +198,7 @@ export default class Docform {
         this.addMinus(div);
         div.appendChild(img);
         this.images.insertBefore(div, this.plus);
+        if (this.images.childElementCount > MAX_IMAGES) this.plus.style.display = "none";
     }
 
     @bind
@@ -226,5 +228,6 @@ export default class Docform {
             this.images.idToDelete.push(this.getIdFromSrc(e.target.parentElement.children[1]));
         }
         this.images.removeChild(e.target.parentElement);
+        this.plus.style.display = "block";
     }
 }
